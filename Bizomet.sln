@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bizomet.Core", "Bizomet.Cor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bizomet.Data", "Bizomet.Data\Bizomet.Data.csproj", "{1924E854-D5A0-49CF-B0D8-48B0DBD298CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project1", "Project1\Project1.csproj", "{B816C9C2-39C8-4F9F-91CB-A1D559B512ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project1", "Project1\Project1.csproj", "{B816C9C2-39C8-4F9F-91CB-A1D559B512ED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{3F8FC7B2-3138-44AB-B49C-9669C4AE90A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +46,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1924E854-D5A0-49CF-B0D8-48B0DBD298CB} = {3F8FC7B2-3138-44AB-B49C-9669C4AE90A5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {83E55EB2-BCA1-4885-AECF-BAE09FCE0AC9}
