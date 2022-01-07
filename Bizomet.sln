@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bizomet.Web", "Bizomet.Web\Bizomet.Web.csproj", "{0598D85B-D67F-49AF-8D12-B4E6E9493CC6}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{42916169-DFF2-4A86-9E12-39C66120843F}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
@@ -17,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bizomet.Core", "Bizomet.Cor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bizomet.Data", "Bizomet.Data\Bizomet.Data.csproj", "{1924E854-D5A0-49CF-B0D8-48B0DBD298CB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project1", "Project1\Project1.csproj", "{B816C9C2-39C8-4F9F-91CB-A1D559B512ED}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{3F8FC7B2-3138-44AB-B49C-9669C4AE90A5}"
 EndProject
 Global
@@ -27,10 +23,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0598D85B-D67F-49AF-8D12-B4E6E9493CC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0598D85B-D67F-49AF-8D12-B4E6E9493CC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0598D85B-D67F-49AF-8D12-B4E6E9493CC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0598D85B-D67F-49AF-8D12-B4E6E9493CC6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{950A8D8E-D944-492C-BA0B-44082A047A24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{950A8D8E-D944-492C-BA0B-44082A047A24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{950A8D8E-D944-492C-BA0B-44082A047A24}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,10 +31,6 @@ Global
 		{1924E854-D5A0-49CF-B0D8-48B0DBD298CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1924E854-D5A0-49CF-B0D8-48B0DBD298CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1924E854-D5A0-49CF-B0D8-48B0DBD298CB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B816C9C2-39C8-4F9F-91CB-A1D559B512ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B816C9C2-39C8-4F9F-91CB-A1D559B512ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B816C9C2-39C8-4F9F-91CB-A1D559B512ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B816C9C2-39C8-4F9F-91CB-A1D559B512ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
