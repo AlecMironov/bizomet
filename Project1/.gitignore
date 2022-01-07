@@ -26,6 +26,7 @@ Obj/
 
 # Visual Studio 2015 cache/options directory
 .vs/
+.config/
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
@@ -136,8 +137,8 @@ publish/
 *.azurePubxml
 # TODO: Comment the next line if you want to checkin your web deploy settings
 # but database connection strings (with potential passwords) will be unencrypted
-*.pubxml
-*.publishproj
+#*.pubxml
+#*.publishproj
 
 # NuGet Packages
 *.nupkg
