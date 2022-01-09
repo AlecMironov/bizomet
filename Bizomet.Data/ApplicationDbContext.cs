@@ -1,16 +1,24 @@
-﻿using Bizomet.Web.Data.Models;
-using Duende.IdentityServer.EntityFramework.Options;
-using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+﻿using Bizomet.Data.Configurations;
+using Bizomet.Data.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
-namespace Bizomet.Web.Data
+namespace Bizomet.Data
 {
-	public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
+	public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 	{
-		public ApplicationDbContext(DbContextOptions options, IOptions<OperationalStoreOptions> operationalStoreOptions)
-			: base(options, operationalStoreOptions)
+		public ApplicationDbContext(DbContextOptions options)
+			: base(options)
 		{
 		}
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			base.OnModelCreating(modelBuilder);
+
+			modelBuilder.ApplyConfiguration(new CompanyConfiguration());
+		}
+
+		public DbSet<Company> Companies { get; set; }
 	}
 }

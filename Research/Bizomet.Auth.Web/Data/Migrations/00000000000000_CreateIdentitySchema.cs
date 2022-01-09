@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Bizomet.Web.Data.Migrations
+namespace Bizomet.Auth.Web.Data.Migrations
 {
 	public partial class CreateIdentitySchema : Migration
 	{
@@ -58,7 +58,7 @@ namespace Bizomet.Web.Data.Migrations
 					Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
 					CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
 					Expiration = table.Column<DateTime>(type: "datetime2", nullable: false),
-					Data = table.Column<string>(type: "nvarchar(max)", maxLength: 50780, nullable: false)
+					Data = table.Column<string>(type: "nvarchar(max)", maxLength: 52790, nullable: false)
 				},
 				constraints: table =>
 				{
@@ -76,7 +76,7 @@ namespace Bizomet.Web.Data.Migrations
 					Algorithm = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
 					IsX509Certificate = table.Column<bool>(type: "bit", nullable: false),
 					DataProtected = table.Column<bool>(type: "bit", nullable: false),
-					Data = table.Column<string>(type: "nvarchar(max)", maxLength: 50780, nullable: false)
+					Data = table.Column<string>(type: "nvarchar(max)", maxLength: 52790, nullable: false)
 				},
 				constraints: table =>
 				{
@@ -96,7 +96,7 @@ namespace Bizomet.Web.Data.Migrations
 					CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
 					Expiration = table.Column<DateTime>(type: "datetime2", nullable: true),
 					ConsumedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-					Data = table.Column<string>(type: "nvarchar(max)", maxLength: 50780, nullable: false)
+					Data = table.Column<string>(type: "nvarchar(max)", maxLength: 52790, nullable: false)
 				},
 				constraints: table =>
 				{
