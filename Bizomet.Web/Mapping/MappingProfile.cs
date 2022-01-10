@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Bizomet.Data.Models;
-using Bizomet.ViewModels;
+using Bizomet.Models;
 
 namespace Bizomet.Web.Mapping
 {
@@ -8,10 +8,10 @@ namespace Bizomet.Web.Mapping
 	{
 		public MappingProfile()
 		{
-			CreateMap<Company, CompanyViewModel>()
+			CreateMap<Company, CompanyModel>()
 				.ForMember(c => c.FullAddress, opt => opt.MapFrom(x => string.Join(' ', x.Address, x.Country)));
 
-			CreateMap<UserForRegistrationViewModel, ApplicationUser>()
+			CreateMap<UserRegistrationModel, ApplicationUser>()
 				.ForMember(u => u.UserName, opt => opt.MapFrom(x => x.Email));
 		}
 	}

@@ -87,10 +87,10 @@ export class AuthorizeService {
         user = await this.userManager!.signinPopup(this.createArguments());
         this.userSubject.next(user.profile);
         return this.success(state);
-      } catch (popupError) {
-        if (popupError.message === 'Popup window closed') {
-          // The user explicitly cancelled the login action by closing an opened popup.
-          return this.error('The user closed the window.');
+      } catch (popupError: any) {
+          if (popupError.message === 'Popup window closed') {
+            // The user explicitly cancelled the login action by closing an opened popup.
+            return this.error('The user closed the window.');
         } else if (!this.popUpDisabled) {
           console.log('Popup authentication error: ', popupError);
         }
@@ -101,7 +101,7 @@ export class AuthorizeService {
           return this.redirect();
         } catch (redirectError) {
           console.log('Redirect authentication error: ', redirectError);
-          return this.error(redirectError);
+          return this.error(typeof redirectError === 'string' ? redirectError : 'redirect error');
         }
       }
     }
@@ -136,7 +136,7 @@ export class AuthorizeService {
         return this.redirect();
       } catch (redirectSignOutError) {
         console.log('Redirect signout error: ', redirectSignOutError);
-        return this.error(redirectSignOutError);
+        return this.error(typeof redirectSignOutError === 'string' ? redirectSignOutError : 'redirect SignOut error');
       }
     }
   }
@@ -149,7 +149,7 @@ export class AuthorizeService {
       return this.success(response && response.state);
     } catch (error) {
       console.log(`There was an error trying to log out '${error}'.`);
-      return this.error(error);
+      return this.error(typeof error === 'string' ? error : 'error');
     }
   }
 

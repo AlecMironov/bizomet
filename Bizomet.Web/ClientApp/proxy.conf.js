@@ -7,6 +7,13 @@ const PROXY_CONFIG = [
   {
     context: [
       "/weatherforecast",
+      "/api/companies",
+      "/_configuration",
+      "/.well-known",
+      "/Identity",
+      "/connect",
+      "/ApplyDatabaseMigrations",
+      "/_framework"
    ],
     target: target,
     secure: false
