@@ -1,6 +1,6 @@
 ﻿using Bizomet.Data.Configurations;
 using Bizomet.Data.Models;
-using IdentityServer4.EntityFramework.Options;
+using Duende.IdentityServer.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -18,8 +18,8 @@ namespace Bizomet.Data
 		{
 			base.OnModelCreating(modelBuilder);
 
-			modelBuilder.ApplyConfiguration(new CompanyConfiguration());
 			modelBuilder.ApplyConfiguration(new RoleConfiguration());
+			modelBuilder.ApplyConfiguration(new CompanyConfiguration());
 		}
 
 		public DbSet<Company> Companies { get; set; }
