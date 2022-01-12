@@ -1,16 +1,20 @@
 ﻿using Bizomet.Data.Configurations;
-using Bizomet.Data.Models;
-using Duende.IdentityServer.EntityFramework.Options;
-using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+using Bizomet.Data.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 namespace Bizomet.Data
 {
-	public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
+	public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string,
+		IdentityUserClaim<string>,
+		ApplicationUserRole,
+		IdentityUserLogin<string>,
+		IdentityRoleClaim<string>,
+		IdentityUserToken<string>>
 	{
-		public ApplicationDbContext(DbContextOptions options, IOptions<OperationalStoreOptions> operationalStoreOptions)
-			: base(options, operationalStoreOptions)
+		public ApplicationDbContext(DbContextOptions options)
+			: base(options)
 		{
 		}
 
@@ -18,10 +22,8 @@ namespace Bizomet.Data
 		{
 			base.OnModelCreating(modelBuilder);
 
-			modelBuilder.ApplyConfiguration(new RoleConfiguration());
-			modelBuilder.ApplyConfiguration(new CompanyConfiguration());
+			modelBuilder.ApplyConfiguration(new ApplicationUserConfiguration());
+			modelBuilder.ApplyConfiguration(new ApplicationRoleConfiguration());
 		}
-
-		public DbSet<Company> Companies { get; set; }
 	}
 }

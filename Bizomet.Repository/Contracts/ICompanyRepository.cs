@@ -1,9 +1,9 @@
-﻿using Bizomet.Data.Models;
+﻿//using Bizomet.Data.Models;
 
-namespace Bizomet.Contracts
-{
-	public interface ICompanyRepository
-	{
-		IEnumerable<Company> GetAllCompanies();
-	}
-}
+//namespace Bizomet.Contracts
+//{
+//	public interface ICompanyRepository
+//	{
+//		IEnumerable<Company> GetAllCompanies();
+//	}
+//}
