@@ -1,0 +1,24 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h5>PORTFOLIO</h5>
+            <h3>Name: <strong>{{ currentProfile.firstName }} {{ currentProfile.lastName }}</strong></h3>
+            <p>This is "Portfolio" page is ready to build.</p>
+            <header class="jumbotron">
+                <h3>
+                    Name: <strong>{{ currentProfile.firstName }} {{ currentProfile.lastName }}</strong>
+                </h3>
+            </header>
+            <p>
+                <strong>Email:</strong>
+                {{ currentProfile.email }}
+            </p>
+            <strong>Roles:</strong>
+            <ul>
+                <li *ngFor="let role of currentProfile.roles">
+                    {{ role }}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

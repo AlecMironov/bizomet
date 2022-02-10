@@ -1,0 +1,29 @@
+﻿@model ResetPasswordEmailModel
+
+@{
+	ViewData["Title"] = "Reset Password";
+}
+
+<div class="mail-body-header">
+	<span class="mail-body-header-text">Your Bizomet account is locked out</span>
+</div>
+
+<div class="mail-body-greeting">
+	<p>Hello @Model.FullName,</p>
+	<p style="padding-top: 10px;">
+		We noticed someone enters the wrong credentials several times to access your account and we locked out the account.
+		If you forgot the password or someone is trying to hack the account please reset your password by clicking on the button bellow
+		or use this link <a href="@Model.ResetPasswordLink" target="_blank" >Reset Password</a>.
+	</p>
+</div>
+
+<div class="mail-call-to-action-section">
+	<a href="@Model.ResetPasswordLink" target="_blank" class="mail-call-to-action-button">
+		Reset Password
+	</a>
+</div>
+
+<div class="mail-signature-section">
+	<p>Cheers,</p>
+	<p>The Bizomet Team</p>
+</div>

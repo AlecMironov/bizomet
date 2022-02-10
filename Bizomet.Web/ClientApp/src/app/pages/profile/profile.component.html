@@ -1,0 +1,9 @@
+<div class="flex flex-column lg:flex-row flex-wrap">
+    <div class="mr-3 mb-3">
+       <p-menu #menu styleClass="text-lg" [model]="items"></p-menu>
+    </div>
+
+    <div class="flex-grow-1">
+        <router-outlet></router-outlet>
+    </div>
+</div>

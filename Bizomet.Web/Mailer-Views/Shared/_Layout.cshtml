@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>@ViewData["Title"]</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+	<mailer-inline-style href="css/mailer.css"></mailer-inline-style>
+</head>
+<body>
+	<div class="mail-container">
+		<div class="header-logo"></div>
+
+		<div class="mail-body-container">
+			<div class="mail-divider"></div>
+
+			<div class="mail-body">
+				@RenderBody()
+			</div>
+
+			<div class="mail-divider"></div>
+
+			<div class="mail-stay-in-touch-section">
+				<span class="mail-stay-in-touch-text">
+					Stay in touch
+				</span>
+			</div>
+
+			<div class="mail-social-section">
+				<a href="facebook.com" target="_blank" alt="Facebook" data-nolink="false" title="Facebook"
+				   style="-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;display:inline-block; background-color:#3B579D; margin: 0 4px">
+					<img alt="Facebook" title="Facebook " height="30" width="30" style="height: 30px; width: 30px"
+						 src="https://marketing-image-production.s3.amazonaws.com/social/white/facebook.png" />
+				</a>
+				<a href="twitter.com" target="_blank" alt="Twitter" data-nolink="false" title="Twitter"
+				   style="-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;display:inline-block;background-color:#7AC4F7; margin: 0 4px">
+					<img alt="Twitter" title="Twitter " height="30" width="30" style="height: 30px; width: 30px"
+						 src="https://marketing-image-production.s3.amazonaws.com/social/white/twitter.png" />
+				</a>
+				<a href="instagram.com" target="_blank" alt="Instagram" data-nolink="false"
+				   title="Instagram" style="-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;display:inline-block;background-color:#7F4B30; margin: 0 4px">
+					<img alt="Instagram" title="Instagram" height="30" width="30" style="height: 30px; width: 30px"
+						 src="https://marketing-image-production.s3.amazonaws.com/social/white/instagram.png" />
+				</a>
+			</div>
+		</div>
+
+		<div class="mail-footer">
+			<p>Email sent by Bizomet</p>
+			<!-- <p>
+				<span>[Address]</span>,
+				<span>[City]</span>,
+				<span>[State]</span>
+				<span>[Zip]</span>
+			</p> -->
+			<!-- <p>
+			   <a href="" style="color:#2277ee">Unsubscribe</a> -
+			   <a href="" style="color:#2277ee">Unsubscribe Preferences</a>
+			</p> -->
+		</div>
+	</div>
+</body>
+</html>

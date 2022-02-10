@@ -1,0 +1,81 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solution Items", "{42916169-DFF2-4A86-9E12-39C66120843F}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bizomet.Core", "Bizomet.Core\Bizomet.Core.csproj", "{950A8D8E-D944-492C-BA0B-44082A047A24}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bizomet.Data", "Bizomet.Data\Bizomet.Data.csproj", "{1924E854-D5A0-49CF-B0D8-48B0DBD298CB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02. Data", "02. Data", "{3F8FC7B2-3138-44AB-B49C-9669C4AE90A5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "99. Research", "99. Research", "{CB8F97F7-770A-45C0-A1F8-0AADAB64498A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01. Common", "01. Common", "{08AE41D6-CB1D-4AB9-9573-FEF67EEDD13F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05. Web", "05. Web", "{86BE2DB4-E827-41E3-BBD2-49FDF9D4C60C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bizomet.Repository", "Bizomet.Repository\Bizomet.Repository.csproj", "{086E2757-14D6-45B6-881A-2EF21A5CF026}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03. Services", "03. Services", "{557E5708-A295-4336-9E93-240FF96B8A0F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bizomet.Models", "Bizomet.Models\Bizomet.Models.csproj", "{33024EC5-8446-49B8-A388-9618F2C7DD37}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bizomet.Web", "Bizomet.Web\Bizomet.Web.csproj", "{0CC4DE0A-3253-4CD2-91B0-3E2CC3331DBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bizomet.Services.Email", "Bizomet.Services.Email\Bizomet.Services.Email.csproj", "{AC9A8D28-3B27-4B49-9165-C0A1F58E2FF8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{950A8D8E-D944-492C-BA0B-44082A047A24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{950A8D8E-D944-492C-BA0B-44082A047A24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{950A8D8E-D944-492C-BA0B-44082A047A24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{950A8D8E-D944-492C-BA0B-44082A047A24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1924E854-D5A0-49CF-B0D8-48B0DBD298CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1924E854-D5A0-49CF-B0D8-48B0DBD298CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1924E854-D5A0-49CF-B0D8-48B0DBD298CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1924E854-D5A0-49CF-B0D8-48B0DBD298CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{086E2757-14D6-45B6-881A-2EF21A5CF026}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{086E2757-14D6-45B6-881A-2EF21A5CF026}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{086E2757-14D6-45B6-881A-2EF21A5CF026}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{086E2757-14D6-45B6-881A-2EF21A5CF026}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33024EC5-8446-49B8-A388-9618F2C7DD37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33024EC5-8446-49B8-A388-9618F2C7DD37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33024EC5-8446-49B8-A388-9618F2C7DD37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33024EC5-8446-49B8-A388-9618F2C7DD37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CC4DE0A-3253-4CD2-91B0-3E2CC3331DBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CC4DE0A-3253-4CD2-91B0-3E2CC3331DBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CC4DE0A-3253-4CD2-91B0-3E2CC3331DBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CC4DE0A-3253-4CD2-91B0-3E2CC3331DBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC9A8D28-3B27-4B49-9165-C0A1F58E2FF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC9A8D28-3B27-4B49-9165-C0A1F58E2FF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC9A8D28-3B27-4B49-9165-C0A1F58E2FF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC9A8D28-3B27-4B49-9165-C0A1F58E2FF8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{950A8D8E-D944-492C-BA0B-44082A047A24} = {08AE41D6-CB1D-4AB9-9573-FEF67EEDD13F}
+		{1924E854-D5A0-49CF-B0D8-48B0DBD298CB} = {3F8FC7B2-3138-44AB-B49C-9669C4AE90A5}
+		{086E2757-14D6-45B6-881A-2EF21A5CF026} = {3F8FC7B2-3138-44AB-B49C-9669C4AE90A5}
+		{33024EC5-8446-49B8-A388-9618F2C7DD37} = {3F8FC7B2-3138-44AB-B49C-9669C4AE90A5}
+		{0CC4DE0A-3253-4CD2-91B0-3E2CC3331DBB} = {86BE2DB4-E827-41E3-BBD2-49FDF9D4C60C}
+		{AC9A8D28-3B27-4B49-9165-C0A1F58E2FF8} = {557E5708-A295-4336-9E93-240FF96B8A0F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {83E55EB2-BCA1-4885-AECF-BAE09FCE0AC9}
+	EndGlobalSection
+EndGlobal

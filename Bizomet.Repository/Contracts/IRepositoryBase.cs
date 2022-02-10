@@ -1,0 +1,13 @@
+﻿using System.Linq.Expressions;
+
+namespace Bizomet.Contracts
+{
+	public interface IRepositoryBase<T>
+	{
+		IQueryable<T> GetAll();
+		IQueryable<T> GetAll(Expression<Func<T, bool>> expression);
+		void Create(T entity);
+		void Update(T entity);
+		void Delete(T entity);
+	}
+}

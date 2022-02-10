@@ -1,0 +1,41 @@
+﻿@model ConfirmRegistrationModel
+
+@{
+	ViewData["Title"] = "Email Confirmation";
+}
+
+<div class="mail-body-header">
+	<span class="mail-body-header-text">Confirm your e-mail to finish your signing up for Bizomet</span>
+</div>
+
+<div class="mail-body-greeting">
+	<p>Hello @Model.FullName,</p>
+	<p>Thank you for choosing Bizomet.</p>
+	<p style="padding-top: 10px;">
+		We're happy you signed up for Bizomet. To start exploring the Bizomet
+		platform, please confirm your email address by clicking on the button bellow
+		or use this link <a href="@Model.ConfirmationLink" target="_blank" >Confirmation Link</a> within 48 hours.
+	</p>
+</div>
+
+<div class="mail-call-to-action-section">
+	<a href="@Model.ConfirmationLink" target="_blank" class="mail-call-to-action-button">
+		Confirm Now
+	</a>
+</div>
+
+<div class="mail-body-greeting">
+	<p>Once confirmed, this e-mail @Model.Email will be uniquely associated with your Bizomet account.</p>
+</div>
+
+
+<div class="mail-signature-section">
+	<p>Cheers,</p>
+	<p>The Bizomet Team</p>
+</div>
+
+<div class="mail-disclaimer-section">
+	<span><small>If the link doesn't work, copy this URL to your browser:</small></span><span>
+		<a href="@Model.ConfirmationLink"><small> @Model.ConfirmationLink</small></a>
+	</span>
+</div>

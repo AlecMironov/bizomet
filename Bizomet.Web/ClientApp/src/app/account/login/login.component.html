@@ -1,0 +1,77 @@
+<p-blockUI [blocked]="disablePage">
+    <p-progressSpinner></p-progressSpinner>
+</p-blockUI>
+
+<div class="surface-ground px-4 py-8 md:px-6 lg:px-8">
+    <div class="flex flex-wrap shadow-2">
+        <div class="hidden md:block w-full lg:w-7 px-0 py-4 lg:p-7 bg-blue-50">
+            <img src="assets/images/bizomet_logo.png" alt="Logo" height="75" class="mb-6">
+            <p-carousel [value]="features">
+                <ng-template let-feature pTemplate="item">
+                    <div class="text-center mb-8">
+                        <img src="assets/images/blocks/illustration/{{feature.image}}" alt="Image" class="mb-6 w-6">
+                        <div class="mx-auto font-medium text-xl mb-4 text-blue-900">{{feature.title}}</div>
+                        <p class="m-0 text-blue-700 line-height-3">{{feature.text}}</p>
+                    </div>
+                </ng-template>
+            </p-carousel>
+        </div>
+        <div class="w-full lg:w-5 p-4 lg:p-7 surface-card">
+            <div class="flex align-items-center justify-content-between mb-7">
+                <span class="text-2xl font-medium text-900">Login to Bizomet</span>
+                <span tabindex="0" class="font-medium">Don't have an account?
+                    <a class="ml-2 font-medium no-underline text-blue-500 hover:text-blue-700 cursor-pointer transition-colors transition-duration-150"
+                        routerLink="/account/register">Sign-up here</a>
+                </span>
+            </div>
+            <div class="flex justify-content-between">
+                <button pRipple [disabled]="true"
+                    class="mr-2 w-6 font-medium border-1 surface-border surface-100 py-3 px-2 p-component hover:surface-200 active:surface-300 text-900 cursor-pointer transition-colors transition-duration-150 inline-flex align-items-center justify-content-center">
+                    <i class="pi pi-facebook text-indigo-400 mr-2"></i>
+                    <span>Sign in With Facebook</span>
+                </button>
+                <button pRipple [disabled]="true"
+                    class="ml-2 w-6 font-medium border-1 surface-border surface-100 py-3 px-2 p-component hover:surface-200 active:surface-300 text-900 cursor-pointer transition-colors transition-duration-150 inline-flex align-items-center justify-content-center">
+                    <i class="pi pi-google text-pink-400 mr-2"></i>
+                    <span>Sign in With Google</span>
+                </button>
+            </div>
+            <p-divider align="center" styleClass="my-4">
+                <span class="text-600 font-normal text-sm">OR</span>
+            </p-divider>
+
+            <p-messages [(value)]="errorMessage" [enableService]="false" [escape]="false" [closable]="false"></p-messages>
+
+            <form [formGroup]="loginForm" novalidate (ngSubmit)="loginAction(loginForm.value)">
+                <label for="username" class="block text-900 font-medium mb-2">Email address</label>
+                <input id="username" formControlName="username" type="text" pInputText class="w-full mb-3 p-3"
+                    autocomplete="on" pInputText placeholder="Email address)">
+                <small class="p-error block mb-3"
+                    *ngIf="validateControl('username') && hasError('username', 'required')">
+                    Email is required</small>
+                <small class="p-error block mb-3" *ngIf="validateControl('username') && hasError('username', 'email')">
+                    Please use a valid email</small>
+
+                <label for="password" class="block text-900 font-medium mb-2">Password</label>
+                <input p-password type="password" id="password" formControlName="password" class="w-full mb-3 p-3"
+                    autocomplete="off" pInputText placeholder="Password">
+                <small class="p-error block" *ngIf="validateControl('password') && hasError('password', 'required')">
+                    Password is required
+                </small>
+
+                <div class="flex align-items-center justify-content-between mb-6">
+                    <div class="flex align-items-center">
+                        <!-- <p-checkbox id="rememberme" [binary]="true" styleClass="mr-2"></p-checkbox>
+                        <label for="rememberme">Remember me</label> -->
+                    </div>
+                    <a class="font-medium text-blue-500 hover:text-blue-700 cursor-pointer transition-colors transition-duration-150"
+                    [routerLink]="['/account/forgotpassword']">
+                        Forgot password?</a>
+                </div>
+
+                <button pButton pRipple label="Login" type="submit" [disabled]="!loginForm.valid"
+                    class="w-full py-3 font-medium"></button>
+            </form>
+        </div>
+    </div>
+</div>

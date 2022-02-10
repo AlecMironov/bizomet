@@ -1,0 +1,107 @@
+.login-body {
+    display: flex;
+    box-sizing: border-box;
+    min-height: 100vh;
+
+    .login-image {
+        height: 100vh;
+
+        img {
+            height: 100vh;
+            max-width: 490px;
+        }
+    }
+
+    .login-panel {
+        background-image: url("../../layout/images/effect-onlight.png");
+        background-repeat: no-repeat;
+        text-align: center;
+        width: 100%;
+        padding: 260px 100px 75px 100px;
+        box-sizing: border-box;
+
+        .login-logo {
+            width: 45px;
+        }
+
+        .login-appname {
+            width: 100px;
+            margin-left: 1rem;
+        }
+
+        .form-container {
+            input {
+                display: block;
+                max-width: 320px;
+                min-width: 270px;
+                margin-bottom: 10px;
+            }
+
+            a {
+                color: #8A8EA6;
+                margin-bottom: 20px;
+                font-size: 11px;
+            }
+        }
+
+        .button-container {
+            button {
+                display: block;
+                max-width: 320px;
+                margin-bottom: 32px;
+            }
+
+            > span {
+                display: flex;
+                font-size: 11px;
+                color: #8A8EA6;
+
+                a{
+                    cursor: pointer;
+                    margin-left: .25rem;
+                }
+            }
+        }
+
+        .login-footer {
+            position: absolute;
+            bottom: 75px;
+
+            .login-footer-logo-container {
+                padding-right: 1.5rem;
+                border-right: 1px solid rgba(68, 72, 109, 0.2);
+
+                .login-footer-logo {
+                    width: 22px;
+                }
+
+                .login-footer-appname {
+                    width: 45px;
+                    margin-left: .5rem;
+                }
+
+            }
+
+            span {
+                margin-left: 1rem;
+                font-size: 11px;
+                color: #8A8EA6;
+            }
+        }
+    }
+}
+
+@media (max-width: 991px) {
+    .login-body {
+        .login-image {
+            display: none;
+        }
+
+        .login-panel {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 50px;
+        }
+    }
+}
