@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PictureSize, ProfileService } from 'src/app/core/services/profile.service';
-import { UserProfileModel } from 'src/app/shared/models/user-profile.model';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { AppComponent } from './../../app.component';
 import { AuthorizedLayoutComponent } from './authorized-layout/authorized-layout.component';
 
@@ -28,7 +27,7 @@ import { AuthorizedLayoutComponent } from './authorized-layout/authorized-layout
                 <ul class="layout-topbar-right-items">
                     <li #profile class="profile-item" [ngClass]="{'active-topmenuitem':appMain.activeTopbarItem === profile}">
                         <a href="#" (click)="appMain.onTopbarItemClick($event,profile)">
-                            <div class="profile-img-sm" [ngStyle]="{'background-image': profilePictureSmall }"></div>
+                            <div class="profile-img-sm" [ngStyle]="{'background-image': authService.currentUser.picture }"></div>
                         </a>
 
                         <ul class="fadeInDown">
@@ -72,13 +71,10 @@ import { AuthorizedLayoutComponent } from './authorized-layout/authorized-layout
     `
 })
 export class AppTopbarComponent implements OnInit {
-    profilePictureSmall: string = null;
 
-    constructor(public app: AppComponent, public appMain: AuthorizedLayoutComponent, private profileService: ProfileService) {
+    constructor(public app: AppComponent, public appMain: AuthorizedLayoutComponent, public authService: AuthenticationService) {
     }
 
     ngOnInit(): void {
-        this.profileService.getProfilePicture(PictureSize.Small)
-            .subscribe(data => this.profilePictureSmall = data);
     }
 }

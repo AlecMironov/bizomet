@@ -1,12 +1,13 @@
 ﻿using System.Linq.Expressions;
 using Bizomet.Contracts;
 using Bizomet.Data;
+using Bizomet.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bizomet.Repository
 {
 	public class RepositoryBase<T> : IRepositoryBase<T>
-		where T : class
+		where T : EntityBase
 	{
 		protected ApplicationDbContext RepositoryContext;
 
@@ -15,15 +16,17 @@ namespace Bizomet.Repository
 			RepositoryContext = repositoryContext;
 		}
 
-		public IQueryable<T> GetAll() => RepositoryContext.Set<T>().AsNoTracking();
+		public virtual T Get(object id) => RepositoryContext.GetByKey<T>(id);
 
-		public IQueryable<T> GetAll(Expression<Func<T, bool>> expression) =>
-			RepositoryContext.Set<T>().Where(expression).AsNoTracking();
+		public virtual IQueryable<T> GetAll() => RepositoryContext.GetQuery<T>();
 
-		public void Create(T entity) => RepositoryContext.Set<T>().Add(entity);
+		public virtual IQueryable<T> GetAll(Expression<Func<T, bool>> expression) =>
+			RepositoryContext.GetQuery<T>().Where(expression);
 
-		public void Update(T entity) => RepositoryContext.Set<T>().Update(entity);
+		public virtual void Create(T entity) => RepositoryContext.Set<T>().Add(entity);
 
-		public void Delete(T entity) => RepositoryContext.Set<T>().Remove(entity);
+		public virtual void Update(T entity) => RepositoryContext.Set<T>().Update(entity);
+
+		public virtual void Delete(T entity) => RepositoryContext.Set<T>().Remove(entity);
 	}
 }

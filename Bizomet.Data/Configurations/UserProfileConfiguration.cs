@@ -32,8 +32,8 @@ namespace Bizomet.Data.Configurations
 			builder.Property(u => u.LocationState).IsRequired(false).HasMaxLength(100);
 			builder.Property(u => u.LocationCountry).IsRequired(false).HasMaxLength(100);
 
-			builder.Property(u => u.PictureLarge).IsRequired(false);
-			builder.Property(u => u.PictureSmall).IsRequired(false);
+			builder.Property(u => u.Picture).IsRequired(false);
+			builder.Property(u => u.Description).IsRequired(false);
 
 			builder.HasOne<ApplicationUser>(e => e.User)
 				.WithOne(e => e.UserProfile)

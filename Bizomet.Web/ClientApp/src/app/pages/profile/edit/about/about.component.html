@@ -1,24 +1,142 @@
+<p-blockUI [blocked]="disablePage">
+    <p-progressSpinner></p-progressSpinner>
+</p-blockUI>
+
+<p-toast position="bottom-right" [breakpoints]="{'490px': {width: '100%', right: '0', left: '0'}}"></p-toast>
+
 <div class="grid">
-    <div class="col-12">
-        <div class="card">
-            <h5>ABOUT ME</h5>
-            <h3>Name: <strong>{{ currentProfile.firstName }} {{ currentProfile.lastName }}</strong></h3>
-            <p>This is "About Me" page ready to build.</p>
-            <header class="jumbotron">
-                <h3>
-                    Name: <strong>{{ currentProfile.firstName }} {{ currentProfile.lastName }}</strong>
-                </h3>
-            </header>
-            <p>
-                <strong>Email:</strong>
-                {{ currentProfile.email }}
-            </p>
-            <strong>Roles:</strong>
-            <ul>
-                <li *ngFor="let role of currentProfile.roles">
-                    {{ role }}
-                </li>
-            </ul>
+    <div class="col-12 lg:col-10 xl:col-8">
+        <div class="card p-4 lg:p-5">
+            <p-messages [(value)]="errorMessage" [enableService]="false" [escape]="false" [closable]="false">
+            </p-messages>
+
+            <form [formGroup]="aboutMeForm" novalidate (ngSubmit)="saveAction(aboutMeForm.value)">
+                <div class="grid">
+                    <div class="col-12 lg:col-9">
+                        <span class="p-fluid">
+                            <label for="roles" class="block text-800 m-1 pb-1">Roles</label>
+                            <p-autoComplete class="w-full font-medium" id="roles" formControlName="roles" field="key"
+                                dataKey="key" [suggestions]="roleList" [dropdown]="true" [multiple]="true"
+                                [forceSelection]="true" (completeMethod)="getRoles($event)">
+                                <ng-template let-role pTemplate="item">
+                                    <p-chip><span class="p-1 font-lg">{{role.name}}</span></p-chip>
+                                </ng-template>
+                                <ng-template let-role pTemplate="selectedItem">
+                                    <span class="font-medium font-lg">{{role.name}}</span>
+                                </ng-template>
+                            </p-autoComplete>
+                        </span>
+                        <small class="p-error block m-1"
+                            *ngIf="validateControl('roles') && hasError('roles', 'required')">
+                            At least one role is required
+                        </small>
+
+                        <label for="firstName" class="block text-800 m-1 pb-1 pt-3">First Name</label>
+                        <input id="firstName" formControlName="firstName" type="text" pInputText
+                            class="w-full font-medium mb-1 p-2" autocomplete="on" pInputText>
+                        <small class="p-error block mb-3"
+                            *ngIf="validateControl('firstName') && hasError('firstName', 'required')">
+                            First Name is required
+                        </small>
+
+                        <label for="lastName" class="block text-800 m-1 pb-1 mt-4">Last Name</label>
+                        <input type="text" id="lastName" formControlName="lastName" class="w-full font-medium mb-1 p-2"
+                            autocomplete="on" pInputText placeholder="Last Name">
+                        <small class="p-error block"
+                            *ngIf="validateControl('lastName') && hasError('lastName', 'required')">
+                            Last Name is required
+                        </small>
+
+                        <label for="description" class="block text-800 m-1 pb-1 mt-4">Description</label>
+                        <textarea formControlName="description" id="description" pInputTextarea=""
+                            autoResize="autoResize" style="min-height: 10rem;height: 10rem;"
+                            class="w-full font-medium p-inputtextarea p-inputtext p-component p-element ng-pristine ng-valid ng-touched"
+                            spellcheck="false">
+                        </textarea>
+                    </div>
+
+                    <div class="card col-12 lg:col-3 flex flex-row flex-wrap justify-content-center p-4"
+                        style="min-width: 15rem; max-width: 20rem; margin-top: 2.5rem;">
+                        <div class="w-full text-lg text-center">My Photo</div>
+                        <div class="w-full text-sm font-light text-500 text-center mb-2 mt-2">Image format JPG, PNG or
+                            GIF<br />Max size 1Mb</div>
+                        <a class="cursor-pointer w-full text-blue-400 text-sm font-normal text-center mb-3"
+                            (click)="fileInput.click()"><i class="pi pi-camera mr-2"></i>Load photo</a>
+
+                        <div class="profile-img-lg cursor-pointer" (click)="editImage()"
+                            [ngStyle]="{ 'background-image': currentPicture }"></div>
+
+                        <a class="cursor-pointer w-full text-pink-400 text-sm font-light text-center mt-3"
+                            (click)="removeImage()" *ngIf="currentPicture">Remove</a>
+
+                        <input #fileInput style="display: none" type="file" accept=".png, .jpg, .jpeg, .gif"
+                            (change)="fileChangeEvent($event)" />
+                    </div>
+                </div>
+
+                <div class="p-4 h-3 w-full"></div>
+                <p-divider></p-divider>
+                <div class="flex justify-content-between flex-wrap">
+                    <button pButton pRipple type="button" label="Cancel" (click)="cancelAction()"
+                        class="p-button-raised p-button-secondary w-8rem py-2 font-medium mt-2"></button>
+                    <button pButton pRipple label="Save" type="submit" [disabled]="!aboutMeForm.valid"
+                        class="p-button-raised w-8rem py-2 font-medium mt-2"></button>
+                </div>
+            </form>
         </div>
     </div>
+
+    <!-- <div class="col-4">
+        <div class="card flex flex-row flex-wrap justify-content-center p-5" style="min-width: 180px;">
+            <div class="w-full text-lg text-center">My Photo</div>
+            <div class="w-full text-sm font-light text-center mb-2 mt-1">Image format JPG, PNG or GIF. Max size 1Mb</div>
+            <a class="cursor-pointer w-full text-blue-400 text-sm font-light text-center mb-3" (click)="fileInput.click()">Load photo</a>
+
+            <div class="profile-img-lg cursor-pointer" (click)="fileInput.click()"
+                [ngStyle]="{ 'background-image': currentProfile.pictureLarge }"></div>
+            
+            <a class="cursor-pointer w-full text-pink-400 text-sm font-light text-center mt-3" (click)="removeImage()" *ngIf="currentProfile.pictureLarge">Remove</a>
+
+            <input #fileInput style="display: none" type="file" (change)="fileChangeEvent($event)" />
+        </div>
+    </div> -->
 </div>
+
+<p-dialog header="Resize and Crop image" [(visible)]="displayCropDialog"
+    [breakpoints]="{'960px': '75vw', '640px': '90vw'}" [style]="{width: '35vw'}" [draggable]="true" [resizable]="false">
+
+    <img class="profile-img-lg m-3" [src]="croppedImage" style="border-radius: 100%;" />
+
+    <br />
+    <button (click)="moveLeft()">move left</button>
+    <button (click)="moveRight()">move right</button>
+
+    <button (click)="moveTop()">move top</button>
+    <button (click)="moveBottom()">move bottom</button>
+    <br />
+
+    <div class="w-full h-25rem">
+        <image-cropper format="png" [roundCropper]="true" [onlyScaleDown]="true" [resizeToWidth]="200"
+            [resizeToHeight]="200" (imageCropped)="imageCropped($event)" [transform]="transform"
+            [style.display]="showCropper ? null : 'none'" [imageChangedEvent]="imageChangedEvent"
+            [imageBase64]="imageBase64String" (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady($event)"
+            (loadImageFailed)="loadImageFailed()">
+        </image-cropper>
+    </div>
+
+    <button pButton pRipple type="button" [disabled]="zoomOutIsInRange() != true" icon="pi pi-search-minus"
+        class="p-button-rounded p-button-info m-1" (click)="zoomOut()"></button>
+    <button pButton pRipple type="button" [disabled]="zoomInIsInRange() != true" icon="pi pi-search-plus"
+        class="p-button-rounded p-button-info m-1" (click)="zoomIn()"></button>
+
+    <div *ngIf="loading" class="loader">Loading...</div>
+
+    <ng-template pTemplate="footer">
+        <div class="flex justify-content-between flex-wrap">
+            <button (click)="displayCropDialog=false" pButton pRipple type="button" label="Cancel"
+                class="p-button-raised p-button-secondary w-8rem py-2 font-medium mt-2"></button>
+            <button (click)="saveCroppedImage()" pButton pRipple label="Apply" type="button"
+                class="p-button-raised w-8rem py-2 font-medium mt-2"></button>
+        </div>
+    </ng-template>
+</p-dialog>

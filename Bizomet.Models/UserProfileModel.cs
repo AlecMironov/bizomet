@@ -4,7 +4,7 @@ namespace Bizomet.Models
 {
 	public class UserProfileModel
 	{
-		public string UserName { get; set; }
+		public string UserUserName { get; set; }
 
 		public string FirstName { get; set; }
 
@@ -12,7 +12,7 @@ namespace Bizomet.Models
 
 		[Required(ErrorMessage = "Email is required")]
 		[EmailAddress]
-		public string Email { get; set; }
+		public string UserEmail { get; set; }
 
 		public IEnumerable<string> Roles { get; set; }
 
@@ -30,7 +30,7 @@ namespace Bizomet.Models
 
 		public string ZipPostal { get; set; }
 
-		public string PhoneNumber { get; set; }
+		public string UserPhoneNumber { get; set; }
 
 		public string PhoneNumberBusiness { get; set; }
 
@@ -40,14 +40,14 @@ namespace Bizomet.Models
 
 		public string PhoneNumberFax { get; set; }
 
-		public string PictureLarge { get; set; }
-
-		public string PictureSmall { get; set; }
+		public string Picture { get; set; }
 
 		public string LocationCountry { get; set; }
 
 		public string LocationState { get; set; }
 
 		public string LocationCity { get; set; }
+
+		public string Description { get; set; }
 	}
 }

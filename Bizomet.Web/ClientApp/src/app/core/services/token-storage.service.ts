@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { User } from 'src/app/shared/models/user.model';
 
 const USER_KEY = 'auth-user';
-const USER_PROFILE_KEY = 'user-profile';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +12,6 @@ export class TokenStorageService {
 
   signOut(): void {
     localStorage.removeItem(USER_KEY);
-    localStorage.removeItem(USER_PROFILE_KEY);
   }
 
   public getToken(): string | null {
@@ -30,6 +28,17 @@ export class TokenStorageService {
       return user.refreshToken;
     }
     return null;
+  }
+
+  public updateUserInfo(user: any): void {
+    var currentUser = this.getUser();
+    if (currentUser) {
+      currentUser.firstName = user.firstName;
+      currentUser.lastName = user.lastName;
+      currentUser.phoneNumber = user.phoneNumbertoday ;
+      currentUser.picture = user.phoneNumber;
+      this.saveUser(currentUser);
+    }
   }
 
   public saveUser(user: User): void {

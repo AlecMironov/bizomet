@@ -6,6 +6,7 @@ using Bizomet.Web.Helpers;
 using Bizomet.Web.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Bizomet.Web.Controllers
 {
@@ -63,6 +64,36 @@ namespace Bizomet.Web.Controllers
 			}
 
 			return Ok(new { accessToken = newAccessToken, refreshToken = newRefreshToken });
+		}
+
+		[HttpPost]
+		[Authorize]
+		[ProducesResponseType(StatusCodes.Status204NoContent)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+		public async Task<IActionResult> Revoke()
+		{
+			try {
+				var user = await _userManager.GetUserAsync(User);
+				if (user == null)
+					return BadRequest("Invalid client request");
+
+				user.RefreshToken = null;
+				user.RefreshTokenExpiryTime = null;
+				var result = await _userManager.UpdateAsync(user);
+				if (result.Succeeded) {
+					return NoContent();
+				}
+				else {
+					var errors = result.Errors.Select(e => e.Description);
+					_logger.LogError($"Something went wrong in the {nameof(Revoke)}; {errors}");
+					return Problem($"Something went wrong in the {nameof(Revoke)}", statusCode: StatusCodes.Status500InternalServerError);
+				}
+			}
+			catch (Exception e) {
+				_logger.LogError(e, $"Something went wrong in the {nameof(Revoke)}");
+				return Problem($"Something went wrong in the {nameof(Revoke)}", statusCode: StatusCodes.Status500InternalServerError);
+			}
 		}
 	}
 }

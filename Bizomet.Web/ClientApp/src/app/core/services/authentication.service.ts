@@ -12,12 +12,21 @@ import { TokenApiModel } from 'src/app/shared/models/token-api.model';
 import { CustomEncoder } from 'src/app/shared/custom-encoder.module';
 import { ForgotPasswordModel } from 'src/app/shared/models/forgot-password.model';
 import { ResetPasswordModel } from 'src/app/shared/models/reset-password.model';
+import { UserRole } from 'src/app/shared/models/user-role.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
 
     private userSubject: BehaviorSubject<User>;
     public user: Observable<User>;
+
+    public all_roles: UserRole[] = [
+        { key: "Talent", name: "Talent" },
+        { key: "Uplifter", name: "Uplifter" },
+        { key: "MediaAssistant", name: "Media Assistant" },
+        { key: "Promoter", name: "Promoter" },
+        { key: "Producer", name: "Producer" }
+      ];
 
     private isSignedIn = new BehaviorSubject<boolean>(false);
     onSignedIn$ = this.isSignedIn.asObservable();
@@ -94,18 +103,16 @@ export class AuthenticationService {
         return this.http.post<AuthResponseModel>(this.createCompleteRoute("account/login"), model)
             .pipe(map(response => {
                 let user = new User();
-                user.id = response.id;
                 user.userName = response.userName;
+                user.email = response.email;
                 user.firstName = response.firstName;
                 user.lastName = response.lastName;
+                user.phoneNumber = response.phoneNumber;
                 user.roles = response.roles;
                 user.token = response.token;
                 user.refreshToken = response.refreshToken;
-
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                this.tokenStorage.saveUser(user)
-                this.userSubject.next(user);
-                this.isSignedIn.next(true); // <-- success
+                user.picture = this.getPictureUrl(response.picture);
+                this.updateUserInfo(user);
                 return user;
             }));
     }
@@ -127,6 +134,13 @@ export class AuthenticationService {
                     }
                 });
         }
+    }
+
+    public updateUserInfo(user: User): void {
+        // store user details and jwt token in local storage to keep user logged in between page refreshes
+        this.tokenStorage.saveUser(user)
+        this.userSubject.next(user);
+        this.isSignedIn.next(true); // <-- success
     }
 
     public confirmEmail = (token: string, email: string) => {
@@ -184,5 +198,12 @@ export class AuthenticationService {
 
     private createCompleteRoute = (route: string) => {
         return `${this.baseUrl}api/${route}`;
+    }
+
+    private getPictureUrl(data: string): string {
+        if (typeof data != 'undefined' && data) {
+            return `url(data:image/jpeg;base64,${data})`;
+        }
+        return null;
     }
 }

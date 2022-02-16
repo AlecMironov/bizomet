@@ -3,7 +3,7 @@
         <div class="card px-6 py-5">
             <div class="flex align-items-start flex-column flex-wrap lg:justify-content-between">
                 <div class="flex align-items-start flex-column md:flex-row">
-                    <div class="profile-img-lg mr-5 mb-3 lg:mb-0" [ngStyle]="{ 'background-image': currentProfile.pictureLarge }"></div>
+                    <div class="profile-img-lg mr-5 mb-3 lg:mb-0" [ngStyle]="{ 'background-image': currentProfile.picture }"></div>
                     <div>
                         <span class="text-900 font-medium text-3xl">{{ currentProfile.firstName }} {{ currentProfile.lastName }}</span>
                         <div class="flex align-items-center flex-wrap text-sm">
@@ -47,7 +47,7 @@
             </header>
             <p>
                 <strong>Email:</strong>
-                {{ currentProfile.email }}
+                {{ currentProfile.userEmail }}
             </p>
             <strong>Roles:</strong>
             <ul>

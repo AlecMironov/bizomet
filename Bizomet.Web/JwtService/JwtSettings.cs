@@ -11,5 +11,9 @@
 		public bool RequireExpirationTime { get; set; }
 		public bool ValidateLifetime { get; set; } = true;
 		public int ExpiryInMinutes { get; set; } = 5;
+
+		// refresh token time to live (in days), inactive tokens are
+		// automatically deleted from the database after this time
+		public int RefreshTokenTTL { get; set; } = 2;
 	}
 }

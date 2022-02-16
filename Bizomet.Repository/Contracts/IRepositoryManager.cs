@@ -2,7 +2,8 @@
 {
 	public interface IRepositoryManager
 	{
-		//ICompanyRepository Company { get; }
+		IProfileRepository UserProfile { get; }
+
 		void Save();
 	}
 }

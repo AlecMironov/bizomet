@@ -4,6 +4,7 @@ namespace Bizomet.Contracts
 {
 	public interface IRepositoryBase<T>
 	{
+		T Get(object id);
 		IQueryable<T> GetAll();
 		IQueryable<T> GetAll(Expression<Func<T, bool>> expression);
 		void Create(T entity);

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 // PrimeNg modules for account pages
 import { BlockUIModule } from 'primeng/blockui';
@@ -19,6 +20,11 @@ import { PanelModule } from 'primeng/panel';
 import { PasswordModule } from 'primeng/password';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RippleModule } from 'primeng/ripple';
+import { ToastModule } from 'primeng/toast';
+import { FileUploadModule } from 'primeng/fileupload';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 import { SharedModule } from '../../shared/shared.module';
 import { ProfileRoutingModule } from './profile-routing.module';
@@ -27,7 +33,6 @@ import { ProfileAboutComponent } from './edit/about/about.component';
 import { ProfileOverviewComponent } from './overview/profile-overview.component';
 import { ProfilePortfolioComponent } from './edit/portfolio/portfolio.component';
 import { MenubarModule } from 'primeng/menubar';
-import { AvatarModule } from 'primeng/avatar';
 
 @NgModule({
   declarations: [
@@ -40,7 +45,8 @@ import { AvatarModule } from 'primeng/avatar';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    AvatarModule,
+    AutoCompleteModule,
+    FileUploadModule,
     BlockUIModule,
     ButtonModule,
     CardModule,
@@ -48,6 +54,7 @@ import { AvatarModule } from 'primeng/avatar';
     CheckboxModule,
     ChipModule,
     DividerModule,
+    DropdownModule,
     InputMaskModule,
     InputTextModule,
     MessagesModule,
@@ -58,6 +65,9 @@ import { AvatarModule } from 'primeng/avatar';
     PasswordModule,
     ProgressSpinnerModule,
     RippleModule,
+    ToastModule,
+    DialogModule,
+    ImageCropperModule,
     ProfileRoutingModule,
     SharedModule
   ]

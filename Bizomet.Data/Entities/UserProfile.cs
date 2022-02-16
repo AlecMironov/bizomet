@@ -2,10 +2,8 @@
 
 namespace Bizomet.Data.Entities
 {
-	public class UserProfile
+	public class UserProfile : EntityBase
 	{
-		public Guid Id { get; set; }
-
 		public string UserId { get; set; }
 
 		public ApplicationUser User { get; set; }
@@ -49,14 +47,14 @@ namespace Bizomet.Data.Entities
 		[Encrypted]
 		public string PhoneNumberFax { get; set; }
 
-		public string PictureLarge { get; set; }
-
-		public string PictureSmall { get; set; }
+		public string Picture { get; set; }
 
 		public string LocationCountry { get; set; }
 
 		public string LocationState { get; set; }
 
 		public string LocationCity { get; set; }
+
+		public string Description { get; set; }
 	}
 }

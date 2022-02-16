@@ -28,8 +28,8 @@ namespace Bizomet.Data.Configurations
 			},
 			new IdentityRole {
 				Id = "347ac56d-9576-4f4a-81be-674b4a3a9d0b",
-				Name = "Lifter",
-				NormalizedName = "LIFTER"
+				Name = "Uplifter",
+				NormalizedName = "UPLIFTER"
 			},
 			new IdentityRole {
 				Id = "7bd1c590-9eed-44e9-a60c-6e7de0db8f01",

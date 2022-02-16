@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthorizedLayoutComponent } from './../authorized/authorized-layout/authorized-layout.component';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { ProfileService } from 'src/app/core/services/profile.service';
-import { UserProfileModel } from 'src/app/shared/models/user-profile.model';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 
 @Component({
     selector: 'app-inlinemenu',
@@ -29,12 +28,8 @@ import { UserProfileModel } from 'src/app/shared/models/user-profile.model';
     ]
 })
 export class AppInlineMenuComponent implements OnInit {
-    currentProfile: UserProfileModel = new UserProfileModel();
-
-    constructor(public appMain: AuthorizedLayoutComponent, private profileService: ProfileService) { }
+    constructor(public appMain: AuthorizedLayoutComponent, public authService: AuthenticationService) { }
 
     ngOnInit(): void {
-        this.profileService.getProfile()
-            .subscribe(data => this.currentProfile = data);
     }
 }

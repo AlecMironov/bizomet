@@ -14,7 +14,9 @@ const PROXY_CONFIG = [
       "/api/account/resetpassword",
       "/api/userprofile/profile",
       "/api/userprofile/profileimage",
-      "/api/token/refresh"
+      "/api/userprofile/update",
+      "/api/token/refresh",
+      "/api/token/revoke"
    ],
     target: target,
     secure: false

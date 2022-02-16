@@ -6,10 +6,10 @@
     <div class="user-detail-wrapper">
         <div class="user-detail-content align-items-center">
             <div class="user-image flex justify-content-center">
-                <div class="profile-img-lg2" [ngStyle]="{ 'background-image': currentProfile.pictureLarge }"></div>
+                <div class="profile-img-lg2" [ngStyle]="{ 'background-image': authService.currentUser.picture }"></div>
             </div>
-            <span class="user-name">{{ currentProfile.firstName }} {{ currentProfile.lastName }}</span>
-            <span class="user-number">{{ currentProfile.phoneNumber }}</span>
+            <span class="user-name">{{ authService.currentUser.firstName }} {{ authService.currentUser.lastName }}</span>
+            <span class="user-number">{{ authService.currentUser.phoneNumber }}</span>
         </div>
         <div class="user-tasks">
             <div class="user-tasks-item in-progress">

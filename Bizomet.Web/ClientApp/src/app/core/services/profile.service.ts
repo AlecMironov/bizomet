@@ -8,8 +8,6 @@ export enum PictureSize {
     Large = 1
 }
 
-const USER_PROFILE_KEY = 'user-profile';
-
 @Injectable({
     providedIn: 'root'
 })
@@ -18,35 +16,20 @@ export class ProfileService {
     constructor(private repository: RepositoryService) { }
 
     getProfile() {
-        let storedProfile = this.getStoredProfile();
-        if (storedProfile)
-            return of(storedProfile);
-
         return this.repository.getData<UserProfileModel>("userprofile/profile")
             .pipe(
                 map((response) => {
-                    response.pictureLarge = this.getPictureUrl(response.pictureLarge);
-                    response.pictureSmall = this.getPictureUrl(response.pictureSmall);
-                    this.saveUserProfile(response);
+                    response.picture = this.getPictureUrl(response.picture);
                     return response;
                 }));
     }
 
-    getProfilePicture(size: PictureSize) {
-        let storedProfile = this.getStoredProfile();
-        if (storedProfile) {
-            return size == PictureSize.Large ? of(storedProfile.pictureLarge) : of(storedProfile.pictureSmall);
-        }
-
-        return this.repository.getData(`userprofile/profileimage?large=${size == PictureSize.Large ? 'true' : 'false'}`)
-            .pipe(
-                map((response: any) => {
-                    return this.getPictureUrl(response.result);
-                }));
-    }
-
-    updateProfile(profile: UserProfileModel): void {
-        this.saveUserProfile(profile);
+    updateProfile(profile: any) {
+        // if (typeof profile.pictureLarge != 'undefined' && profile.pictureLarge) {
+        //     profile.pictureLarge = profile.pictureLarge.substring(4, profile.pictureLarge.length - 1);
+        // }
+        //let model = JSON.stringify(profile);
+        return this.repository.updateData("userprofile/update", profile);
     }
 
     private getPictureUrl(data: string): string {
@@ -54,20 +37,5 @@ export class ProfileService {
             return `url(data:image/jpeg;base64,${data})`;
         }
         return null;
-    }
-
-    private getStoredProfile(): UserProfileModel | null {
-        const profile = localStorage.getItem(USER_PROFILE_KEY);
-        if (profile) {
-            return JSON.parse(profile);
-        }
-
-        return null;
-    }
-
-    private saveUserProfile(profile: UserProfileModel): void {
-        localStorage.removeItem(USER_PROFILE_KEY);
-        if (typeof profile != 'undefined' && profile)
-            localStorage.setItem(USER_PROFILE_KEY, JSON.stringify(profile));
     }
 }

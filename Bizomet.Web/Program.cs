@@ -19,6 +19,7 @@ builder.Services.ConfigureWebsiteCookies(builder.Configuration);
 builder.Services.ConfigureMailKitMailer(builder.Configuration)
 	.RegisterAllMailContextOfCallingAssembly();
 
+//builder.Services.AddCors();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllersWithViews();
 
@@ -40,6 +41,13 @@ else {
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+// global cors policy
+//app.UseCors(x => x
+//	.AllowAnyMethod()
+//	.AllowAnyHeader()
+//	.SetIsOriginAllowed(origin => true) // allow any origin
+//	.AllowCredentials()); // allow credentials
+
 app.UseForwardedHeaders(new ForwardedHeadersOptions { ForwardedHeaders = ForwardedHeaders.All });
 
 app.UseAuthentication();
