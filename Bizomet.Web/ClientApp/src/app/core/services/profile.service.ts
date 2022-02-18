@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { map, of } from 'rxjs';
+import { map } from 'rxjs';
 import { UserProfileModel } from 'src/app/shared/models/user-profile.model';
+import { SharedData } from 'src/app/shared/shared-data.module';
 import { RepositoryService } from './repository.service';
 
 export enum PictureSize {
@@ -20,6 +21,7 @@ export class ProfileService {
             .pipe(
                 map((response) => {
                     response.picture = this.getPictureUrl(response.picture);
+                    response.rolesInfo = SharedData.all_roles.filter(x => response.roles.includes(x.key)).map(x => x.name);
                     return response;
                 }));
     }

@@ -4,9 +4,10 @@ import { Message } from 'primeng/api/message';
 import { Dimensions, ImageCroppedEvent, ImageTransform } from 'ngx-image-cropper';
 import { AppBreadcrumbService } from 'src/app/core/services/app.breadcrumb.service';
 import { ProfileService } from 'src/app/core/services/profile.service';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { UserRole } from 'src/app/shared/models/user-role.model';
+import { SharedData } from 'src/app/shared/shared-data.module';
 
 @Component({
   selector: 'app-about',
@@ -26,7 +27,7 @@ import { UserRole } from 'src/app/shared/models/user-role.model';
       color: white;
     }  
   `],
-  providers: [MessageService]
+  providers: [ConfirmationService, MessageService]
 })
 export class ProfileAboutComponent implements OnInit {
 
@@ -48,8 +49,15 @@ export class ProfileAboutComponent implements OnInit {
   currentPicture: string;
   refreshRequired: boolean = false;
   roleList: UserRole[];
+  //tagList: string[] = [];
 
-  constructor(private profileService: ProfileService, private authService: AuthenticationService, private breadcrumbService: AppBreadcrumbService, private messageService: MessageService) {
+  constructor(
+    private profileService: ProfileService,
+    private authService: AuthenticationService,
+    private breadcrumbService: AppBreadcrumbService,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService) {
+
     this.breadcrumbService.setItems([
       { label: 'Profile', routerLink: ['/profile'] },
       { label: 'About Me' }
@@ -59,7 +67,8 @@ export class ProfileAboutComponent implements OnInit {
       firstName: new FormControl("", [Validators.required]),
       lastName: new FormControl("", [Validators.required]),
       description: new FormControl(""),
-      roles: new FormControl("", [Validators.required])
+      roles: new FormControl("", [Validators.required]),
+      tags: new FormControl("")
     });
   }
 
@@ -83,9 +92,11 @@ export class ProfileAboutComponent implements OnInit {
         this.aboutMeForm.controls["firstName"].setValue(data.firstName);
         this.aboutMeForm.controls["lastName"].setValue(data.lastName);
         this.aboutMeForm.controls["description"].setValue(data.description);
-        this.aboutMeForm.controls["roles"].setValue(this.authService.all_roles.filter(x => data.roles.includes(x.key)));
+        this.aboutMeForm.controls["roles"].setValue(SharedData.all_roles.filter(x => data.roles.includes(x.key)));
+        this.aboutMeForm.controls["tags"].setValue(data.tags);
         this.originalPicture = data.picture;
         this.currentPicture = data.picture;
+        //this.tagList.push(...data.tags);
 
         if (this.refreshRequired) {
           let user = this.authService.currentUser;
@@ -109,8 +120,22 @@ export class ProfileAboutComponent implements OnInit {
   }
 
   getRoles(event) {
-    this.roleList = this.authService.all_roles.filter(r => r.name.toLowerCase().startsWith(event.query.toLowerCase()));
+    this.roleList = SharedData.all_roles.filter(r => r.name.toLowerCase().startsWith(event.query.toLowerCase()));
   }
+
+  // getTags(event) {
+  //   this.tagList = this.tagList.filter(r => r.toLocaleLowerCase().includes(event.query.toLowerCase()));
+  // }
+
+  // onTagKeyUp(event: KeyboardEvent) {
+  //   if (event.key == "Enter") {
+  //     let tokenInput = event.srcElement as any;
+  //     if (tokenInput.value) {
+  //       this.tagList.push(tokenInput.value);
+  //       tokenInput.value = "";
+  //     }
+  //   }
+  // }
 
   public saveAction = (formValue: any) => {
     this.disablePage = true;
@@ -155,6 +180,19 @@ export class ProfileAboutComponent implements OnInit {
       });
 
     return dirtyValues;
+  }
+
+  public confirmCancel(event: Event) {
+    this.confirmationService.confirm({
+      target: event.target,
+      message: 'You will loose all your changes. Click Yes to proceed.',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.cancelAction();
+      },
+      reject: () => {
+      }
+    });
   }
 
   public cancelAction = () => {

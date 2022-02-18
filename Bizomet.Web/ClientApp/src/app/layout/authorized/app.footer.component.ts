@@ -37,13 +37,13 @@ import { AppComponent } from './../../app.component';
             </div> -->
             <span class="copyright w-12">Copyright &#169; Bizomet, 2022</span>
             <div class="footer-links">
-                <a href="#">About</a>
+                <a routerLink="/aboutus">About Us</a>
                 <span class="link-divider">|</span>
-                <a href="#">Contact</a>
+                <a routerLink="/contactus">Contact Us</a>
                 <span class="link-divider">|</span>
-                <a href="#">Terms</a>
+                <a routerLink="/terms">Terms & Conditions</a>
                 <span class="link-divider">|</span>
-                <a href="#">Privacy</a>
+                <a routerLink="/privacy">Privacy Policy</a>
             </div>
         </div>
     `

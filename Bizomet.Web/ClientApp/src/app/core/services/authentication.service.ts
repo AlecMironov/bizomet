@@ -12,21 +12,12 @@ import { TokenApiModel } from 'src/app/shared/models/token-api.model';
 import { CustomEncoder } from 'src/app/shared/custom-encoder.module';
 import { ForgotPasswordModel } from 'src/app/shared/models/forgot-password.model';
 import { ResetPasswordModel } from 'src/app/shared/models/reset-password.model';
-import { UserRole } from 'src/app/shared/models/user-role.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
 
     private userSubject: BehaviorSubject<User>;
     public user: Observable<User>;
-
-    public all_roles: UserRole[] = [
-        { key: "Talent", name: "Talent" },
-        { key: "Uplifter", name: "Uplifter" },
-        { key: "MediaAssistant", name: "Media Assistant" },
-        { key: "Promoter", name: "Promoter" },
-        { key: "Producer", name: "Producer" }
-      ];
 
     private isSignedIn = new BehaviorSubject<boolean>(false);
     onSignedIn$ = this.isSignedIn.asObservable();

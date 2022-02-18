@@ -16,6 +16,13 @@
     background-color: #FF3952;
 }
 
+.required-dot {
+   color: var(--pink-600) !important;
+   margin-left: 0.5rem;
+   font-size: .5rem;
+   vertical-align: middle;
+}
+
 .profile-img-lg {
    min-width: 120px;
    min-height: 120px;

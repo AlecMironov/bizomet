@@ -9,7 +9,7 @@ import { ProfileService } from 'src/app/core/services/profile.service';
 })
 export class ProfileOverviewComponent implements OnInit {
 
-  currentProfile: UserProfileModel = new UserProfileModel();
+  currentProfile: UserProfileModel;
 
   constructor(private profileService: ProfileService, private breadcrumbService: AppBreadcrumbService) {
     this.breadcrumbService.setItems([

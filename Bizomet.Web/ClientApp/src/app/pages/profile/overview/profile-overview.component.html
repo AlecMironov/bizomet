@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="py-3">
-                    <p-chip class="mr-2" *ngFor="let role of currentProfile.roles">
+                    <p-chip class="mr-2" *ngFor="let role of currentProfile.rolesInfo">
                         <span class="p-2">{{ role }}</span>
                     </p-chip>
                 </div>
@@ -51,7 +51,7 @@
             </p>
             <strong>Roles:</strong>
             <ul>
-                <li *ngFor="let role of currentProfile.roles">
+                <li *ngFor="let role of currentProfile.rolesInfo">
                     {{ role }}
                 </li>
             </ul>

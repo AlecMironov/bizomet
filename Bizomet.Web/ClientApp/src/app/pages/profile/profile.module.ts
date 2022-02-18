@@ -9,7 +9,10 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { CarouselModule } from 'primeng/carousel';
 import { CheckboxModule } from 'primeng/checkbox';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ChipModule } from 'primeng/chip';
+import { ChipsModule } from 'primeng/chips';
 import { DividerModule } from 'primeng/divider';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
@@ -53,6 +56,9 @@ import { MenubarModule } from 'primeng/menubar';
     CarouselModule,
     CheckboxModule,
     ChipModule,
+    ChipsModule,
+    ConfirmDialogModule,
+    ConfirmPopupModule,
     DividerModule,
     DropdownModule,
     InputMaskModule,

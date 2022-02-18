@@ -56,5 +56,7 @@ namespace Bizomet.Data.Entities
 		public string LocationCity { get; set; }
 
 		public string Description { get; set; }
+
+		public List<string> Tags { get; set; }
 	}
 }

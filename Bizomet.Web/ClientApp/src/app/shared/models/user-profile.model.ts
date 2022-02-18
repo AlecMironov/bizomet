@@ -21,4 +21,6 @@ export class UserProfileModel {
     locationState: string;
     locationCity: string;
     description: string;
+    rolesInfo: string[];
+    tags: string[];
 }

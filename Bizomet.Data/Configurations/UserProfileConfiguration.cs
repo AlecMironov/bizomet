@@ -1,6 +1,7 @@
 ﻿using Bizomet.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Newtonsoft.Json;
 
 namespace Bizomet.Data.Configurations
 {
@@ -34,6 +35,11 @@ namespace Bizomet.Data.Configurations
 
 			builder.Property(u => u.Picture).IsRequired(false);
 			builder.Property(u => u.Description).IsRequired(false);
+
+			builder.Property(p => p.Tags)
+				.HasConversion(
+					v => JsonConvert.SerializeObject(v),
+					v => JsonConvert.DeserializeObject<List<string>>(v));
 
 			builder.HasOne<ApplicationUser>(e => e.User)
 				.WithOne(e => e.UserProfile)

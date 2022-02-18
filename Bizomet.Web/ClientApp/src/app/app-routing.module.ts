@@ -9,6 +9,12 @@ import { PlaygroundComponent } from './pages/playground/playground';
 import { AppAccessdeniedComponent } from './pages/error-pages/app.accessdenied.component';
 import { AppErrorComponent } from './pages/error-pages/app.error.component';
 import { AdminGuard } from './core/guards/admin.guard';
+import { AboutUsComponent } from './pages/common/about-us.component';
+import { TermsConditionsComponent } from './pages/common/terms-conditions.component';
+import { PrivacyComponent } from './pages/common/privacy.component';
+import { ContactUsComponent } from './pages/common/contact-us.component';
+import { CookiePolicyComponent } from './pages/common/cookiepolicy.component';
+import { SupportComponent } from './pages/common/support.component';
 
 const routes: Routes = [
     {
@@ -17,6 +23,12 @@ const routes: Routes = [
         children: [
             { path: '', component: LandingPageComponent, pathMatch: 'full' },
             { path: 'playground', component: PlaygroundComponent, pathMatch: 'full' },
+            { path: 'aboutus', pathMatch: 'full', component: AboutUsComponent },
+            { path: 'contactus', pathMatch: 'full', component: ContactUsComponent },
+            { path: 'terms', pathMatch: 'full', component: TermsConditionsComponent },
+            { path: 'privacy', pathMatch: 'full', component: PrivacyComponent },
+            { path: 'cookiepolicy', pathMatch: 'full', component: CookiePolicyComponent },
+            { path: 'support', pathMatch: 'full', component: SupportComponent }
         ]
     },
     {
