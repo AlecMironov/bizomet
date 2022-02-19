@@ -107,5 +107,21 @@ namespace Bizomet.Web.Controllers
 				return Problem("Internal Server Error. Please Try Again Later.", statusCode: StatusCodes.Status500InternalServerError);
 			}
 		}
+
+		[HttpGet]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+		public async Task<IActionResult> UserPortfolio()
+		{
+			if (User == null || User.Identity == null || !User.Identity.IsAuthenticated)
+				return Unauthorized("Unauthorized request");
+
+			var user = await _userManager.Users.Include(u => u.UserPortfolio).FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
+			if (user == null)
+				return Unauthorized("Unauthorized request");
+
+			var result = _mapper.Map<UserPortfolioModel>(user.UserPortfolio);
+			return Ok(result);
+		}
 	}
 }

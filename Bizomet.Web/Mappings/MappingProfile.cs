@@ -42,6 +42,8 @@ namespace Bizomet.Web.Mappings
 				})
 				.ReverseMap()
 				.AfterMap((src, dest, context) => Encrypt(src, dest));
+
+			CreateMap<UserPortfolio, UserPortfolioModel>();
 		}
 
 		private void Decrypt<TSource, TDest>(TSource src, TDest dest)

@@ -41,7 +41,7 @@ const sharedComponents = [
 ];
 
 @NgModule({
-  declarations: [...sharedComponents],
+  declarations: [...sharedComponents ],
   imports: [CommonModule, RouterModule, PrimeNgModule],
   exports: [...sharedComponents]
 })

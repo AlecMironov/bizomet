@@ -26,8 +26,7 @@ import { SharedData } from 'src/app/shared/shared-data.module';
       font-size: 1.2rem;
       color: white;
     }  
-  `],
-  providers: [ConfirmationService, MessageService]
+  `]
 })
 export class ProfileAboutComponent implements OnInit {
 
