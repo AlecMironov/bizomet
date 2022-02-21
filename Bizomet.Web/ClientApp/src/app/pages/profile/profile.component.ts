@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
-import { ProfileService } from 'src/app/core/services/profile.service';
+import { MenuItemContent } from 'primeng/menu';
 
 @Component({
   selector: 'app-profile',
@@ -10,57 +10,55 @@ import { ProfileService } from 'src/app/core/services/profile.service';
 export class ProfileComponent implements OnInit {
 
   items: MenuItem[];
+  itemsBar: MenuItem[];
 
   constructor(private _router: Router) {
   }
 
   ngOnInit(): void {
-    this.items = [{
-      items: [{
-        label: 'My Profile',
-        command: () => {
-          this._router.navigateByUrl('/profile');
-        }
-      }]
-    },
-    {
-      label: 'PROFILE SETUP',
-      items: [{
-        label: 'About Me',
-        command: () => {
-          this._router.navigateByUrl('/profile/edit/about');
-        }
-      },
-      {
-        label: 'My Portfolio',
-        command: () => {
-          this._router.navigateByUrl('/profile/edit/portfolio');
-        }
+    let profileMenuItem = {
+      label: 'My Profile',
+      command: () => {
+        this._router.navigateByUrl('/profile');
       }
-      ]
-    },
-    {
-      label: 'ACCOUNT SETUP',
-      items: [{
-        label: 'General',
-        command: () => {
-        }
-      },
-      {
-        label: 'Notificatiions',
-        command: () => {
-        }
+    };
+    let aboutMenuItem = {
+      label: 'About Me',
+      command: () => {
+        this._router.navigateByUrl('/profile/edit/about');
       }
-      ]
-    }
+    };
+    let portfolioMenuItem = {
+      label: 'My Portfolio',
+      command: () => {
+        this._router.navigateByUrl('/profile/edit/portfolio');
+      }
+    };
+    let generalMenuItem = {
+      label: 'General',
+      command: () => {
+      }
+    };
+    let notificationMenuItem = {
+      label: 'Notificatiions',
+      command: () => {
+      }
+    };
+
+    this.items = [
+      { items: [profileMenuItem] },
+      { label: 'PROFILE SETUP', items: [aboutMenuItem, portfolioMenuItem] },
+      { label: 'ACCOUNT SETUP', items: [generalMenuItem, notificationMenuItem] }
     ];
-  }
 
-  isDesktop() {
-    return window.innerWidth > 991;
-  }
-
-  isMobile() {
-    return window.innerWidth <= 991;
+    this.itemsBar = [
+      profileMenuItem,
+      { label: '|', disabled: true, styleClass: "hidden lg:inline" },
+      aboutMenuItem,
+      portfolioMenuItem, 
+      { label: '|', disabled: true, styleClass: "hidden lg:inline" },
+      generalMenuItem,
+      notificationMenuItem
+    ];
   }
 }

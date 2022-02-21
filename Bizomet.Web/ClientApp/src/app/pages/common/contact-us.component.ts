@@ -4,13 +4,12 @@ import { AppComponent } from 'src/app/app.component';
 @Component({
   selector: 'app-contact-us',
   template: `
-    <div class="exception-body accessdenied">
+    <div class="exception-body underconstruction">
       <div class="exception-panel">
-        <h3>CONTACT US</h3>
-      </div>
-      <div class="exception-footer">
-        <img [src]="'assets/layout/images/logo-'+ (app.colorScheme === 'light' ? 'dark' : 'light') + '.png'" class="exception-logo"/>
-        <img [src]="'assets/layout/images/appname-'+ (app.colorScheme === 'light' ? 'dark' : 'light') + '.png'" class="exception-appname"/>
+         <h3 class="text-500 mb-1">CONTACT US</h3>
+         <h1><small>THIS PAGE IS UNDER CONSTRUCTION</small></h1>
+         <h3><small>OUR TEAM IS WORKING HARD TO MAKE THIS PAGE UP!</small></h3>
+         <img src="assets/images/road-cones.png" style="max-width: 200px" alt="rode cones" class="w-full">
       </div>
     </div>
   `

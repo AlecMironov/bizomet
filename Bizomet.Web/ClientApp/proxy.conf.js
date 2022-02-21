@@ -13,8 +13,8 @@ const PROXY_CONFIG = [
       "/api/account/forgotpassword",
       "/api/account/resetpassword",
       "/api/userprofile/profile",
-      "/api/userprofile/userportfolio",
       "/api/userprofile/update",
+      "/api/userportfolio",
       "/api/token/refresh",
       "/api/token/revoke"
    ],

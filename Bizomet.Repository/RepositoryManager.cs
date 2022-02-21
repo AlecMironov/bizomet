@@ -7,6 +7,7 @@ namespace Bizomet.Repository
 	{
 		private ApplicationDbContext _repositoryContext;
 		private IProfileRepository _profileRepository;
+		private IPortfolioRepository _portfolioRepository;
 
 		public RepositoryManager(ApplicationDbContext repositoryContext)
 		{
@@ -19,6 +20,15 @@ namespace Bizomet.Repository
 					_profileRepository = new ProfileRepository(_repositoryContext);
 
 				return _profileRepository;
+			}
+		}
+
+		public IPortfolioRepository UserPortfolio {
+			get {
+				if (_portfolioRepository == null)
+					_portfolioRepository = new PortfolioRepository(_repositoryContext);
+
+				return _portfolioRepository;
 			}
 		}
 

@@ -4,6 +4,8 @@
 	{
 		IProfileRepository UserProfile { get; }
 
+		IPortfolioRepository UserPortfolio { get; }
+
 		void Save();
 	}
 }

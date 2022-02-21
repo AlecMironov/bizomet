@@ -18,18 +18,7 @@ import { SupportComponent } from './pages/common/support.component';
 
 const routes: Routes = [
     {
-        path: '',
-        component: GuestLayoutComponent,
-        children: [
-            { path: '', component: LandingPageComponent, pathMatch: 'full' },
-            { path: 'playground', component: PlaygroundComponent, pathMatch: 'full' },
-            { path: 'aboutus', pathMatch: 'full', component: AboutUsComponent },
-            { path: 'contactus', pathMatch: 'full', component: ContactUsComponent },
-            { path: 'terms', pathMatch: 'full', component: TermsConditionsComponent },
-            { path: 'privacy', pathMatch: 'full', component: PrivacyComponent },
-            { path: 'cookiepolicy', pathMatch: 'full', component: CookiePolicyComponent },
-            { path: 'support', pathMatch: 'full', component: SupportComponent }
-        ]
+        path: '', component: LandingPageComponent, pathMatch: 'full'
     },
     {
         path: '',
@@ -37,10 +26,23 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         loadChildren: () => import('./layout/authorized/authorized.module').then(m => m.AuthorizedModule)
     },
-    { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule), data: {name: 'Account'} },
-    { path: 'accessdenied', pathMatch: 'full', component: AppAccessdeniedComponent },
-    { path: 'error', pathMatch: 'full', component: AppErrorComponent },
-    { path: '**', pathMatch: 'full', component: AppNotfoundComponent }
+    { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
+    {
+        path: '',
+        component: GuestLayoutComponent,
+        children: [
+            { path: 'playground', component: PlaygroundComponent, pathMatch: 'full', canActivate: [AdminGuard] },
+            { path: 'aboutus', pathMatch: 'full', component: AboutUsComponent },
+            { path: 'contactus', pathMatch: 'full', component: ContactUsComponent },
+            { path: 'terms', pathMatch: 'full', component: TermsConditionsComponent },
+            { path: 'privacy', pathMatch: 'full', component: PrivacyComponent },
+            { path: 'cookiepolicy', pathMatch: 'full', component: CookiePolicyComponent },
+            { path: 'support', pathMatch: 'full', component: SupportComponent },
+            { path: 'accessdenied', pathMatch: 'full', component: AppAccessdeniedComponent },
+            { path: 'error', pathMatch: 'full', component: AppErrorComponent },
+            { path: '**', pathMatch: 'full', component: AppNotfoundComponent }
+        ]
+    }
 ];
 
 @NgModule({

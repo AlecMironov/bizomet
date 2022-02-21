@@ -4,11 +4,6 @@ import { UserProfileModel } from 'src/app/shared/models/user-profile.model';
 import { SharedData } from 'src/app/shared/shared-data.module';
 import { RepositoryService } from './repository.service';
 
-export enum PictureSize {
-    Small = 0,
-    Large = 1
-}
-
 @Injectable({
     providedIn: 'root'
 })
@@ -17,7 +12,7 @@ export class ProfileService {
     constructor(private repository: RepositoryService) { }
 
     getProfile() {
-        return this.repository.getData<UserProfileModel>("userprofile/profile")
+        return this.repository.get<UserProfileModel>("userprofile/profile")
             .pipe(
                 map((response) => {
                     response.picture = this.getPictureUrl(response.picture);
@@ -27,11 +22,7 @@ export class ProfileService {
     }
 
     updateProfile(profile: any) {
-        // if (typeof profile.pictureLarge != 'undefined' && profile.pictureLarge) {
-        //     profile.pictureLarge = profile.pictureLarge.substring(4, profile.pictureLarge.length - 1);
-        // }
-        //let model = JSON.stringify(profile);
-        return this.repository.updateData("userprofile/update", profile);
+        return this.repository.update("userprofile/update", profile);
     }
 
     private getPictureUrl(data: string): string {

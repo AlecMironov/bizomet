@@ -24,10 +24,10 @@ export class AppComponent implements OnInit {
   }
 
   changeColorScheme(scheme) {
-      this.changeStyleSheetsColor('layout-css', 'layout-' + scheme + '.css', 1);
-      this.changeStyleSheetsColor('theme-css', 'theme-' + scheme + '.css', 1);
-      this.colorScheme = scheme
-      localStorage.setItem('color-scheme', scheme);
+    this.changeStyleSheetsColor('layout-css', 'layout-' + scheme + '.css', 1);
+    this.changeStyleSheetsColor('theme-css', 'theme-' + scheme + '.css', 1);
+    this.colorScheme = scheme
+    localStorage.setItem('color-scheme', scheme);
   }
 
   changeStyleSheetsColor(id, value, from) {

@@ -179,12 +179,16 @@ export class AuthenticationService {
     }
 
     private isUserInRole = (role): boolean => {
-        //let _jwtHelper: JwtHelperService;
-        //const token = this.currentUser.token;
-        //const decodedToken = _jwtHelper.decodeToken(token);
-        //const roles = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
-
-        return this.currentUser ? this.currentUser.roles.includes(role) : false;
+        if (this.currentUser) {
+            let _jwtHelper: JwtHelperService;
+            const token = this.currentUser.token;
+            const decodedToken = _jwtHelper.decodeToken(token);
+            const roles = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+            return roles.includes(role);
+        }
+        else {
+            return false;
+        }
     }
 
     private createCompleteRoute = (route: string) => {

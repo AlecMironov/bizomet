@@ -7,12 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Bizomet.Data
 {
-	public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string,
-		IdentityUserClaim<string>,
-		ApplicationUserRole,
-		IdentityUserLogin<string>,
-		IdentityRoleClaim<string>,
-		IdentityUserToken<string>>
+	public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string, IdentityUserClaim<string>, ApplicationUserRole, IdentityUserLogin<string>, IdentityRoleClaim<string>, IdentityUserToken<string>>
 	{
 		public DbSet<UserProfile> UserProfile { get; set; }
 

@@ -40,11 +40,12 @@ import { ProfileComponent } from './profile.component';
 import { ProfileAboutComponent } from './edit/about/about.component';
 import { ProfileOverviewComponent } from './overview/profile-overview.component';
 import { ProfilePortfolioComponent } from './edit/portfolio/portfolio.component';
-
-import { ProductService } from 'src/app/core/services/product-service';
+import { ProfileService } from 'src/app/core/services/profile.service';
+import { SkeletonModule } from 'primeng/skeleton';
+import { MegaMenuModule } from 'primeng/megamenu';
 
 @NgModule({
-  providers: [ProductService, MessageService, ConfirmationService],
+  providers: [ProfileService, MessageService, ConfirmationService],
   declarations: [
     ProfileComponent,
     ProfileOverviewComponent,
@@ -72,12 +73,14 @@ import { ProductService } from 'src/app/core/services/product-service';
     InputTextModule,
     MessagesModule,
     MessageModule,
+    MegaMenuModule,
     MenuModule,
     MenubarModule,
     PanelModule,
     PasswordModule,
     ProgressSpinnerModule,
     RippleModule,
+    SkeletonModule,
     ToastModule,
     TableModule,
     ToolbarModule,

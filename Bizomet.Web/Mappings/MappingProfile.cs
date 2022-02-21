@@ -11,6 +11,9 @@ namespace Bizomet.Web.Mappings
 		private readonly AesProvider _aesProvider;
 		public MappingProfile()
 		{
+			CreateMap<string, Guid>().ConvertUsing(s => Guid.Parse(s));
+			CreateMap<Guid, string>().ConvertUsing(g => g.ToString("N"));
+
 			var key = Convert.FromBase64String("ztcJaQV8JYok1HQ9GJUvMg==");
 			var iv = Convert.FromBase64String("R+cE+5EhP58cgS5UouchvQ==");
 			_aesProvider = new AesProvider(key, iv);
@@ -43,7 +46,19 @@ namespace Bizomet.Web.Mappings
 				.ReverseMap()
 				.AfterMap((src, dest, context) => Encrypt(src, dest));
 
-			CreateMap<UserPortfolio, UserPortfolioModel>();
+			CreateMap<UserPortfolio, UserPortfolioModel>()
+				.AfterMap((src, dest, context) =>
+				{
+					if (!Uri.IsWellFormedUriString(src.Link, UriKind.Absolute))
+						dest.Link = $"http://{src.Link}";
+				})
+				.ReverseMap()
+				.AfterMap((src, dest, context) =>
+				{
+					if (!Uri.IsWellFormedUriString(src.Link, UriKind.Absolute))
+						dest.Link = $"http://{src.Link}";
+				});
+
 		}
 
 		private void Decrypt<TSource, TDest>(TSource src, TDest dest)

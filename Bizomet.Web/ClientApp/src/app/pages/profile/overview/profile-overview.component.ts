@@ -9,7 +9,8 @@ import { ProfileService } from 'src/app/core/services/profile.service';
 })
 export class ProfileOverviewComponent implements OnInit {
 
-  currentProfile: UserProfileModel;
+  profile: UserProfileModel;
+  disablePage = false;
 
   constructor(private profileService: ProfileService, private breadcrumbService: AppBreadcrumbService) {
     this.breadcrumbService.setItems([
@@ -19,7 +20,13 @@ export class ProfileOverviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.disablePage = true;
+
     this.profileService.getProfile()
-      .subscribe(data => this.currentProfile = data);
+      .subscribe(data => {
+        this.profile = data;
+
+        this.disablePage = false;
+      });
   }
 }

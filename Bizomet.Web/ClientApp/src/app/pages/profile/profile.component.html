@@ -1,9 +1,13 @@
 <div class="flex flex-column lg:flex-row flex-wrap">
-    <div class="mr-3 mb-3">
-       <p-menu #menu styleClass="text-lg" [model]="items"></p-menu>
+    <div class="mb-3 mr-0 xl:mr-3 flex-grow-1 xl:flex-grow-0 w-full xl:w-auto">
+        <div class="hidden xl:inline">
+            <p-menu styleClass="text-lg" [model]="items"></p-menu>
+        </div>
+        <div class="inline xl:hidden">
+            <p-menubar styleClass="text-lg" [model]="itemsBar"></p-menubar>
+        </div>
     </div>
-
-    <div class="flex-grow-1">
+    <div class="flex-auto">
         <router-outlet></router-outlet>
     </div>
 </div>
