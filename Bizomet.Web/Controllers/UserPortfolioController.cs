@@ -16,7 +16,7 @@ namespace Bizomet.Web.Controllers
 	[Route("api/[controller]")]
 	[ApiController]
 	[Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
-	public class UserPortfolioController : Controller
+	public class UserPortfolioController : ControllerBase
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly IRepositoryManager _repositoryManager;

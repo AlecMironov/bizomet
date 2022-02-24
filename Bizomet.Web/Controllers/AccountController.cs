@@ -17,7 +17,7 @@ namespace Bizomet.Web.Controllers
 {
 	[Route("api/[controller]/[action]")]
 	[ApiController]
-	public class AccountController : Controller
+	public class AccountController : ControllerBase
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly IRepositoryManager _repositoryManager;

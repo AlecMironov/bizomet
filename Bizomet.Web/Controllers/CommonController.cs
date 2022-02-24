@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Bizomet.Contracts;
 using Bizomet.Core.Enums;
+using Bizomet.Core.Helpers;
 using Bizomet.Data.Entities;
 using Bizomet.Models;
 using Microsoft.AspNetCore.Identity;
@@ -10,7 +11,7 @@ namespace Bizomet.Web.Controllers
 {
 	[Route("api/[controller]/[action]")]
 	[ApiController]
-	public class CommonController : Controller
+	public class CommonController : ControllerBase
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly IRepositoryManager _repositoryManager;
@@ -36,7 +37,7 @@ namespace Bizomet.Web.Controllers
 				new KeyValuePairModel() { code = ContactReason.FEEDBACK.ToString(), name = Core.Helpers.EnumHelper.GetEnumName(ContactReason.FEEDBACK) },
 				new KeyValuePairModel() { code = ContactReason.REPORT_SPAM.ToString(), name = Core.Helpers.EnumHelper.GetEnumName(ContactReason.REPORT_SPAM) },
 			};
-			return Json(result);
+			return Ok(SerializationHelper.JsonStringify(result));
 		}
 	}
 }

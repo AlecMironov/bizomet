@@ -1,7 +1,6 @@
 using Bizomet.Web.Extensions;
 using MailKitMailer;
 using Microsoft.AspNetCore.HttpOverrides;
-using Newtonsoft.Json.Serialization;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
