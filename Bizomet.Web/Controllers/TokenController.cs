@@ -12,15 +12,15 @@ namespace Bizomet.Web.Controllers
 {
 	[Route("api/[controller]/[action]")]
 	[ApiController]
-	public class TokenController : ControllerBase
+	public class TokenController : Controller
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly IRepositoryManager _repositoryManager;
 		private readonly IMapper _mapper;
 		private readonly ITokenService _tokenService;
-		private readonly ILogger<AccountController> _logger;
+		private readonly ILogger<TokenController> _logger;
 
-		public TokenController(UserManager<ApplicationUser> userManager, IMapper mapper, ITokenService tokenService, IRepositoryManager repositoryManager, ILogger<AccountController> logger)
+		public TokenController(UserManager<ApplicationUser> userManager, IMapper mapper, ITokenService tokenService, IRepositoryManager repositoryManager, ILogger<TokenController> logger)
 		{
 			_userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
 			_repositoryManager = repositoryManager ?? throw new ArgumentNullException(nameof(repositoryManager));

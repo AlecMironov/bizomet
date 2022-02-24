@@ -6,17 +6,11 @@ const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_H
 const PROXY_CONFIG = [
   {
     context: [
-      "/api/account/register",
-      "/api/account/login",
-      "/api/account/logout",
-      "/api/account/emailconfirmation",
-      "/api/account/forgotpassword",
-      "/api/account/resetpassword",
-      "/api/userprofile/profile",
-      "/api/userprofile/update",
-      "/api/userportfolio",
-      "/api/token/refresh",
-      "/api/token/revoke"
+      "/api/common",
+      "/api/token",
+      "/api/account",
+      "/api/userprofile",
+      "/api/userportfolio"
    ],
     target: target,
     secure: false

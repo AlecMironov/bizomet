@@ -1,6 +1,7 @@
 using Bizomet.Web.Extensions;
 using MailKitMailer;
 using Microsoft.AspNetCore.HttpOverrides;
+using Newtonsoft.Json.Serialization;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,7 @@ builder.Services.ConfigureMailKitMailer(builder.Configuration)
 //builder.Services.AddCors();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
 
 builder.Services.ConfigureSwagger();
 

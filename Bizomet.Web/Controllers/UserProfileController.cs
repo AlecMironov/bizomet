@@ -23,7 +23,7 @@ namespace Bizomet.Web.Controllers
 		private readonly IMapper _mapper;
 		private readonly IEncryptionProvider _encryptionProvider;
 		private readonly IMailClient _mailClient;
-		private readonly ILogger<AccountController> _logger;
+		private readonly ILogger<UserProfileController> _logger;
 
 		public UserProfileController(
 			UserManager<ApplicationUser> userManager,
@@ -31,7 +31,7 @@ namespace Bizomet.Web.Controllers
 			IRepositoryManager repositoryManager,
 			IEncryptionProvider encryptionProvider,
 			IMailClient mailClient,
-			ILogger<AccountController> logger)
+			ILogger<UserProfileController> logger)
 		{
 			_userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
 			_repositoryManager = repositoryManager ?? throw new ArgumentNullException(nameof(repositoryManager));

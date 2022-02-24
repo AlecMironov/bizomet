@@ -16,14 +16,14 @@ namespace Bizomet.Web.Controllers
 	[Route("api/[controller]")]
 	[ApiController]
 	[Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
-	public class UserPortfolioController : ControllerBase
+	public class UserPortfolioController : Controller
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly IRepositoryManager _repositoryManager;
 		private readonly IMapper _mapper;
 		private readonly IEncryptionProvider _encryptionProvider;
 		private readonly IMailClient _mailClient;
-		private readonly ILogger<AccountController> _logger;
+		private readonly ILogger<UserPortfolioController> _logger;
 
 		public UserPortfolioController(
 			UserManager<ApplicationUser> userManager,
@@ -31,7 +31,7 @@ namespace Bizomet.Web.Controllers
 			IRepositoryManager repositoryManager,
 			IEncryptionProvider encryptionProvider,
 			IMailClient mailClient,
-			ILogger<AccountController> logger)
+			ILogger<UserPortfolioController> logger)
 		{
 			_userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
 			_repositoryManager = repositoryManager ?? throw new ArgumentNullException(nameof(repositoryManager));
@@ -99,7 +99,7 @@ namespace Bizomet.Web.Controllers
 					return Unauthorized("Unauthorized request");
 
 				model.Id = Guid.NewGuid().ToString("N");
-				model.Order = user.UserPortfolio.Max(r => r.Order) + 1;
+				model.Order = user.UserPortfolio.Count == 0 ? 1 : user.UserPortfolio.Max(r => r.Order) + 1;
 				var newPortfolio = _mapper.Map<UserPortfolio>(model);
 				newPortfolio.User = user;
 

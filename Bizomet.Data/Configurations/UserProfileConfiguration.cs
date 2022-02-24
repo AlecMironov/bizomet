@@ -1,5 +1,7 @@
-﻿using Bizomet.Data.Entities;
+﻿using System.Text.Json;
+using Bizomet.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;
 
@@ -39,7 +41,11 @@ namespace Bizomet.Data.Configurations
 			builder.Property(p => p.Tags)
 				.HasConversion(
 					v => JsonConvert.SerializeObject(v),
-					v => JsonConvert.DeserializeObject<List<string>>(v));
+					v => JsonConvert.DeserializeObject<List<string>>(v),
+					new ValueComparer<List<string>>(
+						(c1, c2) => c1.SequenceEqual(c2),
+						c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
+						c => c.ToList()));
 
 			builder.HasOne<ApplicationUser>(e => e.User)
 				.WithOne(e => e.UserProfile)

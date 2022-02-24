@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Bizomet.Data.Migrations
 {
 	[DbContext(typeof(ApplicationDbContext))]
-	[Migration("20220219174028_2022.00.00.10")]
+	[Migration("20220221164541_2022.00.00.10")]
 	partial class _2022000010
 	{
 		protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,42 +50,42 @@ namespace Bizomet.Data.Migrations
 						new
 						{
 							Id = "8742075e-7145-4bd7-8215-814467809dc2",
-							ConcurrencyStamp = "62ed0602-ee35-40aa-94b2-d1028f1ba193",
+							ConcurrencyStamp = "55619e2d-4045-4155-b213-afbe2addf8fd",
 							Name = "Administrator",
 							NormalizedName = "ADMINISTRATOR"
 						},
 						new
 						{
 							Id = "69571a28-cb0d-4fe6-8176-3bffad6c1510",
-							ConcurrencyStamp = "c95f25ed-2232-4759-ae76-f5748fa38ec8",
+							ConcurrencyStamp = "0c978e20-aba0-4160-8778-81c1e352e793",
 							Name = "Talent",
 							NormalizedName = "TALENT"
 						},
 						new
 						{
 							Id = "347ac56d-9576-4f4a-81be-674b4a3a9d0b",
-							ConcurrencyStamp = "adf8fcfd-df11-48ab-b7e5-f9030f3a88bc",
+							ConcurrencyStamp = "0351655d-0d96-4b09-9406-1c9e88ba51e6",
 							Name = "Uplifter",
 							NormalizedName = "UPLIFTER"
 						},
 						new
 						{
 							Id = "7bd1c590-9eed-44e9-a60c-6e7de0db8f01",
-							ConcurrencyStamp = "8b6cd8f3-f2fd-4210-b020-3c1bee41e832",
+							ConcurrencyStamp = "0fb4f45c-94ee-43b8-a727-f6cd95835cb2",
 							Name = "MediaAssistant",
 							NormalizedName = "MEDIAASSISTANT"
 						},
 						new
 						{
 							Id = "7e6619f8-b336-4f3e-826a-5ce96cef872d",
-							ConcurrencyStamp = "16ba3983-dadb-415c-a051-c25fd9a3b35f",
+							ConcurrencyStamp = "af8668fd-2b13-4f10-8032-0a781f92b927",
 							Name = "Promoter",
 							NormalizedName = "PROMOTER"
 						},
 						new
 						{
 							Id = "8832961e-a631-445b-9d86-b93f9b4c767b",
-							ConcurrencyStamp = "3eb8b309-c191-415c-95a9-67c4657d47ec",
+							ConcurrencyStamp = "0a04f01c-a923-4246-96b8-cae723211d4e",
 							Name = "Producer",
 							NormalizedName = "PRODUCER"
 						});
@@ -178,6 +178,69 @@ namespace Bizomet.Data.Migrations
 					b.ToTable("AspNetUserRoles", (string) null);
 				});
 
+			modelBuilder.Entity("Bizomet.Data.Entities.ContactUsRequest", b =>
+				{
+					b.Property<Guid>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnType("uniqueidentifier");
+
+					b.Property<string>("AddressLine1")
+						.HasMaxLength(100)
+						.HasColumnType("nvarchar(100)");
+
+					b.Property<string>("AddressLine2")
+						.HasMaxLength(100)
+						.HasColumnType("nvarchar(100)");
+
+					b.Property<string>("City")
+						.HasMaxLength(100)
+						.HasColumnType("nvarchar(100)");
+
+					b.Property<string>("Country")
+						.HasMaxLength(100)
+						.HasColumnType("nvarchar(100)");
+
+					b.Property<string>("Description")
+						.HasColumnType("nvarchar(max)");
+
+					b.Property<string>("Email")
+						.IsRequired()
+						.HasMaxLength(150)
+						.HasColumnType("nvarchar(150)");
+
+					b.Property<string>("FirstName")
+						.IsRequired()
+						.HasMaxLength(500)
+						.HasColumnType("nvarchar(500)");
+
+					b.Property<string>("LastName")
+						.IsRequired()
+						.HasMaxLength(500)
+						.HasColumnType("nvarchar(500)");
+
+					b.Property<string>("PhoneNumber")
+						.HasMaxLength(50)
+						.HasColumnType("nvarchar(50)");
+
+					b.Property<int>("Reason")
+						.HasColumnType("int");
+
+					b.Property<string>("StateProvince")
+						.HasMaxLength(100)
+						.HasColumnType("nvarchar(100)");
+
+					b.Property<string>("UserId")
+						.HasMaxLength(450)
+						.HasColumnType("nvarchar(450)");
+
+					b.HasKey("Id");
+
+					b.HasIndex("UserId")
+						.HasDatabaseName("UserContactUsRequestsIndex");
+
+					b.ToTable("ContactUsRequest");
+				});
+
 			modelBuilder.Entity("Bizomet.Data.Entities.UserPortfolio", b =>
 				{
 					b.Property<Guid>("Id")
@@ -188,9 +251,13 @@ namespace Bizomet.Data.Migrations
 						.IsRequired()
 						.HasColumnType("nvarchar(max)");
 
+					b.Property<int>("Order")
+						.HasColumnType("int");
+
 					b.Property<string>("Title")
 						.IsRequired()
-						.HasColumnType("nvarchar(max)");
+						.HasMaxLength(500)
+						.HasColumnType("nvarchar(500)");
 
 					b.Property<string>("UserId")
 						.IsRequired()

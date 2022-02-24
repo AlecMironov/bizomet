@@ -11,7 +11,7 @@ namespace Bizomet.Data.Configurations
 			// Primary key
 			builder.HasKey(s => s.Id);
 
-			builder.Property(s => s.Title).IsRequired(true);
+			builder.Property(s => s.Title).HasMaxLength(500).IsRequired(true);
 			builder.Property(s => s.Link).IsRequired(true);
 
 			builder.HasOne<ApplicationUser>(s => s.User)

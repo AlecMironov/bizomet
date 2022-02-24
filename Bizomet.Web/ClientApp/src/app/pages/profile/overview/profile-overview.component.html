@@ -1,7 +1,9 @@
-<div #grd class="grid">
-    <div class="col-12 md:col-7 xl:col-5">
+<p-blockUI [blocked]="loading"></p-blockUI>
+
+<div class="grid">
+    <div class="col-12 md:col-7">
         <div class="card px-6 py-5">
-            <div class="flex align-items-start flex-column flex-wrap lg:justify-content-between">
+            <div *ngIf="!loading" class="flex align-items-start flex-column flex-wrap lg:justify-content-between">
                 <div class="flex align-items-start flex-column md:flex-row">
                     <div class="profile-img-lg mr-5 mb-3 lg:mb-0"
                         [ngStyle]="{ 'background-image': profile.picture }"></div>
@@ -31,23 +33,23 @@
                 </div>
             </div>
 
-            <!-- <div *ngIf="disablePage" style="min-width: 450px;" class="flex align-items-start flex-column flex-wrap lg:justify-content-between">
+            <div *ngIf="loading" class="flex align-items-start flex-column flex-wrap lg:justify-content-between">
                 <div class="flex align-items-start flex-column md:flex-row">
                     <p-skeleton shape="circle" size="120px" styleClass="mr-5 mb-3 lg:mb-0"></p-skeleton>
                 <div>
-                <p-skeleton height="2rem"></p-skeleton>
+                <p-skeleton height="2rem" styleClass="w-8"></p-skeleton>
 
                 <div class="flex align-items-center flex-wrap">
                             <div class="mr-5 mt-3">
-                                <span class="font-medium text-100">FOLLOWERS</span>
+                                <p-skeleton width="6rem" height="1.5rem" styleClass="mt-2"></p-skeleton>
                                 <p-skeleton width="3rem" height="1.3rem" styleClass="mt-3"></p-skeleton>
                             </div>
                             <div class="mr-5 mt-3">
-                                <span class="font-medium text-100">PROJECTS</span>
+                                <p-skeleton width="6rem" height="1.5rem" styleClass="mt-2"></p-skeleton>
                                 <p-skeleton width="3rem" height="1.3rem" styleClass="mt-3"></p-skeleton>
                             </div>
                             <div class="mr-5 mt-3">
-                                <span class="font-medium text-100">COLLECTIONS</span>
+                                <p-skeleton width="6rem" height="1.5rem" styleClass="mt-2"></p-skeleton>
                                 <p-skeleton width="3rem" height="1.3rem" styleClass="mt-3"></p-skeleton>
                             </div>
                         </div>
@@ -60,11 +62,11 @@
                         <span class="p-2"><p-skeleton width="6rem" height="2rem" borderRadius="16px"></p-skeleton></span>
                     </div>
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
 
-    <div class="col-12 md:col-5 xl:col-7">
+    <div class="col-12 md:col-5">
         <div class="card h-16rem">
             <h5>Feature 1</h5>
         </div>
@@ -73,6 +75,9 @@
     <div class="col-12">
         <div class="card h-20rem">
             <h5>Feature 2</h5>
+            <p-dropdown [options]="contactReasons" [(ngModel)]="selectedReason" optionLabel="name" optionValue="code" styleClass="w-15rem"></p-dropdown>
+
+            <span class="ml-5">{{ selectedReason }}</span>
         </div>
     </div>
 </div>

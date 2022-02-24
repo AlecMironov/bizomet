@@ -1,0 +1,83 @@
+<div class="flex flex-wrap justify-content-center">
+    <div class="card w-12 lg:w-9 xl:w-7 p-4 lg:p-5">
+        <p-messages [(value)]="errorMessage" [enableService]="false" [escape]="false" [closable]="false">
+        </p-messages>
+
+        <h1 class="text-center">How can we help you?</h1>
+        <h4 class="text-center font-light mb-6">Fill out the form below to get in touch. Feel free to tweet us <a
+                href="http://www.twitter.com/bizomet" target="_blank">@bizomet</a> too!</h4>
+
+        <form [formGroup]="contactUsForm" novalidate (ngSubmit)="submitAction(contactUsForm.value)">
+            <div class="grid">
+                <div class="col-12 md:col-6">
+                    <label for="roles" class="block text-800 m-1 pb-1">Reason<span
+                            class="required-dot">&#11044;</span></label>
+                    <p-dropdown [options]="contactReasons" optionLabel="name" optionValue="code" styleClass="w-full">
+                    </p-dropdown>
+                </div>
+                <div class="p-2 h-2 w-full">
+                    <p-divider></p-divider>
+                </div>
+
+                <div class="col-12 md:col-6">
+                    <label for="firstName" class="block text-800 m-1 pb-1">First Name<span
+                            class="required-dot">&#11044;</span></label>
+                    <input id="firstName" formControlName="firstName" type="text" pInputText
+                        class="w-full font-medium p-2" autocomplete="on" pInputText>
+                    <small class="p-error block"
+                        *ngIf="validateControl('firstName') && hasError('firstName', 'required')">
+                        First Name is required
+                    </small>
+                </div>
+
+                <div class="col-12 md:col-6">
+                    <label for="lastName" class="block text-800 m-1 pb-1">Last Name<span
+                            class="required-dot">&#11044;</span></label>
+                    <input type="text" id="lastName" formControlName="lastName" class="w-full font-medium mb-1 p-2"
+                        autocomplete="on" pInputText placeholder="Last Name">
+                    <small class="p-error block"
+                        *ngIf="validateControl('lastName') && hasError('lastName', 'required')">
+                        Last Name is required
+                    </small>
+                </div>
+
+                <div class="col-12 md:col-6">
+                    <label for="email" class="block text-800 m-1 pb-1">Email<span
+                            class="required-dot">&#11044;</span></label>
+                    <input id="email" formControlName="email" type="text" pInputText
+                        class="w-full font-medium p-2" autocomplete="on" pInputText>
+                    <small class="p-error block"
+                        *ngIf="validateControl('email') && hasError('email', 'required')">
+                        Email is required
+                    </small>
+                </div>
+
+                <div class="col-12 md:col-6">
+                    <label for="phone" class="block text-800 m-1 pb-1">Phone Number<span class="font-light text-400 ml-2">(optional)</span></label>
+                    <input type="text" id="phone" formControlName="phone" class="w-full font-medium mb-1 p-2"
+                        autocomplete="on" pInputText placeholder="+1 (000) 000-00-00">
+                </div>
+
+                <div class="col-12">
+                    <label for="description" class="block text-800 m-1 pb-1">Message</label>
+                    <textarea formControlName="description" id="description" pInputTextarea="" autoResize="autoResize"
+                        style="min-height: 6rem; height: 6rem;" placeholder="Write a message here..." maxlength="500"
+                        class="w-full font-medium p-inputtextarea p-inputtext p-component p-element ng-pristine ng-valid ng-touched"
+                        spellcheck="false">
+                        </textarea>
+                </div>
+
+                <div class="col-12">
+                    <p-captcha siteKey="6LdKoZoeAAAAAIfwfnmOV1okjC5zp3j1eXRamTKy" (onResponse)="showResponse($event)"></p-captcha>
+                </div>
+            </div>
+
+            <div class="p-4 h-3 w-full"></div>
+            <p-divider></p-divider>
+            <div class="flex justify-content-end flex-wrap">
+                <button pButton pRipple label="Submit" type="submit" [disabled]="!contactUsForm.valid"
+                    class="p-button-raised w-8rem py-2 font-medium mt-2"></button>
+            </div>
+        </form>
+    </div>
+</div>

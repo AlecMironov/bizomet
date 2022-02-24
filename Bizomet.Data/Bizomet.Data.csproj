@@ -25,4 +25,8 @@
     <Folder Include="Encryption\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Bizomet.Core\Bizomet.Core.csproj" />
+  </ItemGroup>
+
 </Project>
