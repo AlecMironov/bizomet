@@ -1,5 +1,6 @@
 ﻿using Bizomet.Contracts;
 using Bizomet.Data;
+using Bizomet.Data.Entities;
 
 namespace Bizomet.Repository
 {
@@ -8,6 +9,7 @@ namespace Bizomet.Repository
 		private ApplicationDbContext _repositoryContext;
 		private IProfileRepository _profileRepository;
 		private IPortfolioRepository _portfolioRepository;
+		private IRepositoryBase<ContactUsRequest> _contactUsRequestRepository;
 
 		public RepositoryManager(ApplicationDbContext repositoryContext)
 		{
@@ -29,6 +31,15 @@ namespace Bizomet.Repository
 					_portfolioRepository = new PortfolioRepository(_repositoryContext);
 
 				return _portfolioRepository;
+			}
+		}
+
+		public IRepositoryBase<ContactUsRequest> ContactUsRequestRepository {
+			get {
+				if (_contactUsRequestRepository == null)
+					_contactUsRequestRepository = new RepositoryBase<ContactUsRequest>(_repositoryContext);
+
+				return _contactUsRequestRepository;
 			}
 		}
 

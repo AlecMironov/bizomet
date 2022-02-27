@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Bizomet.Core.Enums;
+using Bizomet.Core.Helpers;
 using Bizomet.Data.DataEncryption.Attributes;
 using Bizomet.Data.DataEncryption.Providers;
 using Bizomet.Data.Entities;
@@ -59,6 +61,18 @@ namespace Bizomet.Web.Mappings
 						dest.Link = $"http://{src.Link}";
 				});
 
+			CreateMap<ContactUsRequestModel, ContactUsRequest>()
+				.ForMember(u => u.Reason, opt => opt.Ignore())
+				.AfterMap((src, dest, context) =>
+				{
+					dest.Reason = EnumHelper.ToEnum<ContactReason>(src.Reason);
+				})
+				.ReverseMap()
+				.ForMember(u => u.Reason, opt => opt.Ignore())
+				.AfterMap((src, dest, context) =>
+				{
+					dest.Reason = EnumHelper.GetEnumName(src.Reason);
+				});
 		}
 
 		private void Decrypt<TSource, TDest>(TSource src, TDest dest)

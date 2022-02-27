@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
@@ -17,7 +17,6 @@ import { PanelModule } from 'primeng/panel';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RippleModule } from 'primeng/ripple';
 import { CardModule } from 'primeng/card';
-import { CaptchaModule } from 'primeng/captcha';
 
 import { SharedModule } from '../../shared/shared.module';
 import { GuestRoutingModule } from './guest-routing.module';
@@ -28,6 +27,10 @@ import { PrivacyComponent } from 'src/app/pages/common/privacy.component';
 import { SupportComponent } from 'src/app/pages/common/support.component';
 import { TermsConditionsComponent } from 'src/app/pages/common/terms-conditions.component';
 import { UnderConstructionComponent } from 'src/app/pages/common/under-construction.component';
+import { RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings, RECAPTCHA_LANGUAGE, RECAPTCHA_SETTINGS } from 'ng-recaptcha';
+import { environment } from 'src/environments/environment';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -46,20 +49,39 @@ import { UnderConstructionComponent } from 'src/app/pages/common/under-construct
     BlockUIModule,
     ButtonModule,
     CardModule,
-    CaptchaModule,
-    CarouselModule,
     CheckboxModule,
     DividerModule,
     DropdownModule,
     InputMaskModule,
     InputTextModule,
-    MessagesModule,
-    MessageModule,
-    PanelModule,
     ProgressSpinnerModule,
     RippleModule,
+    MessagesModule,
+    MessageModule,
+    ToastModule,
+    RecaptchaModule,
+    RecaptchaFormsModule,
     GuestRoutingModule,
     SharedModule
+  ],
+  providers: [
+    MessageService,
+    {
+      provide: RECAPTCHA_SETTINGS,
+      useValue: {
+        siteKey: environment.recaptcha.siteKey,
+        theme: 'light',
+      } as RecaptchaSettings
+    },
+    // {
+    //   provide: RECAPTCHA_LANGUAGE,
+    //   useValue: "ru", // use Russian language
+    // },
+    {
+      provide: RECAPTCHA_LANGUAGE,
+      useFactory: (locale: string) => locale,
+      deps: [LOCALE_ID],
+    }
   ]
 })
 export class GuestModule { }

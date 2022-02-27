@@ -94,6 +94,7 @@ export class AuthenticationService {
         return this.http.post<AuthResponseModel>(this.createCompleteRoute("account/login"), model)
             .pipe(map(response => {
                 let user = new User();
+                user.id = response.id;
                 user.userName = response.userName;
                 user.email = response.email;
                 user.firstName = response.firstName;

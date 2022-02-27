@@ -9,4 +9,8 @@
     <EnableNETAnalyzers>False</EnableNETAnalyzers>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Bizomet.Core\Bizomet.Core.csproj" />
+  </ItemGroup>
+
 </Project>

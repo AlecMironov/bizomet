@@ -2956,3 +2956,13 @@ body a {
   font-weight: 400;
   max-width: 320px;
 }
+
+/* hide recaptcha badge*/
+.grecaptcha-badge {
+  visibility: hidden;
+}
+
+/* only show recaptcha badge on needed pages */
+body.recaptcha .grecaptcha-badge {
+  visibility: visible;
+}

@@ -22,7 +22,6 @@ import { MenubarModule } from 'primeng/menubar';
 import { MenuModule } from 'primeng/menu';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
-import { PanelModule } from 'primeng/panel';
 import { PasswordModule } from 'primeng/password';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RippleModule } from 'primeng/ripple';
@@ -76,7 +75,6 @@ import { MegaMenuModule } from 'primeng/megamenu';
     MegaMenuModule,
     MenuModule,
     MenubarModule,
-    PanelModule,
     PasswordModule,
     ProgressSpinnerModule,
     RippleModule,

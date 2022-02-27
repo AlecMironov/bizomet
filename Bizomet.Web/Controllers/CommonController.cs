@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Text;
+using AutoMapper;
 using Bizomet.Contracts;
 using Bizomet.Core.Enums;
 using Bizomet.Core.Helpers;
@@ -6,12 +7,13 @@ using Bizomet.Data.Entities;
 using Bizomet.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bizomet.Web.Controllers
 {
 	[Route("api/[controller]/[action]")]
 	[ApiController]
-	public class CommonController : ControllerBase
+	public class CommonController : Controller
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly IRepositoryManager _repositoryManager;
@@ -37,7 +39,31 @@ namespace Bizomet.Web.Controllers
 				new KeyValuePairModel() { code = ContactReason.FEEDBACK.ToString(), name = Core.Helpers.EnumHelper.GetEnumName(ContactReason.FEEDBACK) },
 				new KeyValuePairModel() { code = ContactReason.REPORT_SPAM.ToString(), name = Core.Helpers.EnumHelper.GetEnumName(ContactReason.REPORT_SPAM) },
 			};
-			return Ok(SerializationHelper.JsonStringify(result));
+			return Json(result);
+		}
+
+		[HttpPost]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+		public async Task<IActionResult> ContactUsSubmit([FromBody] ContactUsRequestModel model)
+		{
+			if (!ModelState.IsValid)
+				return BadRequest();
+
+			try {
+				var entity = _mapper.Map<ContactUsRequest>(model);
+				_repositoryManager.ContactUsRequestRepository.Create(entity);
+				_repositoryManager.Save();
+
+				//todo send email.
+
+				return Ok();
+			}
+			catch (Exception e) {
+				_logger.LogError(e, $"Something went wrong in the {nameof(ContactUsSubmit)}");
+				return Problem("Internal Server Error. Please Try Again Later.", statusCode: StatusCodes.Status500InternalServerError);
+			}
 		}
 	}
 }
