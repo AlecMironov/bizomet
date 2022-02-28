@@ -14,63 +14,67 @@
             <form [formGroup]="aboutMeForm" novalidate (ngSubmit)="saveAction(aboutMeForm.value)">
                 <div class="grid">
                     <div class="col-12 lg:col-9">
-                        <span class="p-fluid">
-                            <label for="roles" class="block text-800 m-1 pb-1">My Roles<span
-                                    class="required-dot">&#11044;</span></label>
-                            <p-autoComplete class="w-full font-medium" id="roles" formControlName="roles" field="key"
-                                dataKey="key" [suggestions]="roleList" [dropdown]="true" [multiple]="true"
-                                [forceSelection]="true" (completeMethod)="getRoles($event)">
-                                <ng-template let-role pTemplate="item">
-                                    <p-chip><span class="p-1 font-lg">{{role.name}}</span></p-chip>
-                                </ng-template>
-                                <ng-template let-role pTemplate="selectedItem">
-                                    <span class="font-medium font-lg">{{role.name}}</span>
-                                </ng-template>
-                            </p-autoComplete>
-                        </span>
-                        <small class="p-error block m-1"
-                            *ngIf="validateControl('roles') && hasError('roles', 'required')">
-                            At least one role is required
-                        </small>
+                        <div class="grid p-2">
+                            <div class="col-12 md:col-6">
+                                <label for="roles" class="block text-800 m-1 pb-1">My Role<span
+                                        class="required-dot">&#11044;</span></label>
+                                <p-dropdown id="roles" formControlName="roles" [options]="roleList" optionLabel="name"
+                                    styleClass="w-full">
+                                </p-dropdown>
+                                <small class="p-error block m-1"
+                                    *ngIf="validateControl('roles') && hasError('roles', 'required')">
+                                    Role is required
+                                </small>
+                            </div>
 
-                        <div class="p-2 h-2 w-full"></div>
-                        <p-divider></p-divider>
+                            <div class="col-12">
+                                <p-divider></p-divider>
+                            </div>
 
-                        <label for="firstName" class="block text-800 m-1 pb-1 pt-3">First Name<span
-                                class="required-dot">&#11044;</span></label>
-                        <input id="firstName" formControlName="firstName" type="text" pInputText
-                            class="w-full font-medium mb-1 p-2" autocomplete="on" pInputText>
-                        <small class="p-error block mb-3"
-                            *ngIf="validateControl('firstName') && hasError('firstName', 'required')">
-                            First Name is required
-                        </small>
+                            <div class="col-12 md:col-6">
+                                <label for="firstName" class="block text-800 m-1 pb-1">First Name<span
+                                        class="required-dot">&#11044;</span></label>
+                                <input id="firstName" formControlName="firstName" type="text" pInputText
+                                    class="w-full font-medium mb-1 p-2" autocomplete="on" pInputText>
+                                <small class="p-error block mb-3"
+                                    *ngIf="validateControl('firstName') && hasError('firstName', 'required')">
+                                    First Name is required
+                                </small>
+                            </div>
 
-                        <label for="lastName" class="block text-800 m-1 pb-1 mt-4">Last Name<span
-                                class="required-dot">&#11044;</span></label>
-                        <input type="text" id="lastName" formControlName="lastName" class="w-full font-medium mb-1 p-2"
-                            autocomplete="on" pInputText placeholder="Last Name">
-                        <small class="p-error block"
-                            *ngIf="validateControl('lastName') && hasError('lastName', 'required')">
-                            Last Name is required
-                        </small>
+                            <div class="col-12 md:col-6">
+                                <label for="lastName" class="block text-800 m-1 pb-1">Last Name<span
+                                        class="required-dot">&#11044;</span></label>
+                                <input type="text" id="lastName" formControlName="lastName"
+                                    class="w-full font-medium mb-1 p-2" autocomplete="on" pInputText
+                                    placeholder="Last Name">
+                                <small class="p-error block"
+                                    *ngIf="validateControl('lastName') && hasError('lastName', 'required')">
+                                    Last Name is required
+                                </small>
+                            </div>
 
-                        <label for="description" class="block text-800 m-1 pb-1 mt-4">Short Intro<small class="ml-3 font-light text-500">(maximum 500 characters)</small></label>
-                        <textarea formControlName="description" id="description" pInputTextarea=""
-                            autoResize="autoResize" style="min-height: 10rem;height: 10rem;"
-                            placeholder="Add short intro here..." maxlength="500"
-                            class="w-full font-medium p-inputtextarea p-inputtext p-component p-element ng-pristine ng-valid ng-touched"
-                            spellcheck="false">
-                        </textarea>
+                            <div class="col-12">
+                                <label for="description" class="block text-800 m-1 pb-1 mt-4">Short Intro<small
+                                        class="ml-3 font-light text-500">(maximum 500 characters)</small></label>
+                                <textarea formControlName="description" id="description" pInputTextarea=""
+                                    autoResize="autoResize" style="min-height: 10rem;height: 10rem;"
+                                    placeholder="Add short intro here..." maxlength="500"
+                                    class="w-full font-medium p-inputtextarea p-inputtext p-component p-element ng-pristine ng-valid ng-touched"
+                                    spellcheck="false">
+                                </textarea>
+                            </div>
 
-                        <span class="p-fluid">
-                            <label for="tags" class="block text-800 m-1 pb-1 mt-4">My Tags</label>
-                            <p-chips class="w-full font-medium mb-1 py-2" id="tags" formControlName="tags" separator=","
-                            placeholder="Add tags, keywords here...">
-                            </p-chips>
-                        </span>
+                            <div class="col-12 p-fluid">
+                                <label for="tags" class="block text-800 m-1 pb-1 mt-4">My Tags</label>
+                                <p-chips class="w-full font-medium mb-1 py-2" id="tags" formControlName="tags"
+                                    separator="," placeholder="Add tags, keywords here...">
+                                </p-chips>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="card col-12 lg:col-3 flex flex-row flex-wrap justify-content-center p-4 mb-2"
+                    <div class="card col-12 lg:col-3 flex flex-row flex-wrap justify-content-center p-4 mb-4"
                         style="min-width: 15rem; max-width: 20rem; margin-top: 2.5rem;">
                         <div class="w-full text-lg text-center">My Photo</div>
                         <div class="w-full text-sm font-light text-500 text-center mb-2 mt-2">Image format JPG, PNG or

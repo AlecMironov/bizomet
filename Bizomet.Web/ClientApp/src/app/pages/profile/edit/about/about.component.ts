@@ -48,7 +48,6 @@ export class ProfileAboutComponent implements OnInit {
   currentPicture: string;
   refreshRequired: boolean = false;
   roleList: UserRole[];
-  //tagList: string[] = [];
 
   constructor(
     private profileService: ProfileService,
@@ -84,6 +83,7 @@ export class ProfileAboutComponent implements OnInit {
     this.transform = {};
     this.loading = false;
     this.showCropper = false;
+    this.roleList = SharedData.all_roles;
 
     this.disablePage = true;
     this.profileService.getProfile()
@@ -91,11 +91,10 @@ export class ProfileAboutComponent implements OnInit {
         this.aboutMeForm.controls["firstName"].setValue(data.firstName);
         this.aboutMeForm.controls["lastName"].setValue(data.lastName);
         this.aboutMeForm.controls["description"].setValue(data.description);
-        this.aboutMeForm.controls["roles"].setValue(SharedData.all_roles.filter(x => data.roles.includes(x.key)));
+        this.aboutMeForm.controls["roles"].setValue(data.role);
         this.aboutMeForm.controls["tags"].setValue(data.tags);
         this.originalPicture = data.picture;
         this.currentPicture = data.picture;
-        //this.tagList.push(...data.tags);
 
         if (this.refreshRequired) {
           let user = this.authService.currentUser;
@@ -116,10 +115,6 @@ export class ProfileAboutComponent implements OnInit {
 
   public hasError = (controlName: string, errorName: string) => {
     return this.aboutMeForm.controls[controlName].hasError(errorName)
-  }
-
-  getRoles(event) {
-    this.roleList = SharedData.all_roles.filter(r => r.name.toLowerCase().startsWith(event.query.toLowerCase()));
   }
 
   // getTags(event) {
@@ -147,8 +142,8 @@ export class ProfileAboutComponent implements OnInit {
     }
 
     if (Object.prototype.hasOwnProperty.call(dirtyValues, 'roles')) {
-      let originalValue = dirtyValues["roles"];
-      dirtyValues["roles"] = originalValue.map((r: UserRole) => r.key);
+      let selectedRole = dirtyValues["roles"];
+      dirtyValues["roles"] = [ selectedRole.key ];
     }
 
     if (JSON.stringify(dirtyValues) != '{}') {

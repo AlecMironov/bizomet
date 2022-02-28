@@ -5,8 +5,8 @@
         <div class="card px-6 py-5">
             <div *ngIf="!loading" class="flex align-items-start flex-column flex-wrap lg:justify-content-between">
                 <div class="flex align-items-start flex-column md:flex-row">
-                    <div class="profile-img-lg mr-5 mb-3 lg:mb-0"
-                        [ngStyle]="{ 'background-image': profile.picture }"></div>
+                    <div class="profile-img-lg mr-5 mb-3 lg:mb-0" [ngStyle]="{ 'background-image': profile.picture }">
+                    </div>
                     <div>
                         <span class="text-900 font-medium text-3xl">{{ profile.firstName }} {{
                             profile.lastName }}</span>
@@ -26,8 +26,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="py-3">
-                    <p-chip class="mr-2" *ngFor="let role of profile.rolesInfo">
+                <div class="flex justify-content-center py-3 w-11rem">
+                    <p-chip class="mr-4" *ngFor="let role of profile.rolesInfo">
                         <span class="p-2">{{ role }}</span>
                     </p-chip>
                 </div>
@@ -36,10 +36,10 @@
             <div *ngIf="loading" class="flex align-items-start flex-column flex-wrap lg:justify-content-between">
                 <div class="flex align-items-start flex-column md:flex-row">
                     <p-skeleton shape="circle" size="120px" styleClass="mr-5 mb-3 lg:mb-0"></p-skeleton>
-                <div>
-                <p-skeleton height="2rem" styleClass="w-8"></p-skeleton>
+                    <div>
+                        <p-skeleton height="2rem" styleClass="w-8"></p-skeleton>
 
-                <div class="flex align-items-center flex-wrap">
+                        <div class="flex align-items-center flex-wrap">
                             <div class="mr-5 mt-3">
                                 <p-skeleton width="6rem" height="1.5rem" styleClass="mt-2"></p-skeleton>
                                 <p-skeleton width="3rem" height="1.3rem" styleClass="mt-3"></p-skeleton>
@@ -57,9 +57,9 @@
                 </div>
                 <div class="py-2">
                     <div class="flex align-items-end">
-                        <span class="p-2"><p-skeleton width="5rem" height="2rem" borderRadius="16px"></p-skeleton></span>
-                        <span class="p-2"><p-skeleton width="7rem" height="2rem" borderRadius="16px"></p-skeleton></span>
-                        <span class="p-2"><p-skeleton width="6rem" height="2rem" borderRadius="16px"></p-skeleton></span>
+                        <span class="p-2">
+                            <p-skeleton width="11rem" height="2rem" borderRadius="16px"></p-skeleton>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -75,7 +75,8 @@
     <div class="col-12">
         <div class="card h-20rem">
             <h5>Feature 2</h5>
-            <p-dropdown [options]="contactReasons" [(ngModel)]="selectedReason" optionLabel="name" optionValue="code" styleClass="w-15rem"></p-dropdown>
+            <p-dropdown [options]="contactReasons" [(ngModel)]="selectedReason" optionLabel="name" optionValue="code"
+                styleClass="w-15rem"></p-dropdown>
 
             <span class="ml-5">{{ selectedReason }}</span>
         </div>

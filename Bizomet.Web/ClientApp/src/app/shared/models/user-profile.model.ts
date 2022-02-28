@@ -1,8 +1,11 @@
+import { UserRole } from "./user-role.model";
+
 export class UserProfileModel {
     userUserName: string;
     firstName: string;
     lastName: string;
     userEmail: string;
+    role: UserRole;
     roles: string[];
     nameTitle: string;
     addressLine1: string;

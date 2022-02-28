@@ -17,6 +17,7 @@ export class ProfileService {
                 map((response) => {
                     response.picture = this.getPictureUrl(response.picture);
                     response.rolesInfo = SharedData.all_roles.filter(x => response.roles.includes(x.key)).map(x => x.name);
+                    response.role = SharedData.all_roles.filter(x => x.key == response.roles[0])[0];
                     return response;
                 }));
     }
