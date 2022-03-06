@@ -20,8 +20,6 @@ const routes: Routes = [
         path: '',
         component: GuestLayoutComponent,
         loadChildren: () => import('./layout/guest/guest.module').then(m => m.GuestModule)
-        // children: [
-        // ]
     }
 ];
 

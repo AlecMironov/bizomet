@@ -6,10 +6,10 @@ import { RepositoryService } from 'src/app/core/services/repository.service';
 import { KeyValuePairModel } from 'src/app/shared/models/key-value-pair.model';
 
 @Component({
-  selector: 'app-profile-overview',
-  templateUrl: './profile-overview.component.html'
+  selector: 'app-my-pitches',
+  templateUrl: './my-pitches.component.html'
 })
-export class ProfileOverviewComponent implements OnInit {
+export class MyPitchesComponent implements OnInit {
 
   profile: UserProfileModel;
   contactReasons: KeyValuePairModel[];
@@ -18,8 +18,8 @@ export class ProfileOverviewComponent implements OnInit {
 
   constructor(private repositoryService: RepositoryService, private profileService: ProfileService, private breadcrumbService: AppBreadcrumbService) {
     this.breadcrumbService.setItems([
-      { label: 'Profile', icon: 'pi pi-fw pi-user mr-1' },
-      { label: 'My Profile' }
+      { label: 'Inquiries', icon: 'pi pi-fw pi-home mr-1' },
+      { label: 'My Pitches' }
     ]);
   }
 

@@ -51,7 +51,7 @@ import { AuthorizedLayoutComponent } from './authorized-layout/authorized-layout
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="#">
                             <i class="topbar-icon pi pi-fw pi-bell"></i>
                             <span class="topbar-badge">2</span>
@@ -64,7 +64,7 @@ import { AuthorizedLayoutComponent } from './authorized-layout/authorized-layout
                             <span class="topbar-badge">5</span>
                             <span class="topbar-item-name">Messages</span>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>

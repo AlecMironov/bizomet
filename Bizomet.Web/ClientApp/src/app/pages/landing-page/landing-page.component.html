@@ -79,11 +79,15 @@
         </ul>
         <div
             class="flex justify-content-between lg:block border-top-1 lg:border-top-none border-gray-800 py-3 lg:py-0 mt-3 lg:mt-0">
-            <button pButton pRipple label="Login" routerLink="/account/login" *ngIf="showSignInButtons" class="p-button-text font-bold"></button>
-            <button pButton pRipple label="Register" routerLink="/account/register" *ngIf="showSignInButtons" class="ml-3 font-bold"></button>
-            <button pButton pRipple label="Logout" (click)="logout()" *ngIf="!showSignInButtons" class="ml-3 p-button-text font-bold"></button>
-            <button pButton pRipple label="Dashboard" routerLink="/dashboard" *ngIf="!showSignInButtons" class="ml-3 font-bold"></button>
-            </div>
+            <button pButton pRipple label="Login" routerLink="/account/login" *ngIf="showSignInButtons"
+                class="p-button-text font-bold"></button>
+            <button pButton pRipple label="Register" routerLink="/account/register" *ngIf="showSignInButtons"
+                class="ml-3 font-bold"></button>
+            <button pButton pRipple label="Logout" (click)="logout()" *ngIf="!showSignInButtons"
+                class="ml-3 p-button-text font-bold"></button>
+            <button pButton pRipple label="Inquiries" routerLink="/inquiries" *ngIf="!showSignInButtons"
+                class="ml-3 font-bold"></button>
+        </div>
     </div>
 </div>
 <div class="bg-gray-900 px-4 py-8 md:px-6 lg:px-8">
@@ -408,19 +412,24 @@
             <p class="text-600 line-height-3 text-xl mb-0 mt-5">Consequat nisl vel pretium lectus quam. Scelerisque eu
                 ultrices vitae auctor eu augue ut lectus arcu. Integer quis auctor elit sed.</p>
         </div>
-        <button pButton pRipple label="Get Started" routerLink="account/register" class="mt-5 lg:mt-0 white-space-nowrap min-w-max"></button>
+        <button pButton pRipple label="Get Started" routerLink="account/register"
+            class="mt-5 lg:mt-0 white-space-nowrap min-w-max"></button>
     </div>
     <div class="py-5 border-bottom-1 border-300">
         <div class="flex justify-content-start flex-wrap">
             <div class="flex-none m-2 px-8 py-3">
                 <span class="text-900 block font-bold line-height-3 mb-3">Company</span>
                 <ul class="list-none p-0 m-0">
-                    <li class="mb-2"><a class="text-700 cursor-pointer line-height-3" routerLink="/aboutus">About Us</a></li>
+                    <li class="mb-2"><a class="text-700 cursor-pointer line-height-3" routerLink="/aboutus">About Us</a>
+                    </li>
                     <li class="mb-2"><a class="text-700 cursor-pointer line-height-3">News</a></li>
                     <li class="mb-2"><a class="text-700 cursor-pointer line-height-3">Careers</a></li>
-                    <li class="mb-2"><a class="text-700 cursor-pointer line-height-3" routerLink="/privacy">Our Privacy Policy</a></li>
-                    <li class="mb-2"><a class="text-700 cursor-pointer line-height-3" routerLink="/terms">Our Terms of Use</a></li>
-                    <li class="mb-2"><a class="text-700 cursor-pointer line-height-3" routerLink="/cookiepolicy">Our Cookie Policy</a></li>
+                    <li class="mb-2"><a class="text-700 cursor-pointer line-height-3" routerLink="/privacy">Our Privacy
+                            Policy</a></li>
+                    <li class="mb-2"><a class="text-700 cursor-pointer line-height-3" routerLink="/terms">Our Terms of
+                            Use</a></li>
+                    <li class="mb-2"><a class="text-700 cursor-pointer line-height-3" routerLink="/cookiepolicy">Our
+                            Cookie Policy</a></li>
                 </ul>
             </div>
             <div class="flex-none m-2 px-8 py-3">
@@ -434,8 +443,10 @@
             <div class="flex-none m-2 px-8 py-3">
                 <span class="text-900 block font-bold line-height-3 mb-3">Support</span>
                 <ul class="list-none p-0 m-0">
-                    <li class="mb-2"><a class="text-700 cursor-pointer line-height-3" routerLink="/support">Help & Support</a></li>
-                    <li class="mb-2"><a class="text-700 cursor-pointer line-height-3" routerLink="/contactus">Contact Us</a></li>
+                    <li class="mb-2"><a class="text-700 cursor-pointer line-height-3" routerLink="/support">Help &
+                            Support</a></li>
+                    <li class="mb-2"><a class="text-700 cursor-pointer line-height-3" routerLink="/contactus">Contact
+                            Us</a></li>
                 </ul>
             </div>
         </div>

@@ -10,7 +10,6 @@ import { PageContentComponent } from './../layout/page-content/page-content.comp
 import { GuestLayoutComponent } from './../layout/guest/guest-layout/guest-layout.component';
 import { LandingPageComponent } from './../pages/landing-page/landing-page.component';
 import { AuthorizedLayoutComponent } from './../layout/authorized/authorized-layout/authorized-layout.component';
-import { DashboardComponent } from './../pages/dashboard/dashboard.component';
 import { AppBreadcrumbComponent } from './../layout/authorized/breadcrumb/app.breadcrumb.component';
 import { AppMenuComponent } from './../layout/authorized/app.menu.component';
 import { AppMenuitemComponent } from './../layout/authorized/app.menuitem.component';
@@ -36,8 +35,7 @@ const sharedComponents = [
   AppRightMenuComponent,
   AppInlineMenuComponent,
   AppTopbarComponent,
-  AppFooterComponent,
-  DashboardComponent
+  AppFooterComponent
 ];
 
 @NgModule({

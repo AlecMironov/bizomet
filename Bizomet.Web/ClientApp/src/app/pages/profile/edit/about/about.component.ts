@@ -57,7 +57,7 @@ export class ProfileAboutComponent implements OnInit {
     private confirmationService: ConfirmationService) {
 
     this.breadcrumbService.setItems([
-      { label: 'Profile', routerLink: ['/profile'] },
+      { label: 'Profile', routerLink: ['/profile'], icon: 'pi pi-fw pi-user mr-1' },
       { label: 'About Me' }
     ]);
 

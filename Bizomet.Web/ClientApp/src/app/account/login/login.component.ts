@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
         this.disablePage = false;
 
         if (this._returnUrl === "/") {
-          this.router.navigate(["/dashboard"]);
+          this.router.navigate(["/inquiries"]);
         }
         else {
           this.router.navigate([this._returnUrl]);

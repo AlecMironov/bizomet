@@ -2957,12 +2957,18 @@ body a {
   max-width: 320px;
 }
 
-/* hide recaptcha badge*/
-.grecaptcha-badge {
-  visibility: hidden;
+.layout-breadcrumb-container {
+  padding-top: 6px;
 }
 
-/* only show recaptcha badge on needed pages */
-body.recaptcha .grecaptcha-badge {
-  visibility: visible;
+.layout-topbar {
+  box-shadow: 0 3px 5px #00000005, 0 0 2px #0000000d, 0 1px 4px #00000014;
+}
+
+.layout-wrapper .layout-main .layout-main-content {
+  padding-top: 6px;
+}
+
+.layout-menu {
+  font-size: 1.2rem;
 }
