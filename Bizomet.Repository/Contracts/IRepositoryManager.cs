@@ -10,6 +10,10 @@ namespace Bizomet.Contracts
 
 		IRepositoryBase<ContactUsRequest> ContactUsRequestRepository { get; }
 
+		IRepositoryBase<Inquiry> Inquiries { get; }
+
+		IRepositoryBase<Project> Projects { get; }
+
 		void Save();
 	}
 }

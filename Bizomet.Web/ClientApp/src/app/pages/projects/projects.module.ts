@@ -40,11 +40,11 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { ProjectsRoutingModule } from './projects-routing.module';
 import { ProjectsComponent } from './projects.component';
 import { AllProjectsComponent } from './all-projects/all-projects.component';
-import { ProjectsService } from '../../core/services/projects.service';
+import { ProjectService } from '../../core/services/project.service';
 import { MyProjectsComponent } from './my-projects/my-projects.component';
 
 @NgModule({
-  providers: [ProjectsService, MessageService, ConfirmationService],
+  providers: [ProjectService, MessageService, ConfirmationService],
   declarations: [
     ProjectsComponent,
     AllProjectsComponent,

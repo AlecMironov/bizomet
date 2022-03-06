@@ -1,4 +1,4 @@
-export class InquiryModel {
+export class ProjectModel {
     id: string;
     requestDate: Date;
     title: string;

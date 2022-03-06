@@ -20,7 +20,6 @@ namespace Bizomet.Models
 		[EmailAddress]
 		public string Email { get; set; }
 
-		[Phone]
 		public string PhoneNumber { get; set; }
 
 		[Required(ErrorMessage = "Message is required")]

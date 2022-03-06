@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
-import { UserPortfolioModel } from 'src/app/shared/models/user-portfolio.model';
+import { ProjectModel } from 'src/app/shared/models/project.model';
 import { RepositoryService } from './repository.service';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ProjectsService {
+export class ProjectService {
 
     constructor(private repository: RepositoryService) { }
 
     getAll(lazyEvent: any) {
-        return this.repository.getAll<UserPortfolioModel[]>("userportfolio", lazyEvent)
+        return this.repository.getAll<ProjectModel[]>("project", lazyEvent)
             .pipe(
                 map((response) => {
                     return response;
@@ -19,23 +19,23 @@ export class ProjectsService {
     }
 
     get(id: any) {
-        return this.repository.get<UserPortfolioModel>(`userportfolio/${id}`)
+        return this.repository.get<ProjectModel>(`project/${id}`)
             .pipe(
                 map((response) => {
                     return response;
                 }));
     }
 
-    create(data: UserPortfolioModel) {
-        return this.repository.create<UserPortfolioModel>("userportfolio", data)
+    create(data: ProjectModel) {
+        return this.repository.create<ProjectModel>("project", data)
             .pipe(
                 map((response) => {
                     return response;
                 }));
     }
 
-    update(data: UserPortfolioModel) {
-        return this.repository.update<UserPortfolioModel>(`userportfolio/${data.id}`, data)
+    update(data: ProjectModel) {
+        return this.repository.update<ProjectModel>(`project/${data.id}`, data)
             .pipe(
                 map((response) => {
                     return response;
@@ -43,6 +43,6 @@ export class ProjectsService {
     }
 
     delete(id: any) {
-        return this.repository.delete(`userportfolio/${id}`);
+        return this.repository.delete(`project/${id}`);
     }
 }

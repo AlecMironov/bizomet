@@ -10,6 +10,8 @@ namespace Bizomet.Repository
 		private IProfileRepository _profileRepository;
 		private IPortfolioRepository _portfolioRepository;
 		private IRepositoryBase<ContactUsRequest> _contactUsRequestRepository;
+		private IRepositoryBase<Inquiry> _inquiryRepository;
+		private IRepositoryBase<Project> _projectRepository;
 
 		public RepositoryManager(ApplicationDbContext repositoryContext)
 		{
@@ -31,6 +33,24 @@ namespace Bizomet.Repository
 					_portfolioRepository = new PortfolioRepository(_repositoryContext);
 
 				return _portfolioRepository;
+			}
+		}
+
+		public IRepositoryBase<Inquiry> Inquiries {
+			get {
+				if (_inquiryRepository == null)
+					_inquiryRepository = new RepositoryBase<Inquiry>(_repositoryContext);
+
+				return _inquiryRepository;
+			}
+		}
+
+		public IRepositoryBase<Project> Projects {
+			get {
+				if (_projectRepository == null)
+					_projectRepository = new RepositoryBase<Project>(_repositoryContext);
+
+				return _projectRepository;
 			}
 		}
 

@@ -10,7 +10,9 @@ const PROXY_CONFIG = [
       "/api/token",
       "/api/account",
       "/api/userprofile",
-      "/api/userportfolio"
+      "/api/userportfolio",
+      "/api/inquiry",
+      "/api/project"
    ],
     target: target,
     secure: false

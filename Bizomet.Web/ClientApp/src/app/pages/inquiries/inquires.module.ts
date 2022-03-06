@@ -37,15 +37,16 @@ import { SharedModule } from '../../shared/shared.module';
 import { InquiresRoutingModule } from './inquires-routing.module';
 import { SkeletonModule } from 'primeng/skeleton';
 import { MegaMenuModule } from 'primeng/megamenu';
-import { ProjectsService } from 'src/app/core/services/projects.service';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { InquiriesComponent } from './inquiries.component';
 import { AllInquiriesComponent } from './all-inquiries/all-inquiries.component';
 import { MyInquiriesComponent } from './my-inquiries/my-inquiries.component';
 import { MyPitchesComponent } from './my-pitches/my-pitches.component';
 
+import { InquiryService } from 'src/app/core/services/inquiry.service';
+
 @NgModule({
-  providers: [ProjectsService, MessageService, ConfirmationService],
+  providers: [InquiryService, MessageService, ConfirmationService],
   declarations: [
     InquiriesComponent,
     AllInquiriesComponent,

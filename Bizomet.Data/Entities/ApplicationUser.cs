@@ -32,5 +32,7 @@ namespace Bizomet.Data.Entities
 		public virtual ICollection<IdentityUserToken<string>> Tokens { get; set; }
 		public virtual ICollection<ApplicationUserRole> UserRoles { get; set; }
 		public virtual ICollection<UserPortfolio> UserPortfolio { get; set; }
+		public virtual ICollection<Project> Projects { get; set; }
+		public virtual ICollection<Inquiry> Inquiries { get; set; }
 	}
 }

@@ -1,6 +1,6 @@
 ﻿namespace Bizomet.Data.Entities
 {
-	public class TalentProject //: EntityBase
+	public class Inquiry : EntityBase
 	{
 		public string UserId { get; set; }
 

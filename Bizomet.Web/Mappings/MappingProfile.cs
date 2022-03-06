@@ -73,6 +73,9 @@ namespace Bizomet.Web.Mappings
 				{
 					dest.Reason = EnumHelper.GetEnumName(src.Reason);
 				});
+
+			CreateMap<Inquiry, InquiryModel>().ReverseMap();
+			CreateMap<Project, ProjectModel>().ReverseMap();
 		}
 
 		private void Decrypt<TSource, TDest>(TSource src, TDest dest)
