@@ -4,7 +4,7 @@
       <ng-template pTemplate="start">
         <button pButton pRipple class="p-button mr-5">
           <span class="pi pi-plus-circle"></span>
-          <span class="ml-2 hidden sm:inline">Add Inquiry</span>
+          <span class="ml-2 hidden sm:inline" (click)="createNew()">Add Inquiry</span>
         </button>
       </ng-template>
       <ng-template pTemplate="end">

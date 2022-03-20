@@ -18,6 +18,14 @@ export class InquiryService {
                 }));
     }
 
+    getUserInquiries(lazyEvent: any) {
+        return this.repository.getAll<InquiryModel[]>("inquiry/userinquiries", lazyEvent)
+            .pipe(
+                map((response) => {
+                    return response;
+                }));
+    }
+
     get(id: any) {
         return this.repository.get<InquiryModel>(`inquiry/${id}`)
             .pipe(

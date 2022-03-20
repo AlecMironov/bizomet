@@ -1,5 +1,5 @@
 export interface UserAuthenticationModel {
-    email: string;
+    userName: string;
     password: string;
     clientURI: string;
 }

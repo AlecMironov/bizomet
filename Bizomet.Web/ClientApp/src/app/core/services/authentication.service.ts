@@ -135,10 +135,11 @@ export class AuthenticationService {
         this.isSignedIn.next(true); // <-- success
     }
 
-    public confirmEmail = (token: string, email: string) => {
+    public confirmEmail = (token: string, email: string, username: string) => {
         let params = new HttpParams({ encoder: new CustomEncoder() })
         params = params.append('token', token);
         params = params.append('email', email);
+        params = params.append('username', username);
 
         return this.http.get(this.createCompleteRoute("account/emailconfirmation"), { params: params });
     }
@@ -153,6 +154,13 @@ export class AuthenticationService {
 
     public resetPassword = (body: ResetPasswordModel) => {
         return this.http.post(this.createCompleteRoute("account/resetpassword"), body);
+    }
+
+    public validateUsername = (username: string) => {
+        let params = new HttpParams({ encoder: new CustomEncoder() })
+        params = params.append('username', username);
+
+        return this.http.get(this.createCompleteRoute("account/validateusername"), { params: params });
     }
 
     public isUserAdmin = (): boolean => {

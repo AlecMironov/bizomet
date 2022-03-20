@@ -18,6 +18,14 @@ export class ProjectService {
                 }));
     }
 
+    getUserInquiries(lazyEvent: any) {
+        return this.repository.getAll<ProjectModel[]>("project/userprojects", lazyEvent)
+            .pipe(
+                map((response) => {
+                    return response;
+                }));
+    }    
+
     get(id: any) {
         return this.repository.get<ProjectModel>(`project/${id}`)
             .pipe(

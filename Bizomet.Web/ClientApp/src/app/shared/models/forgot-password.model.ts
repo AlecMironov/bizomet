@@ -1,4 +1,4 @@
 export interface ForgotPasswordModel {
-    email: string;
+    userName: string;
     clientURI: string;
 }

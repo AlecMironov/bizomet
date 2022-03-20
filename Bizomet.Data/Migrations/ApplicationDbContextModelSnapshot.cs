@@ -48,42 +48,42 @@ namespace Bizomet.Data.Migrations
 						new
 						{
 							Id = "8742075e-7145-4bd7-8215-814467809dc2",
-							ConcurrencyStamp = "e4170652-08f8-45b0-b1e8-71bc0c604838",
+							ConcurrencyStamp = "f46dc40b-35a0-4d4d-a76b-2011c12a0a46",
 							Name = "Administrator",
 							NormalizedName = "ADMINISTRATOR"
 						},
 						new
 						{
 							Id = "69571a28-cb0d-4fe6-8176-3bffad6c1510",
-							ConcurrencyStamp = "6a9a5d1b-95a8-4692-a18a-427adfe06a44",
+							ConcurrencyStamp = "26a41fe5-e4dd-44a2-8dec-5b884050afbf",
 							Name = "Talent",
 							NormalizedName = "TALENT"
 						},
 						new
 						{
 							Id = "347ac56d-9576-4f4a-81be-674b4a3a9d0b",
-							ConcurrencyStamp = "a867a4d6-735d-430f-916d-df81c844ab4a",
+							ConcurrencyStamp = "65dc64fe-cd75-47f8-920d-10d7862a9148",
 							Name = "Uplifter",
 							NormalizedName = "UPLIFTER"
 						},
 						new
 						{
 							Id = "7bd1c590-9eed-44e9-a60c-6e7de0db8f01",
-							ConcurrencyStamp = "42428fb3-56e4-42ae-904b-44834729dbc3",
+							ConcurrencyStamp = "36fdbc71-17a7-4dcf-8657-c100dc400a6f",
 							Name = "MediaAssistant",
 							NormalizedName = "MEDIAASSISTANT"
 						},
 						new
 						{
 							Id = "7e6619f8-b336-4f3e-826a-5ce96cef872d",
-							ConcurrencyStamp = "41a4da35-28f6-402d-9c69-a6ac5958ad6e",
+							ConcurrencyStamp = "bdcac983-e708-4c56-b4f9-7a7d6296697d",
 							Name = "Promoter",
 							NormalizedName = "PROMOTER"
 						},
 						new
 						{
 							Id = "8832961e-a631-445b-9d86-b93f9b4c767b",
-							ConcurrencyStamp = "7ee93e1f-17ff-4ebd-acb6-af8740c609bb",
+							ConcurrencyStamp = "e7d046fc-edaa-4709-9e69-3957c27c1f84",
 							Name = "Producer",
 							NormalizedName = "PRODUCER"
 						});
@@ -131,12 +131,6 @@ namespace Bizomet.Data.Migrations
 
 					b.Property<bool>("PhoneNumberConfirmed")
 						.HasColumnType("bit");
-
-					b.Property<string>("RefreshToken")
-						.HasColumnType("nvarchar(max)");
-
-					b.Property<DateTime?>("RefreshTokenExpiryTime")
-						.HasColumnType("datetime2");
 
 					b.Property<string>("SecurityStamp")
 						.HasColumnType("nvarchar(max)");
@@ -301,6 +295,46 @@ namespace Bizomet.Data.Migrations
 					b.ToTable("Project");
 				});
 
+			modelBuilder.Entity("Bizomet.Data.Entities.RefreshToken", b =>
+				{
+					b.Property<Guid>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnType("uniqueidentifier");
+
+					b.Property<DateTime>("Created")
+						.HasColumnType("datetime2");
+
+					b.Property<string>("CreatedByIp")
+						.IsRequired()
+						.HasColumnType("nvarchar(max)");
+
+					b.Property<DateTime>("Expires")
+						.HasColumnType("datetime2");
+
+					b.Property<string>("ReplacedByToken")
+						.HasColumnType("nvarchar(max)");
+
+					b.Property<DateTime?>("Revoked")
+						.HasColumnType("datetime2");
+
+					b.Property<string>("RevokedByIp")
+						.HasColumnType("nvarchar(max)");
+
+					b.Property<string>("Token")
+						.IsRequired()
+						.HasColumnType("nvarchar(max)");
+
+					b.Property<string>("UserId")
+						.IsRequired()
+						.HasColumnType("nvarchar(450)");
+
+					b.HasKey("Id");
+
+					b.HasIndex("UserId");
+
+					b.ToTable("RefreshToken");
+				});
+
 			modelBuilder.Entity("Bizomet.Data.Entities.UserPortfolio", b =>
 				{
 					b.Property<Guid>("Id")
@@ -405,7 +439,6 @@ namespace Bizomet.Data.Migrations
 						.HasColumnType("nvarchar(100)");
 
 					b.Property<string>("Tags")
-						.IsRequired()
 						.HasColumnType("nvarchar(max)");
 
 					b.Property<string>("UserId")
@@ -556,6 +589,17 @@ namespace Bizomet.Data.Migrations
 					b.Navigation("User");
 				});
 
+			modelBuilder.Entity("Bizomet.Data.Entities.RefreshToken", b =>
+				{
+					b.HasOne("Bizomet.Data.Entities.ApplicationUser", "User")
+						.WithMany("RefreshTokens")
+						.HasForeignKey("UserId")
+						.OnDelete(DeleteBehavior.Cascade)
+						.IsRequired();
+
+					b.Navigation("User");
+				});
+
 			modelBuilder.Entity("Bizomet.Data.Entities.UserPortfolio", b =>
 				{
 					b.HasOne("Bizomet.Data.Entities.ApplicationUser", "User")
@@ -628,6 +672,8 @@ namespace Bizomet.Data.Migrations
 					b.Navigation("Logins");
 
 					b.Navigation("Projects");
+
+					b.Navigation("RefreshTokens");
 
 					b.Navigation("Tokens");
 

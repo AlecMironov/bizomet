@@ -41,7 +41,7 @@ namespace Bizomet.Web.Helpers
 				issuer: _jwtSettings.ValidIssuer,
 				audience: _jwtSettings.ValidAudience,
 				claims: claims,
-				expires: new DateTimeOffset(DateTime.UtcNow.AddDays(1)).DateTime,
+				expires: new DateTimeOffset(DateTime.UtcNow.AddDays(7)).DateTime,
 				signingCredentials: new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
 			);
 

@@ -1,10 +1,10 @@
 import { ActivatedRoute } from '@angular/router';
-import { PasswordConfirmationValidatorService } from '../shared/custom-validators/password-confirmation-validator.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { ResetPasswordModel } from 'src/app/shared/models/reset-password.model';
 import { Message, MessageService } from 'primeng/api';
+import { CustomvalidationService } from '../core/services/custom-validation-service';
 
 @Component({
   selector: 'app-reset-password',
@@ -40,7 +40,11 @@ import { Message, MessageService } from 'primeng/api';
                   *ngIf="validateControl('confirm') && hasError('confirm', 'required')">
                      Confirmation is required
                 </small>
-                <small class="p-error block mb-3" *ngIf="hasError('confirm', 'mustMatch')">Passwords must match</small>
+                <small class="p-error block mb-3"
+                      *ngIf="validateControl('password') && hasError('password', 'invalidPassword')">
+                      Password should have minimum 8 characters, at least one uppercase letter, one lowercase letter and one number
+                </small>
+                <small class="p-error block mb-3" *ngIf="hasError('confirm', 'passwordMismatch')">Passwords must match</small>
 
                 <button pButton pRipple label="Reset password" type="submit" [disabled]="!resetPasswordForm.valid"
                   class="w-full py-3 my-4 font-medium"></button>
@@ -67,16 +71,16 @@ export class ResetPasswordComponent implements OnInit {
 
   constructor(
     private _authenticationService: AuthenticationService,
-    private _passConfValidator: PasswordConfirmationValidatorService,
+    private _customValidator: CustomvalidationService,
     private _route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.resetPasswordForm = new FormGroup({
-      password: new FormControl('', [Validators.required]),
+      password: new FormControl('', Validators.compose([Validators.required, this._customValidator.patternValidator()])),
       confirm: new FormControl('')
     });
     this.resetPasswordForm.get('confirm').setValidators([Validators.required,
-    this._passConfValidator.validateConfirmPassword(this.resetPasswordForm.get('password'))]);
+    this._customValidator.validateConfirmPassword(this.resetPasswordForm.get('password'))]);
 
     this._token = this._route.snapshot.queryParams['token'];
     this._email = this._route.snapshot.queryParams['email'];

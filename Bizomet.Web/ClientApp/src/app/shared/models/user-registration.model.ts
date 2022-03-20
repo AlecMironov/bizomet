@@ -1,8 +1,11 @@
 export interface UserRegistrationModel {
     firstname: string;
     lastname: string;
+    username: string;
     email: string;
+    role: string;
     password: string;
     confirmPassword: string;
     clientURI: string;
+    captcha: string;
 }

@@ -96,21 +96,15 @@ namespace Bizomet.Web.Extensions
 				options.Lockout.MaxFailedAccessAttempts = 5;
 				options.Lockout.AllowedForNewUsers = true;
 				// User settings.
-				options.User.RequireUniqueEmail = true;
+				options.User.RequireUniqueEmail = false;
 			})
 			.AddEntityFrameworkStores<ApplicationDbContext>()
 			.AddDefaultTokenProviders();
 		}
 
 		public static void ConfigureRepositoryManager(this IServiceCollection services) => services.AddScoped<IRepositoryManager, RepositoryManager>();
-		public static void ConfigureAutoMapper(this IServiceCollection services) => services.AddAutoMapper(configAction => configAction.AddProfile<MappingProfile>());
 
-		//public static void ConfigureEmailService(this IServiceCollection services, IConfiguration configuration)
-		//{
-		//	var emailConfig = configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
-		//	services.AddSingleton(emailConfig);
-		//	services.AddScoped<IEmailSender, EmailSender>();
-		//}
+		public static void ConfigureAutoMapper(this IServiceCollection services) => services.AddAutoMapper(configAction => configAction.AddProfile<MappingProfile>());
 
 		public static void ConfigureWebsiteCookies(this IServiceCollection services, IConfiguration configuration)
 		{

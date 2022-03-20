@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { LazyLoadEvent } from 'primeng/api';
 import { AppBreadcrumbService } from 'src/app/core/services/app.breadcrumb.service';
-import { UserProfileModel } from 'src/app/shared/models/user-profile.model';
-import { ProfileService } from 'src/app/core/services/profile.service';
-import { RepositoryService } from 'src/app/core/services/repository.service';
-import { KeyValuePairModel } from 'src/app/shared/models/key-value-pair.model';
+import { InquiryService } from 'src/app/core/services/inquiry.service';
+import { InquiryModel } from 'src/app/shared/models/inquiry.model';
 
 @Component({
   selector: 'app-my-inquiries',
@@ -11,12 +10,12 @@ import { KeyValuePairModel } from 'src/app/shared/models/key-value-pair.model';
 })
 export class MyInquiriesComponent implements OnInit {
 
-  profile: UserProfileModel;
-  contactReasons: KeyValuePairModel[];
-  selectedReason: KeyValuePairModel;
   loading: boolean;
+  inquiryList: InquiryModel[];
+  inquiry: InquiryModel;
+  totalRecords: number = 0;
 
-  constructor(private repositoryService: RepositoryService, private profileService: ProfileService, private breadcrumbService: AppBreadcrumbService) {
+  constructor(private inquiryService: InquiryService, private breadcrumbService: AppBreadcrumbService) {
     this.breadcrumbService.setItems([
       { label: 'Inquiries', icon: 'pi pi-fw pi-home mr-1' },
       { label: 'My Inquiries' }
@@ -24,17 +23,15 @@ export class MyInquiriesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  loadData(event: LazyLoadEvent) {
     this.loading = true;
 
-    this.repositoryService.getAll<any>("common/contactusreason", null)
-      .subscribe(res => {
-        this.contactReasons = res;
-        this.selectedReason = this.contactReasons[0];
-      });
-
-    this.profileService.getProfile()
-      .subscribe(data => {
-        this.profile = data;
+    this.inquiryService.getUserInquiries(event)
+      .subscribe((res: any) => {
+        this.inquiryList = res.data;
+        this.totalRecords = res.total_records;
         this.loading = false;
       });
   }

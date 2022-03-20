@@ -39,6 +39,7 @@ namespace Bizomet.Data.Configurations
 			builder.Property(u => u.Description).IsRequired(false);
 
 			builder.Property(p => p.Tags)
+				.IsRequired(false)
 				.HasConversion(
 					v => JsonConvert.SerializeObject(v),
 					v => JsonConvert.DeserializeObject<List<string>>(v),

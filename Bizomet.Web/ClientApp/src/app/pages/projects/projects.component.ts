@@ -34,4 +34,9 @@ export class ProjectsComponent implements OnInit {
       myProjectsMenuItem
     ];
   }
+
+  createNew() {
+    const urlTree = this._router.createUrlTree(['/projects/add-project'], { queryParams: { returnUrl: this._router.url } });
+    this._router.navigateByUrl(urlTree, { skipLocationChange: true });
+  }
 }

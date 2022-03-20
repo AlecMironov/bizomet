@@ -29,8 +29,9 @@ export class EmailConfirmationComponent implements OnInit {
   ngOnInit(): void {
     const token = this._route.snapshot.queryParams['token'];
     const email = this._route.snapshot.queryParams['email'];
+    const username = this._route.snapshot.queryParams['username'];
 
-    this._authenticationService.confirmEmail(token, email)
+    this._authenticationService.confirmEmail(token, email, username)
       .subscribe(_ => {
         this.successful = true;
         this.message = [

@@ -8,6 +8,7 @@ using Bizomet.Models.MailModels;
 using Bizomet.Web.Helpers;
 using MailKitMailer.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
@@ -61,13 +62,14 @@ namespace Bizomet.Web.Controllers
 				var result = await _userManager.CreateAsync(user, userModel.Password);
 
 				if (result.Succeeded) {
-					await _userManager.AddToRoleAsync(user, "Talent");
+					await _userManager.AddToRoleAsync(user, userModel.Role);
 
 					var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 					var param = new Dictionary<string, string?>
 					{
 						{"token", token },
-						{"email", user.Email }
+						{"email", user.Email },
+						{"username", user.UserName }
 					};
 					var callback = QueryHelpers.AddQueryString(userModel.ClientURI, param);
 
@@ -101,8 +103,7 @@ namespace Bizomet.Web.Controllers
 		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
 		public async Task<IActionResult> Login([FromBody] UserAuthenticationModel userModel)
 		{
-			//var user = await _userManager.FindByNameAsync(userModel.Email);
-			var user = _userManager.Users.Include(u => u.UserRoles).ThenInclude(ur => ur.Role).FirstOrDefault(u => u.Email == userModel.Email);
+			var user = _userManager.Users.Include(u => u.RefreshTokens).Include(u => u.UserRoles).ThenInclude(ur => ur.Role).FirstOrDefault(u => u.UserName == userModel.UserName);
 			if (user == null)
 				return Unauthorized("Invalid Authentication");
 
@@ -137,8 +138,18 @@ namespace Bizomet.Web.Controllers
 			var accessToken = _tokenService.GenerateAccessToken(claims);
 			var refreshToken = _tokenService.GenerateRefreshToken();
 
-			user.RefreshToken = refreshToken;
-			user.RefreshTokenExpiryTime = DateTime.Now.AddDays(1);
+			//clean up old tokens
+			var oldTokens = user.RefreshTokens.Where(r => r.CreatedByIp == getClientIP()).ToList();
+			foreach (var rt in oldTokens) {
+				user.RefreshTokens.Remove(rt);
+			}
+
+			user.RefreshTokens.Add(new RefreshToken {
+				Token = refreshToken,
+				Expires = DateTime.UtcNow.AddDays(7),
+				Created = DateTime.UtcNow,
+				CreatedByIp = getClientIP()
+			});
 
 			var result = await _userManager.UpdateAsync(user);
 			if (!result.Succeeded) {
@@ -164,7 +175,7 @@ namespace Bizomet.Web.Controllers
 			if (!ModelState.IsValid)
 				return BadRequest();
 
-			var user = await _userManager.FindByEmailAsync(model.Email);
+			var user = await _userManager.FindByNameAsync(model.UserName);
 			if (user == null)
 				return BadRequest("Invalid Request");
 
@@ -172,7 +183,7 @@ namespace Bizomet.Web.Controllers
 			var param = new Dictionary<string, string?>
 			{
 				{"token", token },
-				{"email", model.Email }
+				{"username", model.UserName }
 			};
 			var callback = QueryHelpers.AddQueryString(model.ClientURI, param);
 			var emailModel = new ResetPasswordEmailModel() {
@@ -185,7 +196,7 @@ namespace Bizomet.Web.Controllers
 			};
 			await this._mailClient.SendAsync<IBizometMailer>(x => x.ResetPasswordMail(emailModel));
 
-			_logger.LogDebug($"[Forgot Password] request sent to {model.Email}");
+			_logger.LogDebug($"[Forgot Password] request sent to {user.UserName} {user.Email}");
 
 			return Ok();
 		}
@@ -198,7 +209,7 @@ namespace Bizomet.Web.Controllers
 			if (!ModelState.IsValid)
 				return BadRequest();
 
-			var user = await _userManager.FindByEmailAsync(model.Email);
+			var user = await _userManager.FindByNameAsync(model.UserName);
 			if (user == null)
 				return BadRequest("Invalid Request");
 
@@ -221,21 +232,27 @@ namespace Bizomet.Web.Controllers
 		public async Task<IActionResult> Logout()
 		{
 			try {
-				var user = await _userManager.GetUserAsync(User);
-				if (user == null)
+				var user = await _userManager.Users.Include(u => u.RefreshTokens).FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
+				if (user == null) {
 					return BadRequest("Invalid client request");
+				}
 
-				user.RefreshToken = null;
-				user.RefreshTokenExpiryTime = null;
-				var result = await _userManager.UpdateAsync(user);
-				if (result.Succeeded) {
-					return Ok(result);
+				var refreshTokenEntity = user.RefreshTokens.FirstOrDefault(x => x.Revoked == null && x.CreatedByIp == getClientIP());
+				if (refreshTokenEntity != null) {
+					refreshTokenEntity.Revoked = DateTime.UtcNow;
+					refreshTokenEntity.RevokedByIp = getClientIP();
+					var result = await _userManager.UpdateAsync(user);
+					if (result.Succeeded) {
+						return Ok(result);
+					}
+					else {
+						var errors = result.Errors.Select(e => e.Description);
+						_logger.LogError($"Something went wrong in the {nameof(Logout)}; {errors}");
+						return Problem($"Something went wron the {nameof(Logout)}", statusCode: StatusCodes.Status500InternalServerError);
+					}
 				}
-				else {
-					var errors = result.Errors.Select(e => e.Description);
-					_logger.LogError($"Something went wrong in the {nameof(Logout)}; {errors}");
-					return Problem($"Something went wrong in the {nameof(Logout)}", statusCode: StatusCodes.Status500InternalServerError);
-				}
+
+				return Ok();
 			}
 			catch (Exception e) {
 				_logger.LogError(e, $"Something went wrong in the {nameof(Logout)}");
@@ -247,13 +264,13 @@ namespace Bizomet.Web.Controllers
 		[AllowAnonymous]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public async Task<IActionResult> EmailConfirmation([FromQuery] string email, [FromQuery] string token)
+		public async Task<IActionResult> EmailConfirmation([FromQuery] string username, [FromQuery] string email, [FromQuery] string token)
 		{
-			if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(token))
+			if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(token))
 				return BadRequest("Invalid Email Confirmation Request");
 
-			var user = await _userManager.FindByEmailAsync(email);
-			if (user == null)
+			var user = await _userManager.FindByNameAsync(username);
+			if (user == null && user.Email == email)
 				return BadRequest("Invalid Email Confirmation Request");
 
 			var confirmResult = await _userManager.ConfirmEmailAsync(user, token);
@@ -261,6 +278,27 @@ namespace Bizomet.Web.Controllers
 				return BadRequest("Invalid Email Confirmation Request");
 
 			return Ok();
+		}
+
+		[HttpGet]
+		[AllowAnonymous]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		public async Task<IActionResult> ValidateUsername([FromQuery] string username)
+		{
+			var user = await _userManager.FindByNameAsync(username);
+			if (user != null)
+				return BadRequest("Invalid Username Request");
+
+			return Ok();
+		}
+
+		private string getClientIP()
+		{
+			if (Request.Headers.ContainsKey("X-Forwarded-For"))
+				return Request.Headers["X-Forwarded-For"];
+			else
+				return HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
 		}
 	}
 }

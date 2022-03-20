@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UserProfileModel } from 'src/app/shared/models/user-profile.model';
-import { ProfileService } from 'src/app/core/services/profile.service';
-import { RepositoryService } from 'src/app/core/services/repository.service';
-import { KeyValuePairModel } from 'src/app/shared/models/key-value-pair.model';
 import { AppBreadcrumbService } from 'src/app/core/services/app.breadcrumb.service';
+import { ProjectModel } from 'src/app/shared/models/project.model';
+import { ProjectService } from 'src/app/core/services/project.service';
+import { LazyLoadEvent } from 'primeng/api';
 
 @Component({
   selector: 'app-my-projects',
@@ -11,12 +10,12 @@ import { AppBreadcrumbService } from 'src/app/core/services/app.breadcrumb.servi
 })
 export class MyProjectsComponent implements OnInit {
 
-  profile: UserProfileModel;
-  contactReasons: KeyValuePairModel[];
-  selectedReason: KeyValuePairModel;
   loading: boolean;
+  projectList: ProjectModel[];
+  project: ProjectModel;
+  totalRecords: number = 0;
 
-  constructor(private repositoryService: RepositoryService, private profileService: ProfileService, private breadcrumbService: AppBreadcrumbService) {
+  constructor(private projectService: ProjectService, private breadcrumbService: AppBreadcrumbService) {
     this.breadcrumbService.setItems([
       { label: 'Projects', icon: 'pi pi-fw pi-briefcase mr-1' },
       { label: 'My Projects' }
@@ -24,17 +23,15 @@ export class MyProjectsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  loadData(event: LazyLoadEvent) {
     this.loading = true;
 
-    this.repositoryService.getAll<any>("common/contactusreason", null)
-      .subscribe(res => {
-        this.contactReasons = res;
-        this.selectedReason = this.contactReasons[0];
-      });
-
-    this.profileService.getProfile()
-      .subscribe(data => {
-        this.profile = data;
+    this.projectService.getAll(event)
+      .subscribe((res: any) => {
+        this.projectList = res.data;
+        this.totalRecords = res.total_records;
         this.loading = false;
       });
   }

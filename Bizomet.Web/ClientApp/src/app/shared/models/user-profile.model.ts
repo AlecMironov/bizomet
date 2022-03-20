@@ -1,7 +1,7 @@
 import { UserRole } from "./user-role.model";
 
 export class UserProfileModel {
-    userUserName: string;
+    userName: string;
     firstName: string;
     lastName: string;
     userEmail: string;

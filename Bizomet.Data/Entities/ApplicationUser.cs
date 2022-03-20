@@ -23,10 +23,6 @@ namespace Bizomet.Data.Entities
 			set => _userProfile = value;
 		}
 
-		public string RefreshToken { get; set; }
-
-		public DateTime? RefreshTokenExpiryTime { get; set; }
-
 		public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
 		public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 		public virtual ICollection<IdentityUserToken<string>> Tokens { get; set; }
@@ -34,5 +30,6 @@ namespace Bizomet.Data.Entities
 		public virtual ICollection<UserPortfolio> UserPortfolio { get; set; }
 		public virtual ICollection<Project> Projects { get; set; }
 		public virtual ICollection<Inquiry> Inquiries { get; set; }
+		public virtual ICollection<RefreshToken> RefreshTokens { get; set; }
 	}
 }

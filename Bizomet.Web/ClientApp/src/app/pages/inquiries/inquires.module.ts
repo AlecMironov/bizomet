@@ -44,6 +44,7 @@ import { MyInquiriesComponent } from './my-inquiries/my-inquiries.component';
 import { MyPitchesComponent } from './my-pitches/my-pitches.component';
 
 import { InquiryService } from 'src/app/core/services/inquiry.service';
+import { AddInquiryComponent } from './add-inquiry/add-inquiry.component';
 
 @NgModule({
   providers: [InquiryService, MessageService, ConfirmationService],
@@ -51,7 +52,8 @@ import { InquiryService } from 'src/app/core/services/inquiry.service';
     InquiriesComponent,
     AllInquiriesComponent,
     MyInquiriesComponent,
-    MyPitchesComponent
+    MyPitchesComponent,
+    AddInquiryComponent
   ],
   imports: [
     CommonModule,

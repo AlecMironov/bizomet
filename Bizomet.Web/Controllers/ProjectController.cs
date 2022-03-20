@@ -53,6 +53,25 @@ namespace Bizomet.Web.Controllers
 			if (user == null)
 				return Unauthorized("Unauthorized request");
 
+			var totalRecords = _repositoryManager.Projects.GetAll().Count();
+			var projects = _repositoryManager.Projects.GetAll().OrderByDescending(r => r.RequestDate).Skip(first).Take(rows);
+			var result = _mapper.Map<IEnumerable<Project>, IEnumerable<ProjectModel>>(projects);
+
+			return Ok(new { data = result, total_records = totalRecords });
+		}
+
+		[HttpGet("userprojects")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+		public async Task<IActionResult> GetUserProjects([FromQuery] int first, int rows, string sortField, int sortOrder)
+		{
+			if (User == null || User.Identity == null || !User.Identity.IsAuthenticated)
+				return Unauthorized("Unauthorized request");
+
+			var user = await _userManager.FindByNameAsync(User.Identity.Name);
+			if (user == null)
+				return Unauthorized("Unauthorized request");
+
 			var totalRecords = _repositoryManager.Projects.GetAll(r => r.UserId == user.Id).Count();
 			var projects = _repositoryManager.Projects.GetAll(r => r.UserId == user.Id).OrderByDescending(r => r.RequestDate).Skip(first).Take(rows);
 			var result = _mapper.Map<IEnumerable<Project>, IEnumerable<ProjectModel>>(projects);

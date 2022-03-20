@@ -1,5 +1,5 @@
 import { UserAuthenticationModel } from '../../shared/models/user-authentication.model';
-import { Router, ActivatedRoute, UrlTree } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   features: any[];
   public loginForm: FormGroup;
   public errorMessage: Message[] = [];
-  public disablePage = false;
+  public loading = false;
   private _returnUrl: string = "";
 
   constructor(
@@ -34,8 +34,8 @@ export class LoginComponent implements OnInit {
     ];
 
     this.loginForm = new FormGroup({
-      username: new FormControl("", [Validators.required, Validators.email]),
-      password: new FormControl("", [Validators.required])
+      username: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required])
     })
 
     this._returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -50,18 +50,18 @@ export class LoginComponent implements OnInit {
   }
 
   public loginAction = (loginFormValue: any) => {
-    this.disablePage = true;
+    this.loading = true;
     this.errorMessage = [];
     const login = { ...loginFormValue };
     const model: UserAuthenticationModel = {
-      email: login.username,
+      userName: login.username,
       password: login.password,
       clientURI: `${this.baseUrl}account/forgotpassword`
     }
 
     this.authenticationService.login(model)
       .subscribe(res => {
-        this.disablePage = false;
+        this.loading = false;
 
         if (this._returnUrl === "/") {
           this.router.navigate(["/inquiries"]);
@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
         }
       },
         (error) => {
-          this.disablePage = false;
+          this.loading = false;
           this.errorMessage = [
             { severity: 'error', summary: '', detail: error }
           ];

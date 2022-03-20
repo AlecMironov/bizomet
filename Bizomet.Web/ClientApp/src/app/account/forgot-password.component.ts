@@ -74,7 +74,7 @@ export class ForgotPasswordComponent implements OnInit {
 
     const forgotPass = { ...forgotPasswordFormValue };
     const model: ForgotPasswordModel = {
-      email: forgotPass.email,
+      userName: forgotPass.email,
       clientURI: `${this.baseUrl}account/resetpassword`
     }
 

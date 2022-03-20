@@ -24,7 +24,6 @@ namespace Bizomet.Data.Configurations
 			builder.Property(u => u.Email).HasMaxLength(500);
 			builder.Property(u => u.NormalizedEmail).HasMaxLength(500);
 			builder.Property(u => u.PhoneNumber).IsRequired(false).HasMaxLength(50);
-			builder.Property(u => u.RefreshToken).IsRequired(false);
 
 			// Each User can have many UserClaims
 			builder.HasMany(e => e.Claims)

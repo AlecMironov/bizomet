@@ -31,7 +31,6 @@ namespace Bizomet.Web.Mappings
 				});
 
 			CreateMap<UserRegistrationModel, ApplicationUser>()
-				.ForMember(u => u.UserName, opt => opt.MapFrom(x => x.Email))
 				.ForMember(u => u.UserProfile, opt => opt.Ignore())
 				.AfterMap((src, dest, context) =>
 				{

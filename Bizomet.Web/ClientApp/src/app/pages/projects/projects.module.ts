@@ -42,13 +42,15 @@ import { ProjectsComponent } from './projects.component';
 import { AllProjectsComponent } from './all-projects/all-projects.component';
 import { ProjectService } from '../../core/services/project.service';
 import { MyProjectsComponent } from './my-projects/my-projects.component';
+import { AddProjectComponent } from './add-project/add-project.component';
 
 @NgModule({
   providers: [ProjectService, MessageService, ConfirmationService],
   declarations: [
     ProjectsComponent,
     AllProjectsComponent,
-    MyProjectsComponent
+    MyProjectsComponent,
+    AddProjectComponent
   ],
   imports: [
     CommonModule,

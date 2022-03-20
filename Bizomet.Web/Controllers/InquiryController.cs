@@ -53,6 +53,25 @@ namespace Bizomet.Web.Controllers
 			if (user == null)
 				return Unauthorized("Unauthorized request");
 
+			var totalRecords = _repositoryManager.Inquiries.GetAll().Count();
+			var inquiries = _repositoryManager.Inquiries.GetAll().OrderByDescending(r => r.RequestDate).Skip(first).Take(rows);
+			var result = _mapper.Map<IEnumerable<Inquiry>, IEnumerable<InquiryModel>>(inquiries);
+
+			return Ok(new { data = result, total_records = totalRecords });
+		}
+
+		[HttpGet("userinquiries")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+		public async Task<IActionResult> GetUserInquiries([FromQuery] int first, int rows, string sortField, int sortOrder)
+		{
+			if (User == null || User.Identity == null || !User.Identity.IsAuthenticated)
+				return Unauthorized("Unauthorized request");
+
+			var user = await _userManager.FindByNameAsync(User.Identity.Name);
+			if (user == null)
+				return Unauthorized("Unauthorized request");
+
 			var totalRecords = _repositoryManager.Inquiries.GetAll(r => r.UserId == user.Id).Count();
 			var inquiries = _repositoryManager.Inquiries.GetAll(r => r.UserId == user.Id).OrderByDescending(r => r.RequestDate).Skip(first).Take(rows);
 			var result = _mapper.Map<IEnumerable<Inquiry>, IEnumerable<InquiryModel>>(inquiries);

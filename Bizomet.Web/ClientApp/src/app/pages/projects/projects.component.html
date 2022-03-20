@@ -2,7 +2,7 @@
     <div class="mb-3 w-full">
       <p-menubar styleClass="text-lg" [model]="itemsBar">
         <ng-template pTemplate="start">
-          <button pButton pRipple class="p-button mr-5">
+          <button pButton pRipple class="p-button mr-5" (click)="createNew()">
             <span class="pi pi-plus-circle"></span>
             <span class="ml-2 hidden sm:inline">Add Project</span>
           </button>

@@ -41,4 +41,9 @@ export class InquiriesComponent implements OnInit {
       myResponsesMenuItem
     ];
   }
+
+  createNew() {
+    const urlTree = this._router.createUrlTree(['/projects/add-inquiry'], { queryParams: { returnUrl: this._router.url } });
+    this._router.navigateByUrl(urlTree, { skipLocationChange: true });
+  }
 }
