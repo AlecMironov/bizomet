@@ -1,0 +1,109 @@
+<p-blockUI [blocked]="loading">
+    <p-progressSpinner></p-progressSpinner>
+</p-blockUI>
+
+<p-toast position="bottom-right" [breakpoints]="{'490px': {width: '100%', right: '0', left: '0'}}"></p-toast>
+<p-confirmPopup></p-confirmPopup>
+
+<div class="flex flex-wrap justify-content-center pt-3">
+    <div class="card w-11 lg:w-10 xl:w-8 lg:p-5">
+        <div class="flex flex-wrap align-items-center justify-content-center mb-1">
+            <h2 class="w-full">New Project</h2>
+            <h5 class="w-full text-sm font-light mt-0">Create a new project (Interview)</h5>
+        </div>
+
+        <div class="card w-full">
+            <p-steps [model]="stepsItems" [activeIndex]="activeTabIndex"
+                (activeIndexChange)="activeIndexChange($event)"></p-steps>
+        </div>
+
+        <p-messages [(value)]="errorMessage" [enableService]="false" [escape]="false" [closable]="false"></p-messages>
+
+        <form [formGroup]="projectForm" autocomplete="off" novalidate (ngSubmit)="saveAction(projectForm.value)">
+            <p-tabView class="w-full" [(activeIndex)]="activeTabIndex">
+                <p-tabPanel headerStyleClass="hidden">
+                    <div class="flex flex-column lg:flex-row flex-wrap">
+                        <div class="flex-grow-1 grid grid-nogutter card pt-0 px-3">
+                            <div class="col-12 mt-2">
+                                <label for="title" class="block text-sm font-light text-800 mb-2">Title<span
+                                        class="required-dot">&#11044;</span></label>
+                                <input id="title" formControlName="title" type="text" pInputText
+                                    class="w-full font-medium mb-1 p-2" pInputText placeholder="What to do...">
+                                <small class="p-error block"
+                                    *ngIf="validateControl('title') && hasError('title', 'required')">
+                                    Title is required
+                                </small>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="description" class="block text-sm font-light text-800 m-1 mt-4">Description<span
+                                        class="required-dot">&#11044;</span></label>
+                                <textarea formControlName="description" id="description" pInputTextarea=""
+                                    autoResize="autoResize" style="min-height: 10rem;height: 10rem;"
+                                    placeholder="Enter all requrements and details here..." maxlength="4000"
+                                    class="w-full font-medium p-inputtextarea p-inputtext p-component p-element ng-pristine ng-valid ng-touched"
+                                    spellcheck="true">
+                                </textarea>
+                                <small class="p-error block"
+                                    *ngIf="validateControl('description') && hasError('description', 'required')">
+                                    Description is required
+                                </small>
+                            </div>
+                        </div>
+                        <div class="hidden lg:inline-block">
+                            <p-divider layout="vertical"></p-divider>
+                        </div>
+                        <div class="flex-grow-0 w-full lg:w-5 mt-4 lg:mt-0 card pt-0 px-3">
+                            <div class="grid grid-nogutter">
+                                <div class="col-12 mt-1">
+                                    <label for="interviewResult" class="block text-sm text-sm font-light text-800 m-1 pb-1">Interview Format<span
+                                            class="required-dot">&#11044;</span></label>
+                                    <p-dropdown formControlName="interviewResult" [options]="interview_results"
+                                        optionLabel="name" optionValue="code" styleClass="w-full">
+                                    </p-dropdown>
+                                </div>
+                                <div class="col-12" *ngIf="projectForm.get('interviewResult').value == 'OTHER'">
+                                    <label for="interviewResultComment"
+                                        class="block text-sm font-light text-800 m-1 pb-1 mt-4">Format Details</label>
+                                    <textarea formControlName="interviewResultComment" id="interviewResultComment"
+                                        pInputTextarea="" autoResize="autoResize" style="min-height: 5rem;height: 5rem;"
+                                        placeholder="Enter interview format details..." maxlength="4000"
+                                        class="w-full font-medium p-inputtextarea p-inputtext p-component p-element ng-pristine ng-valid ng-touched"
+                                        spellcheck="true">
+                                    </textarea>
+                                </div>
+                                <div class="col-12 mt-3">
+                                    <label for="interviewCondition" class="block text-sm font-light text-800 m-1 pb-1">Budget<span
+                                            class="required-dot">&#11044;</span></label>
+                                    <p-dropdown formControlName="interviewCondition" [options]="interview_conditions"
+                                        optionLabel="name" optionValue="code" styleClass="w-full">
+                                    </p-dropdown>
+                                </div>
+                                <div class="col-12" *ngIf="projectForm.get('interviewCondition').value == 'OTHER'">
+                                    <label for="interviewConditionComment"
+                                        class="block text-sm font-light text-800 m-1 pb-1 mt-4">Budget Details</label>
+                                    <textarea formControlName="interviewConditionComment" id="interviewConditionComment"
+                                        pInputTextarea="" autoResize="autoResize" style="min-height: 5rem;height: 5rem;"
+                                        placeholder="Enter interview financial details..." maxlength="4000"
+                                        class="w-full font-medium p-inputtextarea p-inputtext p-component p-element ng-pristine ng-valid ng-touched"
+                                        spellcheck="true">
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 mt-3">
+                            <p-divider></p-divider>
+                        </div>
+                        <div class="col-12 grid grid-nogutter justify-content-between">
+                            <button pButton pRipple type="button" label="Cancel" (click)="cancelAction()"
+                                class="p-button-raised p-button-secondary w-8rem py-2 font-medium"></button>
+                            <button pButton pRipple label="Create" type="submit" [disabled]="!projectForm.valid"
+                                class="w-8rem py-2 font-medium"></button>
+                        </div>
+                    </div>
+                </p-tabPanel>
+            </p-tabView>
+        </form>
+    </div>
+</div>

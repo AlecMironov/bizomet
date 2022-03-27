@@ -43,6 +43,8 @@ import { AllProjectsComponent } from './all-projects/all-projects.component';
 import { ProjectService } from '../../core/services/project.service';
 import { MyProjectsComponent } from './my-projects/my-projects.component';
 import { AddProjectComponent } from './add-project/add-project.component';
+import { StepsModule } from 'primeng/steps';
+import { TabViewModule } from 'primeng/tabview';
 
 @NgModule({
   providers: [ProjectService, MessageService, ConfirmationService],
@@ -86,6 +88,8 @@ import { AddProjectComponent } from './add-project/add-project.component';
     ToolbarModule,
     DialogModule,
     ImageCropperModule,
+    StepsModule,
+    TabViewModule,
     ProjectsRoutingModule,
     SharedModule
   ]

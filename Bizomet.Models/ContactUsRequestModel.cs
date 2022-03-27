@@ -7,7 +7,7 @@ namespace Bizomet.Models
 	{
 		public string UserId { get; set; }
 
-		[Required(ErrorMessage = "Email is required")]
+		[Required(ErrorMessage = "Reason is required")]
 		public string Reason { get; set; }
 
 		[Required(ErrorMessage = "First Name is required")]

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bizomet.Data.Configurations
 {
@@ -14,8 +15,17 @@ namespace Bizomet.Data.Configurations
 
 			builder.Property(s => s.Title).HasMaxLength(1000).IsRequired(true);
 			builder.Property(s => s.Description).IsRequired(true);
+			builder.Property(s => s.InterviewConditionComment).IsRequired(false).HasMaxLength(4000);
+			builder.Property(s => s.InterviewResultComment).IsRequired(false).HasMaxLength(4000);
+			builder.Property(s => s.Location).IsRequired(false).HasMaxLength(1000);
+
+			builder.Property(s => s.DueDate)
+				.HasConversion(
+					v => v.ToUniversalTime(),
+					v => v.ToLocalTime()
+				);
+
 			builder.Property(s => s.RequestDate)
-				.IsRequired(true)
 				.HasConversion(
 					v => v.ToUniversalTime(),
 					v => v.ToLocalTime()

@@ -48,42 +48,42 @@ namespace Bizomet.Data.Migrations
 						new
 						{
 							Id = "8742075e-7145-4bd7-8215-814467809dc2",
-							ConcurrencyStamp = "f46dc40b-35a0-4d4d-a76b-2011c12a0a46",
+							ConcurrencyStamp = "4c773c33-e6ba-4f20-aaa6-b0d974f63e96",
 							Name = "Administrator",
 							NormalizedName = "ADMINISTRATOR"
 						},
 						new
 						{
 							Id = "69571a28-cb0d-4fe6-8176-3bffad6c1510",
-							ConcurrencyStamp = "26a41fe5-e4dd-44a2-8dec-5b884050afbf",
+							ConcurrencyStamp = "59f82bba-cbb5-4dd1-9735-f90cc8eb47ba",
 							Name = "Talent",
 							NormalizedName = "TALENT"
 						},
 						new
 						{
 							Id = "347ac56d-9576-4f4a-81be-674b4a3a9d0b",
-							ConcurrencyStamp = "65dc64fe-cd75-47f8-920d-10d7862a9148",
+							ConcurrencyStamp = "9b561eff-6b3a-4b4d-8303-b00c9ff882b6",
 							Name = "Uplifter",
 							NormalizedName = "UPLIFTER"
 						},
 						new
 						{
 							Id = "7bd1c590-9eed-44e9-a60c-6e7de0db8f01",
-							ConcurrencyStamp = "36fdbc71-17a7-4dcf-8657-c100dc400a6f",
+							ConcurrencyStamp = "b78d4f85-eeba-4e75-81bf-2e1ff8f9b332",
 							Name = "MediaAssistant",
 							NormalizedName = "MEDIAASSISTANT"
 						},
 						new
 						{
 							Id = "7e6619f8-b336-4f3e-826a-5ce96cef872d",
-							ConcurrencyStamp = "bdcac983-e708-4c56-b4f9-7a7d6296697d",
+							ConcurrencyStamp = "2dbb9b91-f95b-403e-a7a8-088b809476ca",
 							Name = "Promoter",
 							NormalizedName = "PROMOTER"
 						},
 						new
 						{
 							Id = "8832961e-a631-445b-9d86-b93f9b4c767b",
-							ConcurrencyStamp = "e7d046fc-edaa-4709-9e69-3957c27c1f84",
+							ConcurrencyStamp = "f3b63446-1a20-4039-9f3b-43afe35a5475",
 							Name = "Producer",
 							NormalizedName = "PRODUCER"
 						});
@@ -170,6 +170,61 @@ namespace Bizomet.Data.Migrations
 					b.ToTable("AspNetUserRoles", (string) null);
 				});
 
+			modelBuilder.Entity("Bizomet.Data.Entities.City", b =>
+				{
+					b.Property<int>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnType("int");
+
+					SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+					b.Property<string>("CountryCode")
+						.HasMaxLength(10)
+						.HasColumnType("nvarchar(10)");
+
+					b.Property<int>("CountryId")
+						.HasColumnType("int");
+
+					b.Property<decimal?>("Latitude")
+						.HasPrecision(11, 8)
+						.HasColumnType("decimal(11,8)");
+
+					b.Property<decimal?>("Longitude")
+						.HasPrecision(11, 8)
+						.HasColumnType("decimal(11,8)");
+
+					b.Property<string>("Name")
+						.IsRequired()
+						.HasMaxLength(510)
+						.HasColumnType("nvarchar(510)");
+
+					b.Property<string>("StateCode")
+						.HasMaxLength(510)
+						.HasColumnType("nvarchar(510)");
+
+					b.Property<int>("StateId")
+						.HasColumnType("int");
+
+					b.HasKey("Id");
+
+					b.HasIndex("Name")
+						.HasDatabaseName("CityIndex");
+
+					b.HasIndex("StateId");
+
+					b.HasIndex("StateCode", "Name")
+						.HasDatabaseName("StateCityIndex");
+
+					b.HasIndex("CountryCode", "StateCode", "Name")
+						.HasDatabaseName("CountryStateCityIndex");
+
+					b.HasIndex("CountryId", "StateId", "Id")
+						.IsUnique()
+						.HasDatabaseName("CountryStateCityByIdIndex");
+
+					b.ToTable("Location.Cities", (string) null);
+				});
+
 			modelBuilder.Entity("Bizomet.Data.Entities.ContactUsRequest", b =>
 				{
 					b.Property<Guid>("Id")
@@ -233,6 +288,80 @@ namespace Bizomet.Data.Migrations
 					b.ToTable("ContactUsRequest");
 				});
 
+			modelBuilder.Entity("Bizomet.Data.Entities.Country", b =>
+				{
+					b.Property<int>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnType("int");
+
+					SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+					b.Property<string>("Capital")
+						.HasMaxLength(510)
+						.HasColumnType("nvarchar(510)");
+
+					b.Property<string>("Currency")
+						.HasMaxLength(510)
+						.HasColumnType("nvarchar(510)");
+
+					b.Property<string>("CurrencyName")
+						.HasMaxLength(510)
+						.HasColumnType("nvarchar(510)");
+
+					b.Property<string>("CurrencySymbol")
+						.HasMaxLength(510)
+						.HasColumnType("nvarchar(510)");
+
+					b.Property<string>("ISO2")
+						.HasMaxLength(10)
+						.HasColumnType("nvarchar(10)");
+
+					b.Property<string>("ISO3")
+						.IsRequired()
+						.HasMaxLength(10)
+						.HasColumnType("nvarchar(10)");
+
+					b.Property<decimal?>("Latitude")
+						.HasPrecision(11, 8)
+						.HasColumnType("decimal(11,8)");
+
+					b.Property<decimal?>("Longitude")
+						.HasPrecision(11, 8)
+						.HasColumnType("decimal(11,8)");
+
+					b.Property<string>("Name")
+						.IsRequired()
+						.HasMaxLength(200)
+						.HasColumnType("nvarchar(200)");
+
+					b.Property<string>("NumericCode")
+						.HasMaxLength(10)
+						.HasColumnType("nvarchar(10)");
+
+					b.Property<string>("PhoneCode")
+						.HasMaxLength(510)
+						.HasColumnType("nvarchar(510)");
+
+					b.Property<string>("Region")
+						.HasMaxLength(510)
+						.HasColumnType("nvarchar(510)");
+
+					b.Property<string>("SubRegion")
+						.HasMaxLength(510)
+						.HasColumnType("nvarchar(510)");
+
+					b.Property<string>("TLD")
+						.HasMaxLength(510)
+						.HasColumnType("nvarchar(510)");
+
+					b.HasKey("Id");
+
+					b.HasIndex("Name")
+						.HasDatabaseName("CountryIndex");
+
+					b.ToTable("Location.Countries", (string) null);
+				});
+
 			modelBuilder.Entity("Bizomet.Data.Entities.Inquiry", b =>
 				{
 					b.Property<Guid>("Id")
@@ -274,6 +403,39 @@ namespace Bizomet.Data.Migrations
 						.IsRequired()
 						.HasColumnType("nvarchar(max)");
 
+					b.Property<DateTime>("DueDate")
+						.HasColumnType("datetime2");
+
+					b.Property<int>("InterviewCondition")
+						.HasColumnType("int");
+
+					b.Property<string>("InterviewConditionComment")
+						.HasMaxLength(4000)
+						.HasColumnType("nvarchar(4000)");
+
+					b.Property<int>("InterviewResult")
+						.HasColumnType("int");
+
+					b.Property<string>("InterviewResultComment")
+						.HasMaxLength(4000)
+						.HasColumnType("nvarchar(4000)");
+
+					b.Property<string>("Location")
+						.HasMaxLength(1000)
+						.HasColumnType("nvarchar(1000)");
+
+					b.Property<int>("MediaAssistantFinancialService")
+						.HasColumnType("int");
+
+					b.Property<int>("ProducerFinancialService")
+						.HasColumnType("int");
+
+					b.Property<int>("PromoterFinancialService")
+						.HasColumnType("int");
+
+					b.Property<bool>("RemoteLocation")
+						.HasColumnType("bit");
+
 					b.Property<DateTime>("RequestDate")
 						.HasColumnType("datetime2");
 
@@ -285,6 +447,15 @@ namespace Bizomet.Data.Migrations
 					b.Property<string>("UserId")
 						.IsRequired()
 						.HasColumnType("nvarchar(450)");
+
+					b.Property<bool>("WishContactedByMediaAssistant")
+						.HasColumnType("bit");
+
+					b.Property<bool>("WishContactedByProducer")
+						.HasColumnType("bit");
+
+					b.Property<bool>("WishContactedByPromoter")
+						.HasColumnType("bit");
 
 					b.HasKey("Id");
 
@@ -333,6 +504,59 @@ namespace Bizomet.Data.Migrations
 					b.HasIndex("UserId");
 
 					b.ToTable("RefreshToken");
+				});
+
+			modelBuilder.Entity("Bizomet.Data.Entities.State", b =>
+				{
+					b.Property<int>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnType("int");
+
+					SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+					b.Property<string>("CountryCode")
+						.HasMaxLength(10)
+						.HasColumnType("nvarchar(10)");
+
+					b.Property<int>("CountryId")
+						.HasColumnType("int");
+
+					b.Property<string>("FipsCode")
+						.HasMaxLength(510)
+						.HasColumnType("nvarchar(510)");
+
+					b.Property<string>("ISO2")
+						.HasMaxLength(10)
+						.HasColumnType("nvarchar(10)");
+
+					b.Property<decimal?>("Latitude")
+						.HasPrecision(11, 8)
+						.HasColumnType("decimal(11,8)");
+
+					b.Property<decimal?>("Longitude")
+						.HasPrecision(11, 8)
+						.HasColumnType("decimal(11,8)");
+
+					b.Property<string>("Name")
+						.IsRequired()
+						.HasMaxLength(510)
+						.HasColumnType("nvarchar(510)");
+
+					b.Property<string>("Type")
+						.HasMaxLength(400)
+						.HasColumnType("nvarchar(400)");
+
+					b.HasKey("Id");
+
+					b.HasIndex("CountryId");
+
+					b.HasIndex("Name")
+						.HasDatabaseName("StateIndex");
+
+					b.HasIndex("CountryCode", "Name")
+						.HasDatabaseName("CountryStateIndex");
+
+					b.ToTable("Location.States", (string) null);
 				});
 
 			modelBuilder.Entity("Bizomet.Data.Entities.UserPortfolio", b =>
@@ -567,6 +791,25 @@ namespace Bizomet.Data.Migrations
 					b.Navigation("User");
 				});
 
+			modelBuilder.Entity("Bizomet.Data.Entities.City", b =>
+				{
+					b.HasOne("Bizomet.Data.Entities.Country", "Country")
+						.WithMany("Cities")
+						.HasForeignKey("CountryId")
+						.OnDelete(DeleteBehavior.NoAction)
+						.IsRequired();
+
+					b.HasOne("Bizomet.Data.Entities.State", "State")
+						.WithMany("Cities")
+						.HasForeignKey("StateId")
+						.OnDelete(DeleteBehavior.NoAction)
+						.IsRequired();
+
+					b.Navigation("Country");
+
+					b.Navigation("State");
+				});
+
 			modelBuilder.Entity("Bizomet.Data.Entities.Inquiry", b =>
 				{
 					b.HasOne("Bizomet.Data.Entities.ApplicationUser", "User")
@@ -598,6 +841,17 @@ namespace Bizomet.Data.Migrations
 						.IsRequired();
 
 					b.Navigation("User");
+				});
+
+			modelBuilder.Entity("Bizomet.Data.Entities.State", b =>
+				{
+					b.HasOne("Bizomet.Data.Entities.Country", "Country")
+						.WithMany("States")
+						.HasForeignKey("CountryId")
+						.OnDelete(DeleteBehavior.NoAction)
+						.IsRequired();
+
+					b.Navigation("Country");
 				});
 
 			modelBuilder.Entity("Bizomet.Data.Entities.UserPortfolio", b =>
@@ -683,6 +937,18 @@ namespace Bizomet.Data.Migrations
 						.IsRequired();
 
 					b.Navigation("UserRoles");
+				});
+
+			modelBuilder.Entity("Bizomet.Data.Entities.Country", b =>
+				{
+					b.Navigation("Cities");
+
+					b.Navigation("States");
+				});
+
+			modelBuilder.Entity("Bizomet.Data.Entities.State", b =>
+				{
+					b.Navigation("Cities");
 				});
 #pragma warning restore 612, 618
 		}

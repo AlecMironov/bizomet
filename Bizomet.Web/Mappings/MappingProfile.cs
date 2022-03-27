@@ -60,21 +60,25 @@ namespace Bizomet.Web.Mappings
 						dest.Link = $"http://{src.Link}";
 				});
 
-			CreateMap<ContactUsRequestModel, ContactUsRequest>()
-				.ForMember(u => u.Reason, opt => opt.Ignore())
-				.AfterMap((src, dest, context) =>
-				{
-					dest.Reason = EnumHelper.ToEnum<ContactReason>(src.Reason);
-				})
+			CreateMap<ContactUsRequest, ContactUsRequestModel>()
+				.ForMember(dest => dest.Reason, opt => opt.MapFrom(src => EnumHelper.GetEnumName(src.Reason)))
 				.ReverseMap()
-				.ForMember(u => u.Reason, opt => opt.Ignore())
-				.AfterMap((src, dest, context) =>
-				{
-					dest.Reason = EnumHelper.GetEnumName(src.Reason);
-				});
+				.ForMember(dest => dest.Reason, opt => opt.MapFrom(src => EnumHelper.ToEnum<ContactReason>(src.Reason)));
 
 			CreateMap<Inquiry, InquiryModel>().ReverseMap();
-			CreateMap<Project, ProjectModel>().ReverseMap();
+
+			CreateMap<Project, ProjectModel>()
+				.ForMember(dest => dest.InterviewCondition, opt => opt.MapFrom(src => EnumHelper.GetEnumName(src.InterviewCondition)))
+				.ForMember(dest => dest.InterviewResult, opt => opt.MapFrom(src => EnumHelper.GetEnumName(src.InterviewResult)))
+				.ForMember(dest => dest.MediaAssistantFinancialService, opt => opt.MapFrom(src => EnumHelper.GetEnumName(src.MediaAssistantFinancialService)))
+				.ForMember(dest => dest.ProducerFinancialService, opt => opt.MapFrom(src => EnumHelper.GetEnumName(src.ProducerFinancialService)))
+				.ForMember(dest => dest.PromoterFinancialService, opt => opt.MapFrom(src => EnumHelper.GetEnumName(src.PromoterFinancialService)))
+				.ReverseMap()
+				.ForMember(dest => dest.InterviewCondition, opt => opt.MapFrom(src => EnumHelper.ToEnum<ContactReason>(src.InterviewCondition)))
+				.ForMember(dest => dest.InterviewResult, opt => opt.MapFrom(src => EnumHelper.ToEnum<ContactReason>(src.InterviewResult)))
+				.ForMember(dest => dest.MediaAssistantFinancialService, opt => opt.MapFrom(src => EnumHelper.ToEnum<ContactReason>(src.MediaAssistantFinancialService)))
+				.ForMember(dest => dest.ProducerFinancialService, opt => opt.MapFrom(src => EnumHelper.ToEnum<ContactReason>(src.ProducerFinancialService)))
+				.ForMember(dest => dest.PromoterFinancialService, opt => opt.MapFrom(src => EnumHelper.ToEnum<ContactReason>(src.PromoterFinancialService)));
 		}
 
 		private void Decrypt<TSource, TDest>(TSource src, TDest dest)

@@ -16,7 +16,6 @@ import { PanelModule } from 'primeng/panel';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RippleModule } from 'primeng/ripple';
 import { CardModule } from 'primeng/card';
-
 import { SharedModule } from '../../shared/shared.module';
 import { AuthorizedRoutingModule } from './authorized-routing.module';
 

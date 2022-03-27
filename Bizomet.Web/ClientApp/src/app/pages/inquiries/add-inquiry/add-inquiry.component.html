@@ -1,0 +1,89 @@
+<p-blockUI [blocked]="loading">
+    <p-progressSpinner></p-progressSpinner>
+</p-blockUI>
+
+<p-toast position="bottom-right" [breakpoints]="{'490px': {width: '100%', right: '0', left: '0'}}"></p-toast>
+<p-confirmPopup></p-confirmPopup>
+
+<div class="grid">
+    <div class="col-12">
+        <div class="card p-4 lg:p-5">
+            <p-messages [(value)]="errorMessage" [enableService]="false" [escape]="false" [closable]="false">
+            </p-messages>
+
+            <form [formGroup]="inquiryForm" novalidate (ngSubmit)="saveAction(inquiryForm.value)">
+                <div class="grid">
+                    <div class="col-12 lg:col-9">
+                        <div class="grid p-2">
+                            <div class="col-12 md:col-6">
+                                <!-- <label for="roles" class="block text-800 m-1 pb-1">My Role<span
+                                        class="required-dot">&#11044;</span></label> -->
+                                <!-- <p-dropdown id="roles" formControlName="roles" [options]="roleList" optionLabel="name"
+                                    styleClass="w-full">
+                                </p-dropdown> -->
+                                <!-- <small class="p-error block m-1"
+                                    *ngIf="validateControl('roles') && hasError('roles', 'required')">
+                                    Role is required
+                                </small> -->
+                            </div>
+
+                            <div class="col-12">
+                                <p-divider></p-divider>
+                            </div>
+
+                            <!-- <div class="col-12 md:col-6">
+                                <label for="firstName" class="block text-800 m-1 pb-1">First Name<span
+                                        class="required-dot">&#11044;</span></label>
+                                <input id="firstName" formControlName="firstName" type="text" pInputText
+                                    class="w-full font-medium mb-1 p-2" autocomplete="on" pInputText>
+                                <small class="p-error block mb-3"
+                                    *ngIf="validateControl('firstName') && hasError('firstName', 'required')">
+                                    First Name is required
+                                </small>
+                            </div>
+
+                            <div class="col-12 md:col-6">
+                                <label for="lastName" class="block text-800 m-1 pb-1">Last Name<span
+                                        class="required-dot">&#11044;</span></label>
+                                <input type="text" id="lastName" formControlName="lastName"
+                                    class="w-full font-medium mb-1 p-2" autocomplete="on" pInputText
+                                    placeholder="Last Name">
+                                <small class="p-error block"
+                                    *ngIf="validateControl('lastName') && hasError('lastName', 'required')">
+                                    Last Name is required
+                                </small>
+                            </div> -->
+
+                            <div class="col-12">
+                                <label for="description" class="block text-800 m-1 pb-1 mt-4">Short Intro<small
+                                        class="ml-3 font-light text-500">(maximum 500 characters)</small></label>
+                                <textarea formControlName="description" id="description" pInputTextarea=""
+                                    autoResize="autoResize" style="min-height: 10rem;height: 10rem;"
+                                    placeholder="Add short intro here..." maxlength="500"
+                                    class="w-full font-medium p-inputtextarea p-inputtext p-component p-element ng-pristine ng-valid ng-touched"
+                                    spellcheck="false">
+                                </textarea>
+                            </div>
+
+                            <!-- <div class="col-12 p-fluid">
+                                <label for="tags" class="block text-800 m-1 pb-1 mt-4">My Tags</label>
+                                <p-chips class="w-full font-medium mb-1 py-2" id="tags" formControlName="tags"
+                                    separator="," placeholder="Add tags, keywords here...">
+                                </p-chips>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-4 h-3 w-full"></div>
+                <p-divider></p-divider>
+                <div class="flex justify-content-between flex-wrap">
+                    <button pButton pRipple type="button" label="Cancel" (click)="cancelAction()"
+                        class="p-button-raised p-button-secondary w-8rem py-2 font-medium mt-2"></button>
+                    <button pButton pRipple label="Save" type="submit" [disabled]="!inquiryForm.valid"
+                        class="p-button-raised w-8rem py-2 font-medium mt-2"></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
