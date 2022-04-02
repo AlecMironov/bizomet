@@ -45,6 +45,7 @@ import { MyProjectsComponent } from './my-projects/my-projects.component';
 import { AddProjectComponent } from './add-project/add-project.component';
 import { StepsModule } from 'primeng/steps';
 import { TabViewModule } from 'primeng/tabview';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   providers: [ProjectService, MessageService, ConfirmationService],
@@ -62,6 +63,7 @@ import { TabViewModule } from 'primeng/tabview';
     FileUploadModule,
     BlockUIModule,
     ButtonModule,
+    CalendarModule,
     CardModule,
     CarouselModule,
     CheckboxModule,

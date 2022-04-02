@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Message } from 'primeng/api/message';
 import { AppBreadcrumbService } from 'src/app/core/services/app.breadcrumb.service';
@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectModel } from 'src/app/shared/models/project.model';
 import { SharedData } from 'src/app/shared/shared-data.module';
 import { KeyValuePairModel } from 'src/app/shared/models/key-value-pair.model';
+import { FileUpload } from 'primeng/fileupload';
 
 @Component({
   selector: 'app-add-project',
@@ -23,7 +24,9 @@ export class AddProjectComponent implements OnInit {
   stepsItems: MenuItem[];
   interview_conditions: KeyValuePairModel[] = SharedData.interview_conditions;
   interview_results: KeyValuePairModel[] = SharedData.interview_results;
-
+  minDate: Date = new Date();
+  uploadedFiles: any[] = [];
+  @ViewChild('fileInput') fileInput: FileUpload;
   private _returnUrl: string = "";
 
   constructor(
@@ -33,7 +36,7 @@ export class AddProjectComponent implements OnInit {
     private breadcrumbService: AppBreadcrumbService,
     private messageService: MessageService) {
 
-    this.stepsItems = [{ label: 'General' }, { label: 'Details' }, { label: 'Confirmation' }];
+    this.stepsItems = [{ label: 'General' }, { label: 'Attachments' }, { label: 'Contacts' }, { label: 'Confirmation' }];
 
     this.breadcrumbService.setItems([
       { label: 'Projects', routerLink: ['/projects'], icon: 'pi pi-fw pi-briefcase mr-1' },
@@ -56,7 +59,8 @@ export class AddProjectComponent implements OnInit {
       producerFinancialService: new FormControl(""),
       location: new FormControl(""),
       remoteLocation: new FormControl(""),
-      dueDate: new FormControl("")
+      dueDate: new FormControl(""),
+      attachments: new FormControl("")
     });
   }
 
@@ -71,6 +75,7 @@ export class AddProjectComponent implements OnInit {
     this.projectForm.controls["requestDate"].setValue(new Date());
     this.projectForm.controls["interviewResult"].setValue(this.interview_results[0].code);
     this.projectForm.controls["interviewCondition"].setValue(this.interview_conditions[0].code);
+    this.projectForm.controls["attachments"].setValue([]);
   }
 
   activeIndexChange(index) {
@@ -83,6 +88,16 @@ export class AddProjectComponent implements OnInit {
 
   public hasError = (controlName: string, errorName: string) => {
     return this.projectForm.controls[controlName].hasError(errorName)
+  }
+
+  myUploader(event) {
+    event.files.forEach(file => {
+      this.uploadedFiles.push(file);
+    });
+  }
+
+  onFileSelect(event) {
+    console.log("onFileSelect", event);
   }
 
   public saveAction = (formValue: any) => {
@@ -101,6 +116,37 @@ export class AddProjectComponent implements OnInit {
     this.project.promoterFinancialService = formValue.promoterFinancialService;
     this.project.wishContactedByProducer = formValue.wishContactedByProducer;
     this.project.producerFinancialService = formValue.producerFinancialService;
+    this.project.dueDate = formValue.dueDate;
+
+    this.fileInput.upload();
+
+    this.uploadedFiles.forEach(file => {
+      let myReader: FileReader = new FileReader();
+      myReader.readAsText(file);
+      myReader.onloadend = (error: any): void => {
+        console.log(file);
+        console.log(myReader.result);
+        // this.uploadService.postClasses(myReader.result).subscribe(
+        //   (data: any): void => {
+        //     if(data.success) {
+        //       console.log(data);
+        //       this.flashMessage.show('Upload Classes Successfully', {
+        //           cssClass: 'alert-success',
+        //           timeout: 3000
+        //       });
+        //       this.router.navigate(['/uploadclass']);
+        //     } else {
+        //       this.msgs = [];
+        //       this.msgs.push({severity: 'error', summary: 'Upload Error', detail: 'Something went wrong'});
+        //       this.router.navigate(['/uploadclass']);
+        //     }
+        //   },
+        //   (error: Error): void =>{
+        //     console.error(error);
+        //   }
+        //);
+      };
+    });
 
     this.projectService.create(this.project)
       .subscribe(() => {
