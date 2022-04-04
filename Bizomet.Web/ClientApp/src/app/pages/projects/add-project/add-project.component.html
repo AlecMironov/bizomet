@@ -119,8 +119,8 @@
                             <button pButton pRipple type="button" label="Cancel" (click)="cancelAction()"
                                 class="p-button-raised p-button-secondary w-8rem py-2 font-medium"></button>
                             <button pButton pRipple label="Next" type="button" (click)="activeIndexChange(1)"
-                                [disabled]="!projectForm.valid"
-                                class="w-8rem p-2 font-medium" icon="pi pi-angle-right" iconPos="right"></button>
+                                [disabled]="!projectForm.valid" class="w-8rem p-2 font-medium" icon="pi pi-angle-right"
+                                iconPos="right"></button>
                         </div>
                     </div>
                 </p-tabPanel>
@@ -128,8 +128,8 @@
                 <p-tabPanel headerStyleClass="hidden">
                     <div class="col-12">
                         <div class="card">
-                            <p-fileUpload #fileInput [multiple]="true" [maxFileSize]="1000000" [fileLimit]="5"
-                                [customUpload]="true" (uploadHandler)="myUploader($event)"(onSelect)="onFileSelect($event)"
+                            <p-fileUpload #fileInput [multiple]="true" [maxFileSize]="1000000" [fileLimit]="3"
+                                [customUpload]="true" (uploadHandler)="customUpload($event)"
                                 [showUploadButton]="false" [showCancelButton]="false">
                                 <ng-template pTemplate="content">
                                     <ul *ngIf="uploadedFiles.length">
@@ -156,9 +156,108 @@
                 </p-tabPanel>
 
                 <p-tabPanel headerStyleClass="hidden">
-                    <div class="col-12 mt-3">
-                        <p-divider></p-divider>
+                    <div class="grid">
+                        <div class="col-12 lg:col-4">
+                            <div class="card h-full flex flex-column justify-content-between">
+                                <div class="w-full">
+                                    <p class="text-md font-light text-600"><strong>Media Assistant</strong> (anyone who
+                                        has
+                                        ability to create
+                                        a professionally looking text
+                                        article for your website, newspaper, or a person who can help to create
+                                        professionally edited video or audio podcast).
+                                        Usually, you have to pay for this service separately.
+                                    </p>
+                                </div>
+                                <div>
+                                    <div class="w-full">
+                                        <label for="wishContactedByMediaAssistant"
+                                            class="block text-sm font-normal text-800 m-2 mt-4">Would you like to be
+                                            contacted
+                                            by <strong>Media Assistant</strong>?</label>
+                                        <p-inputSwitch class="w-full font-medium mb-1"
+                                            formControlName="wishContactedByMediaAssistant">
+                                        </p-inputSwitch>
+                                    </div>
+                                    <div class="w-full">
+                                        <label for="mediaAssistantFinancialService"
+                                            class="block text-sm font-normal text-800 m-2 mt-4">Budget</label>
+                                        <p-dropdown formControlName="mediaAssistantFinancialService"
+                                            [options]="financial_types" optionLabel="name" optionValue="code"
+                                            styleClass="w-full">
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 lg:col-4">
+                            <div class="card h-full flex flex-column justify-content-between">
+                                <div class="w-full">
+                                    <p class="text-md font-light text-600"><strong>Promoter</strong> (this
+                                        category of
+                                        service includes
+                                        SMM specialists, people or organizations with an ability to promote your
+                                        interview
+                                        in mass media/social networks). Depends on collaboration it could be a service
+                                        you
+                                        will have to pay for.
+                                    </p>
+                                </div>
+                                <div>
+                                    <div class="w-full">
+                                        <label for="wishContactedByPromoter"
+                                            class="block text-sm font-normal text-800 m-2 mt-4">Would you like to be
+                                            contacted
+                                            by <strong>Promoter</strong>?</label>
+                                        <p-inputSwitch class="w-full font-medium mb-1"
+                                            formControlName="wishContactedByPromoter">
+                                        </p-inputSwitch>
+                                    </div>
+                                    <div class="w-full">
+                                        <label for="promoterFinancialService"
+                                            class="block text-sm font-normal text-800 m-2 mt-4">Budget</label>
+                                        <p-dropdown formControlName="promoterFinancialService"
+                                            [options]="financial_types" optionLabel="name" optionValue="code"
+                                            styleClass="w-full">
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 lg:col-4">
+                            <div class="card h-full flex flex-column justify-content-between">
+                                <div class="w-full">
+                                    <p class="text-md font-light text-600"><strong>Producer</strong> (this option comes
+                                        handy in case if you want someone to do everything on this platform for you.
+                                        Consider producer as a general manager who will set up everything for in terms
+                                        of
+                                        your interviews).
+                                        Usually paid separately.
+                                    </p>
+                                </div>
+                                <div>
+                                    <div class="w-full">
+                                        <label for="wishContactedByProducer"
+                                            class="block text-sm font-normal text-800 m-2 mt-4">Would you like to be
+                                            contacted
+                                            by <strong>Producer</strong>?</label>
+                                        <p-inputSwitch class="w-full font-medium mb-1"
+                                            formControlName="wishContactedByProducer">
+                                        </p-inputSwitch>
+                                    </div>
+                                    <div class="w-full">
+                                        <label for="producerFinancialService"
+                                            class="block text-sm font-normal text-800 m-2 mt-4">Budget</label>
+                                        <p-dropdown formControlName="producerFinancialService"
+                                            [options]="financial_types" optionLabel="name" optionValue="code"
+                                            styleClass="w-full">
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <p-divider></p-divider>
                     <div class="col-12 grid grid-nogutter justify-content-between">
                         <button pButton pRipple type="button" label="Cancel" (click)="cancelAction()"
                             class="p-button-raised p-button-secondary w-8rem py-2 font-medium"></button>

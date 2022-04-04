@@ -50,6 +50,12 @@ namespace Bizomet.Models
 
 		public bool RemoteLocation { get; set; }
 
-		public DateTime DueDate { get; set; }
+		public DateTime? DueDate { get; set; }
+
+		public List<ProjectAttachmentModel> Attachments { get; set; }
+
+		public bool IsPublished { get; set; }
+
+		public bool IsArchived { get; set; }
 	}
 }

@@ -28,14 +28,14 @@
                 <tr>
                     <td>
                         <div class="grid">
-                            <!-- <div class="col-fixed w-6rem">
-                            <button pButton pRipple icon="pi pi-pencil"
-                                class="p-button-rounded p-button-text p-button-plain"
-                                (click)="editPortfolio(portfolio)"></button>
-                            <button pButton pRipple icon="pi pi-trash"
-                                class="p-button-rounded p-button-text p-button-plain"
-                                (click)="deletePortfolio(portfolio)"></button>
-                        </div> -->
+                            <div class="col-fixed w-6rem">
+                                <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-text p-button-plain"
+                                    (click)="editProject(project)"></button>
+                                <button pButton pRipple icon="pi pi-trash"
+                                    class="p-button-rounded p-button-text p-button-plain"
+                                    (click)="deleteProject(project)"></button>
+                            </div>
                             <div class="col-10">
                                 <div class="grid">
                                     <div class="col-12 md:col-6">
@@ -54,3 +54,5 @@
         </p-table>
     </div>
 </div>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

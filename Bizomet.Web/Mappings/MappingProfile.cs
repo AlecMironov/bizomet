@@ -74,11 +74,16 @@ namespace Bizomet.Web.Mappings
 				.ForMember(dest => dest.ProducerFinancialService, opt => opt.MapFrom(src => EnumHelper.GetEnumName(src.ProducerFinancialService)))
 				.ForMember(dest => dest.PromoterFinancialService, opt => opt.MapFrom(src => EnumHelper.GetEnumName(src.PromoterFinancialService)))
 				.ReverseMap()
-				.ForMember(dest => dest.InterviewCondition, opt => opt.MapFrom(src => EnumHelper.ToEnum<ContactReason>(src.InterviewCondition)))
-				.ForMember(dest => dest.InterviewResult, opt => opt.MapFrom(src => EnumHelper.ToEnum<ContactReason>(src.InterviewResult)))
-				.ForMember(dest => dest.MediaAssistantFinancialService, opt => opt.MapFrom(src => EnumHelper.ToEnum<ContactReason>(src.MediaAssistantFinancialService)))
-				.ForMember(dest => dest.ProducerFinancialService, opt => opt.MapFrom(src => EnumHelper.ToEnum<ContactReason>(src.ProducerFinancialService)))
-				.ForMember(dest => dest.PromoterFinancialService, opt => opt.MapFrom(src => EnumHelper.ToEnum<ContactReason>(src.PromoterFinancialService)));
+				.ForMember(dest => dest.InterviewCondition, opt => opt.MapFrom(src => EnumHelper.ToEnum<InterviewCondition>(src.InterviewCondition)))
+				.ForMember(dest => dest.InterviewResult, opt => opt.MapFrom(src => EnumHelper.ToEnum<InterviewResult>(src.InterviewResult)))
+				.ForMember(dest => dest.MediaAssistantFinancialService, opt => opt.MapFrom(src => EnumHelper.ToEnum<FinancialType>(src.MediaAssistantFinancialService)))
+				.ForMember(dest => dest.ProducerFinancialService, opt => opt.MapFrom(src => EnumHelper.ToEnum<FinancialType>(src.ProducerFinancialService)))
+				.ForMember(dest => dest.PromoterFinancialService, opt => opt.MapFrom(src => EnumHelper.ToEnum<FinancialType>(src.PromoterFinancialService)));
+
+			CreateMap<ProjectAttachment, ProjectAttachmentModel>()
+				.ForMember(dest => dest.BinaryContent, opt => opt.MapFrom(src => System.Convert.ToBase64String(src.BinaryContent)))
+				.ReverseMap()
+				.ForMember(dest => dest.BinaryContent, opt => opt.MapFrom(src => ConvertFromBase64String(src.BinaryContent)));
 		}
 
 		private void Decrypt<TSource, TDest>(TSource src, TDest dest)
@@ -117,6 +122,19 @@ namespace Bizomet.Web.Mappings
 					prop.SetValue(dest, srcValue);
 				}
 			}
+		}
+
+		private byte[]? ConvertFromBase64String(string src)
+		{
+			if (string.IsNullOrEmpty(src))
+				return null;
+
+			if (src.StartsWith("data:")) {
+				var parts = src.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+				src = parts[1];
+			}
+
+			return System.Convert.FromBase64String(src);
 		}
 	}
 }

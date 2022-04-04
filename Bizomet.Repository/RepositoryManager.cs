@@ -12,6 +12,7 @@ namespace Bizomet.Repository
 		private IRepositoryBase<ContactUsRequest> _contactUsRequestRepository;
 		private IRepositoryBase<Inquiry> _inquiryRepository;
 		private IRepositoryBase<Project> _projectRepository;
+		private IRepositoryBase<ProjectAttachment> _projectAttachments;
 		private IRepositoryBase<RefreshToken> _refreshTokenRepository;
 
 		public RepositoryManager(ApplicationDbContext repositoryContext)
@@ -52,6 +53,15 @@ namespace Bizomet.Repository
 					_projectRepository = new RepositoryBase<Project>(_repositoryContext);
 
 				return _projectRepository;
+			}
+		}
+
+		public IRepositoryBase<ProjectAttachment> ProjectAttachments {
+			get {
+				if (_projectAttachments == null)
+					_projectAttachments = new RepositoryBase<ProjectAttachment>(_repositoryContext);
+
+				return _projectAttachments;
 			}
 		}
 

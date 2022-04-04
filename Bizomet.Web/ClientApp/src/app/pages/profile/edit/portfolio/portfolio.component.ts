@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppBreadcrumbService } from 'src/app/core/services/app.breadcrumb.service';
-import { ConfirmationService, LazyLoadEvent } from 'primeng/api';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
 
 import { UserPortfolioModel } from 'src/app/shared/models/user-portfolio.model';
 import { PortfolioService } from 'src/app/core/services/portfolio.service';

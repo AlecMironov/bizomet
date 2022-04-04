@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
+import { ProjectAttachmentModel } from 'src/app/shared/models/project-attachment.model';
 import { ProjectModel } from 'src/app/shared/models/project.model';
 import { RepositoryService } from './repository.service';
 
@@ -18,7 +19,7 @@ export class ProjectService {
                 }));
     }
 
-    getUserInquiries(lazyEvent: any) {
+    getAllByUser(lazyEvent: any) {
         return this.repository.getAll<ProjectModel[]>("project/userprojects", lazyEvent)
             .pipe(
                 map((response) => {
@@ -36,6 +37,14 @@ export class ProjectService {
 
     create(data: ProjectModel) {
         return this.repository.create<ProjectModel>("project", data)
+            .pipe(
+                map((response) => {
+                    return response;
+                }));
+    }
+
+    uploadAttachment(data: ProjectAttachmentModel) {
+        return this.repository.create<ProjectAttachmentModel>("project/upload_attachment", data)
             .pipe(
                 map((response) => {
                     return response;

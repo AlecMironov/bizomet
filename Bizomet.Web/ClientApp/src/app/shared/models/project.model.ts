@@ -15,5 +15,8 @@ export class ProjectModel {
     producerFinancialService: string;
     location: string;
     remoteLocation: boolean;
-    dueDate: Date
+    dueDate?: Date;
+    attachments?: any[];
+    isArchived: boolean;
+    isPublished: boolean;
 }

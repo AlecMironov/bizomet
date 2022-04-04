@@ -53,8 +53,8 @@ namespace Bizomet.Web.Controllers
 			if (user == null)
 				return Unauthorized("Unauthorized request");
 
-			var totalRecords = _repositoryManager.Projects.GetAll().Count();
-			var projects = _repositoryManager.Projects.GetAll().OrderByDescending(r => r.RequestDate).Skip(first).Take(rows);
+			var totalRecords = _repositoryManager.Projects.GetAll(r => r.IsPublished && !r.IsArchived).Count();
+			var projects = _repositoryManager.Projects.GetAll(r => r.IsPublished && !r.IsArchived).OrderByDescending(r => r.RequestDate).Skip(first).Take(rows);
 			var result = _mapper.Map<IEnumerable<Project>, IEnumerable<ProjectModel>>(projects);
 
 			return Ok(new { data = result, total_records = totalRecords });
@@ -72,8 +72,8 @@ namespace Bizomet.Web.Controllers
 			if (user == null)
 				return Unauthorized("Unauthorized request");
 
-			var totalRecords = _repositoryManager.Projects.GetAll(r => r.UserId == user.Id).Count();
-			var projects = _repositoryManager.Projects.GetAll(r => r.UserId == user.Id).OrderByDescending(r => r.RequestDate).Skip(first).Take(rows);
+			var totalRecords = _repositoryManager.Projects.GetAll(r => r.UserId == user.Id && !r.IsArchived).Count();
+			var projects = _repositoryManager.Projects.GetAll(r => r.UserId == user.Id && !r.IsArchived).OrderByDescending(r => r.RequestDate).Skip(first).Take(rows);
 			var result = _mapper.Map<IEnumerable<Project>, IEnumerable<ProjectModel>>(projects);
 
 			return Ok(new { data = result, total_records = totalRecords });
@@ -122,6 +122,42 @@ namespace Bizomet.Web.Controllers
 				project.User = user;
 
 				_repositoryManager.Projects.Create(project);
+				_repositoryManager.Save();
+
+				return Ok(model);
+			}
+			catch (Exception e) {
+				_logger.LogError(e, $"Something went wrong in the {nameof(Create)}");
+				return Problem("Internal Server Error. Please Try Again Later.", statusCode: StatusCodes.Status500InternalServerError);
+			}
+		}
+
+		[HttpPost("upload_attachment"), DisableRequestSizeLimit]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+		public async Task<IActionResult> UploadAttachment([FromBody] ProjectAttachmentModel model)
+		{
+			if (!ModelState.IsValid)
+				return BadRequest();
+
+			if (User == null || User.Identity == null || !User.Identity.IsAuthenticated)
+				return Unauthorized("Unauthorized request");
+
+			try {
+				var user = await _userManager.Users.Include(u => u.Projects).FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
+				if (user == null)
+					return Unauthorized("Unauthorized request");
+
+				var project = _repositoryManager.Projects.Get(Guid.Parse(model.ProjectId));
+				if (project == null)
+					return BadRequest();
+
+				model.Id = Guid.NewGuid().ToString("N");
+				var attachment = _mapper.Map<ProjectAttachment>(model);
+				attachment.Project = project;
+
+				_repositoryManager.ProjectAttachments.Create(attachment);
 				_repositoryManager.Save();
 
 				return Ok(model);
@@ -184,13 +220,17 @@ namespace Bizomet.Web.Controllers
 				if (project == null)
 					return BadRequest();
 
-				user.Projects.Remove(project);
-				var updateResult = await _userManager.UpdateAsync(user);
-				if (!updateResult.Succeeded) {
-					var errors = updateResult.Errors.Select(e => e.Description);
-					_logger.LogError($"Something went wrong in the {nameof(Delete)}; {errors}");
-					return Problem($"Something went wrong in the {nameof(Delete)}", statusCode: StatusCodes.Status500InternalServerError);
-				}
+				project.IsArchived = true;
+				_repositoryManager.Projects.Update(project);
+				_repositoryManager.Save();
+
+				//user.Projects.Remove(project);
+				//var updateResult = await _userManager.UpdateAsync(user);
+				//if (!updateResult.Succeeded) {
+				//	var errors = updateResult.Errors.Select(e => e.Description);
+				//	_logger.LogError($"Something went wrong in the {nameof(Delete)}; {errors}");
+				//	return Problem($"Something went wrong in the {nameof(Delete)}", statusCode: StatusCodes.Status500InternalServerError);
+				//}
 
 				return new NoContentResult();
 			}

@@ -14,6 +14,8 @@ namespace Bizomet.Contracts
 
 		IRepositoryBase<Project> Projects { get; }
 
+		IRepositoryBase<ProjectAttachment> ProjectAttachments { get; }
+
 		IRepositoryBase<RefreshToken> RefreshTokens { get; }
 
 		void Save();

@@ -50,5 +50,11 @@ namespace Bizomet.Data.Entities
 		public bool RemoteLocation { get; set; }
 
 		public DateTime DueDate { get; set; }
+
+		public ICollection<ProjectAttachment> ProjectAttachments { get; set; }
+
+		public bool IsPublished { get; set; }
+
+		public bool IsArchived { get; set; }
 	}
 }

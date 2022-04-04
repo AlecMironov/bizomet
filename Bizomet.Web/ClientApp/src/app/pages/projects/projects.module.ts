@@ -46,6 +46,7 @@ import { AddProjectComponent } from './add-project/add-project.component';
 import { StepsModule } from 'primeng/steps';
 import { TabViewModule } from 'primeng/tabview';
 import { CalendarModule } from 'primeng/calendar';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @NgModule({
   providers: [ProjectService, MessageService, ConfirmationService],
@@ -75,6 +76,7 @@ import { CalendarModule } from 'primeng/calendar';
     DropdownModule,
     InputMaskModule,
     InputTextModule,
+    InputSwitchModule,
     MessagesModule,
     MessageModule,
     MegaMenuModule,

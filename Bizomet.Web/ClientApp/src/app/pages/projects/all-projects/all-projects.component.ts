@@ -15,7 +15,10 @@ export class AllProjectsComponent implements OnInit {
   project: ProjectModel;
   totalRecords: number = 0;
 
-  constructor(private projectService: ProjectService, private breadcrumbService: AppBreadcrumbService) {
+  constructor(
+    private projectService: ProjectService,
+    private breadcrumbService: AppBreadcrumbService) {
+
     this.breadcrumbService.setItems([
       { label: 'Projects', icon: 'pi pi-fw pi-briefcase mr-1' },
       { label: 'All Projects' }
