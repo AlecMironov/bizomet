@@ -107,5 +107,18 @@ namespace Bizomet.Web.Controllers
 				return Problem("Internal Server Error. Please Try Again Later.", statusCode: StatusCodes.Status500InternalServerError);
 			}
 		}
+
+		[HttpGet]
+		[AllowAnonymous]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status409Conflict)]
+		public async Task<IActionResult> ValidateUserPublicName([FromQuery] string publicName)
+		{
+			var result = await _repositoryManager.UserProfile.Exists(r => r.PublicName == publicName);
+			if (result)
+				return Conflict("Public Name is already taken");
+
+			return Ok(); //ok means publicName does not exists.
+		}
 	}
 }

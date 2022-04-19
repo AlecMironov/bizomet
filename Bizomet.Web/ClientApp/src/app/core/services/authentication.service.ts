@@ -159,7 +159,6 @@ export class AuthenticationService {
     public validateUsername = (username: string) => {
         let params = new HttpParams({ encoder: new CustomEncoder() })
         params = params.append('username', username);
-
         return this.http.get(this.createCompleteRoute("account/validateusername"), { params: params });
     }
 

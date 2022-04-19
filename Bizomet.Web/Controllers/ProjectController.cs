@@ -54,7 +54,7 @@ namespace Bizomet.Web.Controllers
 				return Unauthorized("Unauthorized request");
 
 			var totalRecords = _repositoryManager.Projects.GetAll(r => r.IsPublished && !r.IsArchived).Count();
-			var projects = _repositoryManager.Projects.GetAll(r => r.IsPublished && !r.IsArchived).OrderByDescending(r => r.RequestDate).Skip(first).Take(rows);
+			var projects = _repositoryManager.Projects.GetAll(r => r.IsPublished && !r.IsArchived).Include(r => r.User).ThenInclude(r => r.UserProfile).OrderByDescending(r => r.RequestDate).Skip(first).Take(rows);
 			var result = _mapper.Map<IEnumerable<Project>, IEnumerable<ProjectModel>>(projects);
 
 			return Ok(new { data = result, total_records = totalRecords });
@@ -73,7 +73,7 @@ namespace Bizomet.Web.Controllers
 				return Unauthorized("Unauthorized request");
 
 			var totalRecords = _repositoryManager.Projects.GetAll(r => r.UserId == user.Id && !r.IsArchived).Count();
-			var projects = _repositoryManager.Projects.GetAll(r => r.UserId == user.Id && !r.IsArchived).OrderByDescending(r => r.RequestDate).Skip(first).Take(rows);
+			var projects = _repositoryManager.Projects.GetAll(r => r.UserId == user.Id && !r.IsArchived).Include(r => r.User).ThenInclude(r => r.UserProfile).OrderByDescending(r => r.RequestDate).Skip(first).Take(rows);
 			var result = _mapper.Map<IEnumerable<Project>, IEnumerable<ProjectModel>>(projects);
 
 			return Ok(new { data = result, total_records = totalRecords });

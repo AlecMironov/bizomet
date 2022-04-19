@@ -15,6 +15,10 @@ namespace Bizomet.Models
 		[Required]
 		public string Description { get; set; }
 
+		public string UserPublicName { get; set; }
+
+		public string UserPicture { get; set; }
+
 		public string InterviewCondition { get; set; }
 
 		public string InterviewConditionComment { get; set; }

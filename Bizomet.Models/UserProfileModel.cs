@@ -10,6 +10,8 @@ namespace Bizomet.Models
 
 		public string LastName { get; set; }
 
+		public string PublicName { get; set; }
+
 		[Required(ErrorMessage = "Email is required")]
 		[EmailAddress]
 		public string UserEmail { get; set; }

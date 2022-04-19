@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ValidatorFn, AbstractControl } from '@angular/forms';
 import { AuthenticationService } from './authentication.service';
+import { ProfileService } from './profile.service';
 
 @Injectable({
     providedIn: 'root'
@@ -8,8 +9,8 @@ import { AuthenticationService } from './authentication.service';
 export class CustomvalidationService {
 
     constructor(
-        private _authService: AuthenticationService) {
-    }
+        private _authService: AuthenticationService,
+        private _profileService: ProfileService) {}
 
     patternValidator(): ValidatorFn {
         return (control: AbstractControl): { [key: string]: any } => {
@@ -48,6 +49,19 @@ export class CustomvalidationService {
                         resolve(null);
                     }, (err) => {
                         resolve({ userNameNotAvailable: true });
+                    });
+            }, 1000);
+        });
+    }
+
+    publicNameValidator(userControl: AbstractControl) {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                this._profileService.validatePublicName(userControl.value)
+                    .subscribe((res) => {
+                        resolve(null);
+                    }, (err) => {
+                        resolve({ publicNameNotAvailable: true });
                     });
             }, 1000);
         });

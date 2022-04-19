@@ -6181,7 +6181,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   max-width: 34px;
   max-height: 34px;
   border-radius: 50%;
-  border: 2px solid #f8f8f8;
+  border: 2px solid #787878;
   background-position: center center;
   background-size: cover;
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAC9UExURba6v7C0uaywtbK2u7W5vqKmqo6RlYeKjomMkJ6hpquvs7O3vJOWmo+Sl6+zuJWYnJCTl6mtspyfo62xtpWYnaywtKmssZKVmpyfpJOXm6CkqIiLj4qNkaOnq5SXnKOmq6SorKmtsY+SlrC0uKGlqYuPk6KlqoyQlKWpra2xtaGlqpeano2QlImMkZiboJaZnaCjqLG1uqWprrCzuJufo6OnrJKVmbS4va6xtp+jqKeqr5ean5CTmJqdorK1uispKE8AAAAJcEhZcwAADdcAAA3XAUIom3gAAADuSURBVDhPldJpU8IwFIXhFCJRC6WIIragsgnuO7Lp//9ZJvB2mDSJMz6fbs65QzfEf0WVKpOPPKgpdXh0LDmXxXW100hISpr0SqXe32jRGhGZ5YTSaJNZTimNMzJLcYtGh8xyTml0ySwXlEZGZulSarn3RVR71IErCNGnVnnge8Q5C5cEjuJdX3F2ZCxccy4bDFlIRyQWOS5uQamJ85gyuUkpt6azmEaTt3f3DxR7j0+t4k/xTOSYvmxXXveXdjTNwhsHr3e98MHs9akXrLsvm+tvyOiXf4kOY8BCLJkCVmLNFJCJDVPAt4iSvyQ/v6JPF82ZVF0PAAAAAElFTkSuQmCC");

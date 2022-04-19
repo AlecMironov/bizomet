@@ -8,6 +8,8 @@ namespace Bizomet.Data.Entities
 
 		public ApplicationUser User { get; set; }
 
+		public string PublicName { get; set; }
+
 		[Encrypted]
 		public string FirstName { get; set; }
 

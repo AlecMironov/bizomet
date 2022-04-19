@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
 import { map } from 'rxjs';
+import { CustomEncoder } from 'src/app/shared/custom-encoder.module';
 import { UserProfileModel } from 'src/app/shared/models/user-profile.model';
 import { SharedData } from 'src/app/shared/shared-data.module';
 import { RepositoryService } from './repository.service';
@@ -9,7 +11,10 @@ import { RepositoryService } from './repository.service';
 })
 export class ProfileService {
 
-    constructor(private repository: RepositoryService) { }
+    constructor(
+        private http: HttpClient,
+        private repository: RepositoryService,
+        @Inject('BASE_URL') private baseUrl: string) { }
 
     getProfile() {
         return this.repository.get<UserProfileModel>("userprofile/profile")
@@ -26,10 +31,20 @@ export class ProfileService {
         return this.repository.update("userprofile/update", profile);
     }
 
+    public validatePublicName = (publicName: string) => {
+        let params = new HttpParams({ encoder: new CustomEncoder() })
+        params = params.append('publicName', publicName);
+        return this.http.get(this.createCompleteRoute("userprofile/validateuserpublicname"), { params: params });
+    }
+
     private getPictureUrl(data: string): string {
         if (typeof data != 'undefined' && data) {
             return `url(data:image/jpeg;base64,${data})`;
         }
         return null;
+    }
+
+    private createCompleteRoute = (route: string) => {
+        return `${this.baseUrl}api/${route}`;
     }
 }

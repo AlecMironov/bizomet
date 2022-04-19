@@ -68,6 +68,8 @@ namespace Bizomet.Web.Mappings
 			CreateMap<Inquiry, InquiryModel>().ReverseMap();
 
 			CreateMap<Project, ProjectModel>()
+				.ForMember(dest => dest.UserPublicName, opt => opt.MapFrom(x => x.User.UserProfile.PublicName))
+				.ForMember(dest => dest.UserPicture, opt => opt.MapFrom(x => $"{(string.IsNullOrEmpty(x.User.UserProfile.Picture) ? "" : "url(data:image;base64,")}{x.User.UserProfile.Picture}{(string.IsNullOrEmpty(x.User.UserProfile.Picture) ? "" : ")")}"))
 				.ForMember(dest => dest.InterviewCondition, opt => opt.MapFrom(src => EnumHelper.GetEnumName(src.InterviewCondition)))
 				.ForMember(dest => dest.InterviewResult, opt => opt.MapFrom(src => EnumHelper.GetEnumName(src.InterviewResult)))
 				.ForMember(dest => dest.MediaAssistantFinancialService, opt => opt.MapFrom(src => EnumHelper.GetEnumName(src.MediaAssistantFinancialService)))

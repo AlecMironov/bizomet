@@ -15,8 +15,9 @@ namespace Bizomet.Data.Configurations
 			builder.HasKey(u => u.Id);
 
 			// Limit the size of columns to use efficient database types
-			builder.Property(u => u.FirstName).HasMaxLength(500);
-			builder.Property(u => u.LastName).HasMaxLength(500);
+			builder.Property(u => u.PublicName).IsRequired(true).HasMaxLength(200);
+			builder.Property(u => u.FirstName).HasMaxLength(100);
+			builder.Property(u => u.LastName).HasMaxLength(100);
 
 			builder.Property(u => u.NameTitle).IsRequired(false).HasMaxLength(10);
 			builder.Property(u => u.AddressLine1).IsRequired(false).HasMaxLength(100);
@@ -37,6 +38,8 @@ namespace Bizomet.Data.Configurations
 
 			builder.Property(u => u.Picture).IsRequired(false);
 			builder.Property(u => u.Description).IsRequired(false);
+
+			builder.HasIndex(u => u.PublicName).HasDatabaseName("PublicNameIndex").IsUnique();
 
 			builder.Property(p => p.Tags)
 				.IsRequired(false)

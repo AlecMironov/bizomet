@@ -13,6 +13,9 @@ namespace Bizomet.Models
 		[Required(ErrorMessage = "Last Name is required")]
 		public string LastName { get; set; }
 
+		[Required(ErrorMessage = "Public Name is required")]
+		public string PublicName { get; set; }
+
 		[Required(ErrorMessage = "Email is required")]
 		[EmailAddress]
 		public string Email { get; set; }

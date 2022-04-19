@@ -29,6 +29,9 @@ export class ErrorHandlerService implements HttpInterceptor {
     else if (error.status === 400) {
       return this.handleBadRequest(error);
     }
+    else if (error.status === 409) {
+      return this.handleConflict(error);
+    }
     else if (error.status === 401) {
       return this.handleUnauthorized(error);
     }
@@ -84,5 +87,9 @@ export class ErrorHandlerService implements HttpInterceptor {
     else{
       return error.error ? error.error : error.message;
     }
+  }
+
+  private handleConflict = (error: HttpErrorResponse): string => {
+      return error.error ? error.error : error.message;
   }
 }

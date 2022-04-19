@@ -283,12 +283,12 @@ namespace Bizomet.Web.Controllers
 		[HttpGet]
 		[AllowAnonymous]
 		[ProducesResponseType(StatusCodes.Status200OK)]
-		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[ProducesResponseType(StatusCodes.Status409Conflict)]
 		public async Task<IActionResult> ValidateUsername([FromQuery] string username)
 		{
 			var user = await _userManager.FindByNameAsync(username);
 			if (user != null)
-				return BadRequest("Invalid Username Request");
+				return Conflict("Username is already taken");
 
 			return Ok();
 		}

@@ -23,6 +23,9 @@ namespace Bizomet.Repository
 		public virtual IQueryable<T> GetAll(Expression<Func<T, bool>> expression) =>
 			RepositoryContext.GetQuery<T>().Where(expression);
 
+		public virtual Task<bool> Exists(Expression<Func<T, bool>> expression) =>
+			RepositoryContext.GetQuery<T>().AnyAsync(expression);
+
 		public virtual void Create(T entity) => RepositoryContext.Set<T>().Add(entity);
 
 		public virtual void Update(T entity) => RepositoryContext.Set<T>().Update(entity);

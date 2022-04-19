@@ -7,6 +7,7 @@ namespace Bizomet.Contracts
 		T Get(object id);
 		IQueryable<T> GetAll();
 		IQueryable<T> GetAll(Expression<Func<T, bool>> expression);
+		Task<bool> Exists(Expression<Func<T, bool>> expression);
 		void Create(T entity);
 		void Update(T entity);
 		void Delete(T entity);

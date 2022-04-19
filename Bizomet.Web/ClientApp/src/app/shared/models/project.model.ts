@@ -3,6 +3,8 @@ export class ProjectModel {
     requestDate: Date;
     title: string;
     description: string;
+    userPublicName: string;
+    userPicture: string;
     interviewCondition: string;
     interviewConditionComment: string;
     interviewResult: string;

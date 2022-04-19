@@ -2,6 +2,7 @@ export interface UserRegistrationModel {
     firstname: string;
     lastname: string;
     username: string;
+    publicname: string;
     email: string;
     role: string;
     password: string;
