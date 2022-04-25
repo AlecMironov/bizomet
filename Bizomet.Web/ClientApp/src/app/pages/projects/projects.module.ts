@@ -47,6 +47,9 @@ import { StepsModule } from 'primeng/steps';
 import { TabViewModule } from 'primeng/tabview';
 import { CalendarModule } from 'primeng/calendar';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { BadgeModule } from 'primeng/badge';
+import { TimeAgoForwardPipe, } from 'src/app/core/services/time-ago-forward.pipe';
+import { SidebarModule } from 'primeng/sidebar';
 
 @NgModule({
   providers: [ProjectService, MessageService, ConfirmationService],
@@ -54,7 +57,8 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     ProjectsComponent,
     AllProjectsComponent,
     MyProjectsComponent,
-    AddProjectComponent
+    AddProjectComponent,
+    TimeAgoForwardPipe
   ],
   imports: [
     CommonModule,
@@ -62,6 +66,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     FormsModule,
     AutoCompleteModule,
     FileUploadModule,
+    BadgeModule,
     BlockUIModule,
     ButtonModule,
     CalendarModule,
@@ -92,6 +97,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     ToolbarModule,
     DialogModule,
     ImageCropperModule,
+    SidebarModule,
     StepsModule,
     TabViewModule,
     ProjectsRoutingModule,

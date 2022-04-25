@@ -57,16 +57,16 @@
                         </div>
 
                         <div class="col-12 md:col-6 mt-2">
-                            <label for="publicname" class="block text-900 font-medium mb-2">Public Name<span
+                            <label for="publicName" class="block text-900 font-medium mb-2">Public Name<span
                                 class="required-dot">&#11044;</span></label>
-                            <input id="publicname" formControlName="publicname" type="text" pInputText
+                            <input id="publicName" formControlName="publicName" type="text" pInputText
                                 class="w-full mb-3 p-3" autocomplete="on" pInputText placeholder="Public Name">
                             <small class="p-error block mb-3"
-                                *ngIf="validateControl('publicname') && hasError('publicname', 'required')">
+                                *ngIf="validateControl('publicName') && hasError('publicName', 'required')">
                                 Public Name is required
                             </small>
                             <small class="p-error block mb-3"
-                                *ngIf="validateControl('publicname') && hasError('publicname', 'publicNameNotAvailable')">
+                                *ngIf="validateControl('publicName') && hasError('publicName', 'publicNameNotAvailable')">
                                 Public Name is already taken
                             </small>
                         </div>

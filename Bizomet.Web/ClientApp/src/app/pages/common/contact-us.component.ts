@@ -4,7 +4,7 @@ import { Message, MessageService } from 'primeng/api';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { NavigationService } from 'src/app/core/services/navigation.service';
 import { RepositoryService } from 'src/app/core/services/repository.service';
-import { KeyValuePairModel } from 'src/app/shared/models/key-value-pair.model';
+import { LookupModel } from 'src/app/shared/models/lookup.model';
 import { ContactUsRequestModel } from 'src/app/shared/models/contact-us-request.model';
 
 @Component({
@@ -15,8 +15,8 @@ export class ContactUsComponent implements OnInit {
   contactUsForm: FormGroup;
   errorMessage: Message[] = [];
   loading: boolean;
-  contactReasons: KeyValuePairModel[];
-  selectedReason: KeyValuePairModel;
+  contactReasons: LookupModel[];
+  selectedReason: LookupModel;
   token: string;
 
   constructor(

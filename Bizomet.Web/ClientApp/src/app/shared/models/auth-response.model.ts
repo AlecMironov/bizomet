@@ -4,6 +4,7 @@ export interface AuthResponseModel {
   email: string;
   firstName: string;
   lastName: string;
+  publicName: string;
   phoneNumber: string;
   roles: string[];
   token: string;

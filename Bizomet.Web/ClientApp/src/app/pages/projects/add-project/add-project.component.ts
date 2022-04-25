@@ -7,7 +7,7 @@ import { ProjectService } from 'src/app/core/services/project.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectModel } from 'src/app/shared/models/project.model';
 import { SharedData } from 'src/app/shared/shared-data.module';
-import { KeyValuePairModel } from 'src/app/shared/models/key-value-pair.model';
+import { LookupModel } from 'src/app/shared/models/lookup.model';
 import { FileUpload } from 'primeng/fileupload';
 import { ProjectAttachmentModel } from 'src/app/shared/models/project-attachment.model';
 
@@ -23,9 +23,10 @@ export class AddProjectComponent implements OnInit {
   project: ProjectModel;
   activeTabIndex: number = 0;
   stepsItems: MenuItem[];
-  interview_conditions: KeyValuePairModel[] = SharedData.interview_conditions;
-  interview_results: KeyValuePairModel[] = SharedData.interview_results;
-  financial_types: KeyValuePairModel[] = SharedData.financial_types;
+  interview_conditions = SharedData.interview_conditions;
+  interview_results = SharedData.interview_results;
+  interview_results_array = Array.from(this.interview_results, ([name, value]) => (value));
+  financial_types = SharedData.financial_types;
   minDate: Date = new Date();
   uploadedFiles: any[] = [];
   @ViewChild('fileInput') fileInput: FileUpload;
@@ -61,7 +62,7 @@ export class AddProjectComponent implements OnInit {
       producerFinancialService: new FormControl(""),
       location: new FormControl(""),
       remoteLocation: new FormControl(""),
-      dueDate: new FormControl(""),
+      dueDate: new FormControl("", [Validators.required]),
       attachments: new FormControl("")
     });
   }
@@ -75,7 +76,7 @@ export class AddProjectComponent implements OnInit {
     this.errorMessage = [];
     this.loading = false;
     this.projectForm.controls["requestDate"].setValue(new Date());
-    this.projectForm.controls["interviewResult"].setValue(this.interview_results[0].code);
+    this.projectForm.controls["interviewResult"].setValue(this.interview_results_array[0].code);
     this.projectForm.controls["interviewCondition"].setValue(this.interview_conditions[0].code);
     this.projectForm.controls["wishContactedByMediaAssistant"].setValue(false);
     this.projectForm.controls["mediaAssistantFinancialService"].setValue(this.financial_types[0].code);
@@ -84,9 +85,9 @@ export class AddProjectComponent implements OnInit {
     this.projectForm.controls["wishContactedByProducer"].setValue(false);
     this.projectForm.controls["producerFinancialService"].setValue(this.financial_types[0].code);
     this.projectForm.controls["location"].setValue('');
-    this.projectForm.controls["remoteLocation"].setValue(false);
+    this.projectForm.controls["remoteLocation"].setValue(true);
     this.projectForm.controls["attachments"].setValue([]);
-    this.projectForm.controls["dueDate"].setValue(null);
+    this.projectForm.controls["dueDate"].setValue(new Date( Date.now() + 6.048e+8)); // 1 week from today
   }
 
   activeIndexChange(index) {
@@ -127,6 +128,13 @@ export class AddProjectComponent implements OnInit {
     this.project.remoteLocation = formValue.remoteLocation;
     this.project.dueDate = formValue.dueDate;
     this.project.attachments = formValue.attachments;
+    this.project.userPicture = "";
+    this.project.userPublicName = "";
+    this.project.userFirstName = "";
+    this.project.userLastName = "";
+    this.project.userEmail = "";
+    this.project.isArchived = false;
+    this.project.isPublished = true;
 
     this.fileInput.upload();
 

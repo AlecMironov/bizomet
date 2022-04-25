@@ -4,6 +4,7 @@ export class UserProfileModel {
     userName: string;
     firstName: string;
     lastName: string;
+    publicName: string;
     userEmail: string;
     role: UserRole;
     roles: string[];

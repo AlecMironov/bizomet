@@ -47,7 +47,7 @@
                                             placeholder="Enter all requrements and details here..." maxlength="4000"
                                             class="w-full font-medium p-inputtextarea p-inputtext p-component p-element ng-pristine ng-valid ng-touched"
                                             spellcheck="true">
-                                </textarea>
+                                        </textarea>
                                         <small class="p-error block"
                                             *ngIf="validateControl('description') && hasError('description', 'required')">
                                             Description is required
@@ -64,8 +64,8 @@
                                         <label for="interviewResult"
                                             class="block text-sm font-normal text-800 ml-2 mb-2">Interview
                                             Format<span class="required-dot">&#11044;</span></label>
-                                        <p-dropdown formControlName="interviewResult" [options]="interview_results"
-                                            optionLabel="name" optionValue="code" styleClass="w-full">
+                                        <p-dropdown formControlName="interviewResult" [options]="interview_results_array"
+                                            optionLabel="description" optionValue="code" styleClass="w-full">
                                         </p-dropdown>
                                     </div>
                                     <div class="col-12" *ngIf="projectForm.get('interviewResult').value == 'OTHER'">
@@ -82,17 +82,21 @@
                                     </div>
                                     <div class="col-12">
                                         <label for="dueDate" class="block text-sm font-normal text-800 m-2 mt-4">Due
-                                            Date</label>
+                                            Date<span class="required-dot">&#11044;</span></label>
                                         <p-calendar class="w-full font-medium mb-1" [minDate]="minDate"
                                             [showIcon]="true" inputId="dueDate" formControlName="dueDate">
                                         </p-calendar>
+                                        <small class="p-error block"
+                                            *ngIf="validateControl('dueDate') && hasError('dueDate', 'required')">
+                                            Due Date is required
+                                        </small>
                                     </div>
                                     <div class="col-12">
                                         <label for="interviewCondition"
                                             class="block text-sm font-normal text-800 m-2 mt-4">Budget<span
                                                 class="required-dot">&#11044;</span></label>
                                         <p-dropdown formControlName="interviewCondition"
-                                            [options]="interview_conditions" optionLabel="name" optionValue="code"
+                                            [options]="interview_conditions" optionLabel="description" optionValue="code"
                                             styleClass="w-full">
                                         </p-dropdown>
                                     </div>
@@ -183,7 +187,7 @@
                                         <label for="mediaAssistantFinancialService"
                                             class="block text-sm font-normal text-800 m-2 mt-4">Budget</label>
                                         <p-dropdown formControlName="mediaAssistantFinancialService"
-                                            [options]="financial_types" optionLabel="name" optionValue="code"
+                                            [options]="financial_types" optionLabel="description" optionValue="code"
                                             styleClass="w-full">
                                         </p-dropdown>
                                     </div>
@@ -217,7 +221,7 @@
                                         <label for="promoterFinancialService"
                                             class="block text-sm font-normal text-800 m-2 mt-4">Budget</label>
                                         <p-dropdown formControlName="promoterFinancialService"
-                                            [options]="financial_types" optionLabel="name" optionValue="code"
+                                            [options]="financial_types" optionLabel="description" optionValue="code"
                                             styleClass="w-full">
                                         </p-dropdown>
                                     </div>
@@ -249,7 +253,7 @@
                                         <label for="producerFinancialService"
                                             class="block text-sm font-normal text-800 m-2 mt-4">Budget</label>
                                         <p-dropdown formControlName="producerFinancialService"
-                                            [options]="financial_types" optionLabel="name" optionValue="code"
+                                            [options]="financial_types" optionLabel="description" optionValue="code"
                                             styleClass="w-full">
                                         </p-dropdown>
                                     </div>

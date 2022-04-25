@@ -3,7 +3,7 @@ import { AppBreadcrumbService } from 'src/app/core/services/app.breadcrumb.servi
 import { UserProfileModel } from 'src/app/shared/models/user-profile.model';
 import { ProfileService } from 'src/app/core/services/profile.service';
 import { RepositoryService } from 'src/app/core/services/repository.service';
-import { KeyValuePairModel } from 'src/app/shared/models/key-value-pair.model';
+import { LookupModel } from 'src/app/shared/models/lookup.model';
 
 @Component({
   selector: 'app-profile-overview',
@@ -12,8 +12,8 @@ import { KeyValuePairModel } from 'src/app/shared/models/key-value-pair.model';
 export class ProfileOverviewComponent implements OnInit {
 
   profile: UserProfileModel;
-  contactReasons: KeyValuePairModel[];
-  selectedReason: KeyValuePairModel;
+  contactReasons: LookupModel[];
+  selectedReason: LookupModel;
   loading: boolean;
 
   constructor(private repositoryService: RepositoryService, private profileService: ProfileService, private breadcrumbService: AppBreadcrumbService) {

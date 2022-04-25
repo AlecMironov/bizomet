@@ -1,10 +1,12 @@
-﻿using System.Text;
+﻿using System.Linq.Expressions;
+using System.Text;
 using AutoMapper;
 using Bizomet.Contracts;
 using Bizomet.Core.Helpers;
 using Bizomet.Data.DataEncryption;
 using Bizomet.Data.Entities;
 using Bizomet.Models;
+using Bizomet.Web.Extensions;
 using MailKitMailer.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -114,7 +116,12 @@ namespace Bizomet.Web.Controllers
 		[ProducesResponseType(StatusCodes.Status409Conflict)]
 		public async Task<IActionResult> ValidateUserPublicName([FromQuery] string publicName)
 		{
-			var result = await _repositoryManager.UserProfile.Exists(r => r.PublicName == publicName);
+			Expression<Func<UserProfile, bool>> predicate = (x) => x.PublicName == publicName;
+			if (User.Identity.IsAuthenticated) {
+				predicate = (x) => x.PublicName == publicName && x.UserId != User.GetLoggedInUserId<string>();
+			}
+
+			var result = await _repositoryManager.UserProfile.Exists(predicate);
 			if (result)
 				return Conflict("Public Name is already taken");
 

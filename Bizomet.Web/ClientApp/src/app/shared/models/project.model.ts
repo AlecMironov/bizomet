@@ -5,6 +5,9 @@ export class ProjectModel {
     description: string;
     userPublicName: string;
     userPicture: string;
+    userFirstName: string;
+    userLastName: string;
+    userEmail: string;
     interviewCondition: string;
     interviewConditionComment: string;
     interviewResult: string;

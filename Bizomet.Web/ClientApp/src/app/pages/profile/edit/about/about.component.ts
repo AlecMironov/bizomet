@@ -8,6 +8,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { UserRole } from 'src/app/shared/models/user-role.model';
 import { SharedData } from 'src/app/shared/shared-data.module';
+import { CustomvalidationService } from 'src/app/core/services/custom-validation-service';
 
 @Component({
   selector: 'app-about',
@@ -54,6 +55,7 @@ export class ProfileAboutComponent implements OnInit {
     private authService: AuthenticationService,
     private breadcrumbService: AppBreadcrumbService,
     private messageService: MessageService,
+    private _customValidator: CustomvalidationService,
     private confirmationService: ConfirmationService) {
 
     this.breadcrumbService.setItems([
@@ -64,6 +66,7 @@ export class ProfileAboutComponent implements OnInit {
     this.aboutMeForm = new FormGroup({
       firstName: new FormControl("", [Validators.required]),
       lastName: new FormControl("", [Validators.required]),
+      publicName: new FormControl("", [Validators.required], this._customValidator.publicNameValidator.bind(this._customValidator)),
       description: new FormControl(""),
       roles: new FormControl("", [Validators.required]),
       tags: new FormControl("")
@@ -90,6 +93,7 @@ export class ProfileAboutComponent implements OnInit {
       .subscribe(data => {
         this.aboutMeForm.controls["firstName"].setValue(data.firstName);
         this.aboutMeForm.controls["lastName"].setValue(data.lastName);
+        this.aboutMeForm.controls["publicName"].setValue(data.publicName);
         this.aboutMeForm.controls["description"].setValue(data.description);
         this.aboutMeForm.controls["roles"].setValue(data.role);
         this.aboutMeForm.controls["tags"].setValue(data.tags);
@@ -100,6 +104,7 @@ export class ProfileAboutComponent implements OnInit {
           let user = this.authService.currentUser;
           user.firstName = data.firstName;
           user.lastName = data.lastName;
+          user.publicName = data.publicName;
           user.picture = data.picture;
           user.roles = data.roles;
           this.authService.updateUserInfo(user);

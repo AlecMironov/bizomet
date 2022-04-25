@@ -26,6 +26,7 @@ namespace Bizomet.Web.Mappings
 				{
 					dest.firstName = _aesProvider.Decrypt(src.UserProfile.FirstName);
 					dest.lastName = _aesProvider.Decrypt(src.UserProfile.LastName);
+					dest.publicName = src.UserProfile.PublicName;
 					dest.picture = src.UserProfile.Picture;
 					dest.roles = new List<string>(src.UserRoles.Select(r => r.Role.Name).Where(r => r != "Administrator"));
 				});
@@ -36,6 +37,7 @@ namespace Bizomet.Web.Mappings
 				{
 					dest.UserProfile = new UserProfile();
 					Encrypt(src, dest.UserProfile);
+					dest.UserProfile.PublicName = src.PublicName;
 				});
 
 			CreateMap<UserProfile, UserProfileModel>()
@@ -70,6 +72,9 @@ namespace Bizomet.Web.Mappings
 			CreateMap<Project, ProjectModel>()
 				.ForMember(dest => dest.UserPublicName, opt => opt.MapFrom(x => x.User.UserProfile.PublicName))
 				.ForMember(dest => dest.UserPicture, opt => opt.MapFrom(x => $"{(string.IsNullOrEmpty(x.User.UserProfile.Picture) ? "" : "url(data:image;base64,")}{x.User.UserProfile.Picture}{(string.IsNullOrEmpty(x.User.UserProfile.Picture) ? "" : ")")}"))
+				.ForMember(dest => dest.UserFirstName, opt => opt.MapFrom(x => _aesProvider.Decrypt(x.User.UserProfile.FirstName)))
+				.ForMember(dest => dest.UserLastName, opt => opt.MapFrom(x => _aesProvider.Decrypt(x.User.UserProfile.LastName)))
+				.ForMember(dest => dest.UserEmail, opt => opt.MapFrom(x => x.User.Email))
 				.ForMember(dest => dest.InterviewCondition, opt => opt.MapFrom(src => EnumHelper.GetEnumName(src.InterviewCondition)))
 				.ForMember(dest => dest.InterviewResult, opt => opt.MapFrom(src => EnumHelper.GetEnumName(src.InterviewResult)))
 				.ForMember(dest => dest.MediaAssistantFinancialService, opt => opt.MapFrom(src => EnumHelper.GetEnumName(src.MediaAssistantFinancialService)))

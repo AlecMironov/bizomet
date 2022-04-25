@@ -12,6 +12,8 @@
 
 		public string lastName { get; set; }
 
+		public string publicName { get; set; }
+
 		public string phoneNumber { get; set; }
 
 		public IList<string> roles { get; set; }

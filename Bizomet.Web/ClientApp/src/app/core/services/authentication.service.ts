@@ -99,6 +99,7 @@ export class AuthenticationService {
                 user.email = response.email;
                 user.firstName = response.firstName;
                 user.lastName = response.lastName;
+                user.publicName = response.publicName;
                 user.phoneNumber = response.phoneNumber;
                 user.roles = response.roles;
                 user.token = response.token;

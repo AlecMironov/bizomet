@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Linq.Expressions;
+using System.Text;
 using AutoMapper;
 using Bizomet.Contracts;
 using Bizomet.Core.Helpers;
@@ -44,7 +45,7 @@ namespace Bizomet.Web.Controllers
 		[HttpGet]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-		public async Task<IActionResult> GetAll([FromQuery] int first, int rows, string sortField, int sortOrder)
+		public async Task<IActionResult> GetAll([FromQuery] int first, int rows, string sortField, int sortOrder, string globalFilter)
 		{
 			if (User == null || User.Identity == null || !User.Identity.IsAuthenticated)
 				return Unauthorized("Unauthorized request");
@@ -53,8 +54,13 @@ namespace Bizomet.Web.Controllers
 			if (user == null)
 				return Unauthorized("Unauthorized request");
 
-			var totalRecords = _repositoryManager.Projects.GetAll(r => r.IsPublished && !r.IsArchived).Count();
-			var projects = _repositoryManager.Projects.GetAll(r => r.IsPublished && !r.IsArchived).Include(r => r.User).ThenInclude(r => r.UserProfile).OrderByDescending(r => r.RequestDate).Skip(first).Take(rows);
+			Expression<Func<Project, bool>> predicate = (x) => x.IsPublished && !x.IsArchived;
+			if (!string.IsNullOrEmpty(globalFilter) && globalFilter != "null") {
+				predicate = (x) => x.IsPublished && !x.IsArchived && (x.Title.Contains(globalFilter) || x.Description.Contains(globalFilter));
+			}
+
+			var totalRecords = _repositoryManager.Projects.GetAll(predicate).Count();
+			var projects = _repositoryManager.Projects.GetAll(predicate).Include(r => r.User).ThenInclude(r => r.UserProfile).OrderByDescending(r => r.RequestDate).Skip(first).Take(rows);
 			var result = _mapper.Map<IEnumerable<Project>, IEnumerable<ProjectModel>>(projects);
 
 			return Ok(new { data = result, total_records = totalRecords });

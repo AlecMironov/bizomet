@@ -35,6 +35,7 @@ export class TokenStorageService {
     if (currentUser) {
       currentUser.firstName = user.firstName;
       currentUser.lastName = user.lastName;
+      currentUser.publicName = user.publicName;
       currentUser.phoneNumber = user.phoneNumbertoday ;
       currentUser.picture = user.phoneNumber;
       this.saveUser(currentUser);

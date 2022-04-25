@@ -27,6 +27,21 @@
                                 </small>
                             </div>
 
+                            <div class="col-12 md:col-6">
+                                <label for="publicName" class="block text-800 m-1 pb-1">My Public Name<span
+                                        class="required-dot">&#11044;</span></label>
+                                <input id="publicName" formControlName="publicName" type="text" pInputText
+                                    class="w-full font-medium mb-1 p-2" autocomplete="on" pInputText>
+                                <small class="p-error block mb-3"
+                                    *ngIf="validateControl('publicName') && hasError('publicName', 'required')">
+                                    Public Name is required
+                                </small>
+                                <small class="p-error block mb-3"
+                                    *ngIf="validateControl('publicName') && hasError('publicName', 'publicNameNotAvailable')">
+                                    Public Name is already taken
+                                </small>
+                            </div>
+
                             <div class="col-12">
                                 <p-divider></p-divider>
                             </div>
